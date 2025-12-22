@@ -332,7 +332,7 @@ const WORKOUT_PROGRAMS = {
         {name: 'Band-Assisted Squat', sets: '3 to 4', duration: '8 to 12', rest: '60s', notes: 'Pull bands down to engage hip flexors, push butt back.'},
         {name: 'Wall Rotator Cuff Activation', sets: '3 to 4', duration: '5 to 6', rest: '30s', notes: 'Back against wall, keep fingers and elbows on wall, externally rotate arms.'},
         {name: 'Janda Sit Up', sets: '3 to 4', duration: '10 to 12', rest: '30-60s', notes: 'Anchor band, contract glutes/hamstrings to turn off hip flexors.'},
-        {name: 'Gymnast Abs', sets: '3 to 4', duration: '10 to 12', rest: '30-60s', notes: 'In Captain\\'s Chair, posterior pelvic tilt, lift tailbone.'},
+        {name: 'Gymnast Abs', sets: '3 to 4', duration: '10 to 12', rest: '30-60s', notes: 'In Captain\'s Chair, posterior pelvic tilt, lift tailbone.'},
         {name: 'Pallof Press', sets: '3 to 4', duration: '10-12 per side', rest: '30-60s', notes: 'Stand on one leg, press band overhead, stabilize core.'},
         {name: 'Sledge Hammer Swings', sets: '3 to 4', duration: '30s', rest: '30-60s', notes: 'Twist torso against band resistance, feet planted.'},
         {name: 'Jump Out (Band)', sets: '3 to 4', duration: '8-10', rest: '30-60s', notes: 'Jump out, resist band pull, focus on anti-rotation.'},
