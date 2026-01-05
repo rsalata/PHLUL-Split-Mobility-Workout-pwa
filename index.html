@@ -24,6 +24,7 @@
     input[type="number"]:focus,input[type="text"]:focus{outline:none;border-color:var(--acc)}
     input::placeholder{color:var(--muted);opacity:0.6}
     table{width:100%;border-collapse:collapse;margin-top:12px}
+    .table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch}
     th,td{padding:10px;border-bottom:1px solid var(--ring)}
     th{text-align:left;font-weight:600;color:var(--acc)}
     td{text-align:left;vertical-align:middle}
@@ -49,16 +50,29 @@
     .info-box h4{margin:0 0 8px;font-size:14px;color:var(--acc}}
     .info-box p{margin:4px 0;font-size:13px}
     @media (max-width:720px){
-      th,td{padding:6px 4px;font-size:13px}
-      .input-cell{width:60px}
-      td:nth-child(2),td:nth-child(3),td:nth-child(4){width:60px}
-      input[type="number"],input[type="text"]{font-size:13px;padding:4px 6px}
-      .day-title{font-size:16px}
-      .session-info{font-size:12px;gap:8px}
-      .timer{font-size:14px}
+      .shell{padding:16px 8px}
+      .head{padding:8px 12px;flex-wrap:wrap;gap:8px}
+      h1{font-size:18px}
+      .badge{font-size:11px;padding:2px 6px}
+      header > div > div{width:100%;justify-content:space-between}
+      header select{font-size:12px;padding:6px 8px}
+      header label{font-size:11px}
+      .card{padding:14px}
+      .table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -14px;padding:0 14px}
+      table{min-width:600px;font-size:12px}
+      th,td{padding:6px 4px;font-size:12px;white-space:nowrap}
+      td:first-child{white-space:normal;min-width:140px;max-width:140px;font-size:11px;line-height:1.3}
+      .input-cell{width:55px}
+      td:nth-child(2),td:nth-child(3),td:nth-child(4){width:55px}
+      .notes-cell{min-width:120px}
+      input[type="number"],input[type="text"]{font-size:12px;padding:4px 4px}
+      .day-title{font-size:15px;margin:16px 0 8px}
+      .session-info{font-size:11px;gap:6px}
+      .timer{font-size:13px}
       .timer-btn{padding:4px 8px;font-size:11px}
-      table{font-size:12px}
-      .shell{padding:16px 12px}
+      .section-title{font-size:13px;padding:6px 10px}
+      .info-box{padding:12px;font-size:12px}
+      .info-box h4{font-size:13px}
     }
   </style>
   <meta name="theme-color" content="#0e1116">
