@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Workout App - Diagnostics</title>
+    <style>
+        body { font-family: system-ui; padding: 20px; background: #0e1116; color: #e6e9ee; }
+        .test { padding: 10px; margin: 10px 0; border-radius: 8px; }
+        .pass { background: #22c55e33; border: 1px solid #22c55e; }
+        .fail { background: #ef444433; border: 1px solid #ef4444; }
+        .info { background: #7dd3fc33; border: 1px solid #7dd3fc; }
+        code { background: #1b2132; padding: 2px 6px; border-radius: 4px; }
+        button { padding: 10px 20px; background: #7dd3fc; color: #000; border: none; border-radius: 6px; cursor: pointer; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Workout App Diagnostics</h1>
+    
+    <div class="info test">
+        <strong>Testing file loading...</strong>
+    </div>
+    
+    <div id="results"></div>
+    
+    <h3>Actions:</h3>
+    <button onclick="window.location.href='index.html'">→ Go to Main App</button>
+    <button onclick="location.reload()">🔄 Refresh Diagnostics</button>
+    <button onclick="clearCache()">🗑️ Clear Cache & Reload</button>
+    
+    <script>
+        const results = document.getElementById('results');
+        
+        function addResult(message, isPass) {
+            const div = document.createElement('div');
+            div.className = `test ${isPass ? 'pass' : 'fail'}`;
+            div.innerHTML = message;
+            results.appendChild(div);
+        }
+        
+        function clearCache() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    for(let registration of registrations) {
+                        registration.unregister();
+                    }
+                });
+            }
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => caches.delete(name));
+                });
+            }
+            localStorage.clear();
+            sessionStorage.clear();
+            alert('Cache cleared! Reloading...');
+            setTimeout(() => location.reload(), 500);
+        }
+        
+        // Test 1: Check if WORKOUT_PROGRAMS exists
+        setTimeout(() => {
+            if (typeof WORKOUT_PROGRAMS !== 'undefined') {
+                addResult('✅ <strong>workout-data.js loaded successfully</strong>', true);
+                
+                // Check programs
+                const programs = Object.keys(WORKOUT_PROGRAMS);
+                addResult(`📋 Found ${programs.length} programs: ${programs.join(', ')}`, true);
+                
+                // Check mobility routines
+                if (WORKOUT_PROGRAMS.mobility && WORKOUT_PROGRAMS.mobility.routines) {
+                    const routines = Object.keys(WORKOUT_PROGRAMS.mobility.routines);
+                    addResult(`🏃 Found ${routines.length} mobility routines: ${routines.join(', ')}`, true);
+                    
+                    // Check for shoulder_impingement
+                    if (WORKOUT_PROGRAMS.mobility.routines.shoulder_impingement) {
+                        const exercises = WORKOUT_PROGRAMS.mobility.routines.shoulder_impingement;
+                        addResult(`💪 Shoulder rehab program has ${exercises.length} exercises`, true);
+                        
+                        // Check for Day 1
+                        const day1 = exercises.find(ex => ex.name && ex.name.includes('DAY 1'));
+                        if (day1) {
+                            addResult('✅ <strong>20-Min Rehab Split loaded correctly!</strong>', true);
+                        } else {
+                            addResult('⚠️ Old shoulder program still loaded - cache issue', false);
+                        }
+                    }
+                }
+            } else {
+                addResult('❌ <strong>workout-data.js NOT LOADED</strong> - File missing or path incorrect', false);
+                addResult('💡 <strong>Solution:</strong> Make sure <code>workout-data.js</code> is in the same folder as <code>index.html</code>', false);
+            }
+            
+            // Test 2: Check if app functions exist
+            if (typeof window.toggleTimer !== 'undefined') {
+                addResult('✅ <strong>workout-app.js loaded successfully</strong>', true);
+            } else {
+                addResult('❌ <strong>workout-app.js NOT LOADED</strong> - File missing or path incorrect', false);
+                addResult('💡 <strong>Solution:</strong> Make sure <code>workout-app.js</code> is in the same folder as <code>index.html</code>', false);
+            }
+            
+            // Test 3: Check service worker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    if (registrations.length > 0) {
+                        addResult(`🔧 Service worker registered (${registrations.length} found)`, true);
+                        addResult('💡 If app is stuck showing old content, click <strong>"Clear Cache & Reload"</strong> above', false);
+                    } else {
+                        addResult('ℹ️ No service worker registered yet', true);
+                    }
+                });
+            }
+            
+            // Test 4: Check localStorage
+            const storageData = localStorage.getItem('workout_programs_data_v1');
+            if (storageData) {
+                try {
+                    const data = JSON.parse(storageData);
+                    const entries = Object.keys(data).length;
+                    addResult(`💾 Found ${entries} saved workout entries in localStorage`, true);
+                } catch(e) {
+                    addResult('⚠️ localStorage data corrupted', false);
+                }
+            }
+            
+        }, 100);
+    </script>
+    
+    <script src="workout-data.js"></script>
+    <script src="workout-app.js"></script>
+</body>
+</html>
