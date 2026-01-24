@@ -1,360 +1,1069 @@
 
-// Workout Program Data
+// Workout Program Data - Generated from Spreadsheet
+
 const WORKOUT_PROGRAMS = {
   phlul: {
     name: "PHLUL Split",
-    workouts: {
-      '1-4': { label: 'Weeks 1-4', description: 'Foundation Phase - Establish proper form with moderate weights. Prioritize rotator cuff rehab and core work.' },
-      '5-8': { label: 'Weeks 5-8', description: 'Progressive Overload - Add 5-10% weight when hitting the top end of rep ranges consistently.' },
-      '9-12': { label: 'Weeks 9-12', description: 'Peak Intensity - Push intensity on main lifts. Optional deload Week 12 (use 50-70% of working weights).' }
-    },
+    description: "Power/Hypertrophy Upper/Lower 4-day split focusing on strength and muscle growth",
     days: {
-      day1: {
-        name: "Day 1: Upper Power",
-        exercises: [
-          {name: "Bench Press (light/moderate)", sets: "3-5", reps: "3-5", notes: "Keep light if front shoulder flares; focus on form"},
-          {name: "Bent Over Row", sets: "3-5", reps: "3-5", notes: ""},
-          {name: "Overhead Press (DB or barbell - moderate)", sets: "3", reps: "6-10", notes: "Overhead is OK per your update"},
-          {name: "Weighted Pull-Ups or Lat Pulldown", sets: "3", reps: "6-10", notes: ""},
-          {name: "Barbell Curl", sets: "3", reps: "6-10", notes: ""},
-          {name: "Skull Crushers", sets: "3", reps: "6-10", notes: ""}
-        ],
-        rehab: [
-          {name: "Face Pulls (cable/rope or band)", sets: "4", reps: "15-20", notes: "Pull to eyes, external rotate"},
-          {name: "Side-Lying External Rotation (light DB/band)", sets: "3", reps: "12-15/side", notes: "Elbow tucked"},
-          {name: "Banded External Rotation (at side)", sets: "3", reps: "15-20/side", notes: "Band across body"},
-          {name: "Wall Slides", sets: "3", reps: "10-15", notes: "Elbows/fingers on wall, external rotation at top"}
-        ],
-        core: [
-          {name: "Plank", sets: "1", reps: "45-60 seconds", notes: "Anti-extension"},
-          {name: "Pallof Press (band/cable)", sets: "1", reps: "12/side", notes: "Anti-rotation"},
-          {name: "Dead Bug", sets: "1", reps: "12/side", notes: "Controlled"}
-        ]
+      "day1": {
+            "name": "Day 1: Upper Power",
+            "main": [
+                  {
+                        "name": "Bench Press (light/moderate)",
+                        "sets": "3-5",
+                        "reps": "3-5",
+                        "notes": "Keep light if front shoulder flares"
+                  },
+                  {
+                        "name": "Bent Over Row",
+                        "sets": "3-5",
+                        "reps": "3-5",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Overhead Press (DB or barbell)",
+                        "sets": "3",
+                        "reps": "6-10",
+                        "notes": "Overhead is OK per your update"
+                  },
+                  {
+                        "name": "Weighted Pull-Ups or Lat Pulldown",
+                        "sets": "3",
+                        "reps": "6-10",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Barbell Curl",
+                        "sets": "3",
+                        "reps": "6-10",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Skull Crushers",
+                        "sets": "3",
+                        "reps": "6-10",
+                        "notes": ""
+                  }
+            ],
+            "rehab": [],
+            "core": [
+                  {
+                        "name": "Plank",
+                        "sets": "1",
+                        "reps": "45-60s",
+                        "notes": "Anti-extension"
+                  },
+                  {
+                        "name": "Pallof Press (band/cable)",
+                        "sets": "1",
+                        "reps": "12/side",
+                        "notes": "Anti-rotation"
+                  },
+                  {
+                        "name": "Dead Bug",
+                        "sets": "1",
+                        "reps": "12/side",
+                        "notes": "Controlled"
+                  }
+            ]
       },
-      day2: {
-        name: "Day 2: Lower Power",
-        exercises: [
-          {name: "Squat", sets: "3-5", reps: "3-5", notes: ""},
-          {name: "Deadlift", sets: "3-5", reps: "3-5", notes: ""},
-          {name: "Leg Press", sets: "3", reps: "6-10", notes: ""},
-          {name: "Leg Curl", sets: "3", reps: "6-10", notes: ""},
-          {name: "Calf Raise (standing)", sets: "4", reps: "6-10", notes: ""}
-        ],
-        core: [
-          {name: "Plank", sets: "1", reps: "45-60 seconds", notes: ""},
-          {name: "Pallof Press", sets: "1", reps: "12/side", notes: ""},
-          {name: "Dead Bug", sets: "1", reps: "12/side", notes: ""}
-        ]
+      "day2": {
+            "name": "Day 2: Lower Power",
+            "main": [
+                  {
+                        "name": "Squat",
+                        "sets": "3-5",
+                        "reps": "3-5",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Deadlift",
+                        "sets": "3-5",
+                        "reps": "3-5",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Leg Press",
+                        "sets": "3",
+                        "reps": "6-10",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Leg Curl",
+                        "sets": "3",
+                        "reps": "6-10",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Calf Raise (standing)",
+                        "sets": "4",
+                        "reps": "6-10",
+                        "notes": ""
+                  }
+            ],
+            "core": [
+                  {
+                        "name": "Plank",
+                        "sets": "1",
+                        "reps": "45-60s",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Pallof Press",
+                        "sets": "1",
+                        "reps": "12/side",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Dead Bug",
+                        "sets": "1",
+                        "reps": "12/side",
+                        "notes": ""
+                  }
+            ]
       },
-      day4: {
-        name: "Day 4: Upper Hypertrophy",
-        exercises: [
-          {name: "Incline Bench Press (light DB or machine)", sets: "4", reps: "8-12", notes: ""},
-          {name: "Cable Row or Seated Row", sets: "4", reps: "8-12", notes: ""},
-          {name: "Chest Fly (cable/machine)", sets: "3", reps: "10-15", notes: ""},
-          {name: "Overhead Press (lighter)", sets: "3", reps: "10-12", notes: ""},
-          {name: "Lat Pulldown", sets: "3", reps: "10-12", notes: ""},
-          {name: "DB Curl", sets: "3", reps: "12-15", notes: ""},
-          {name: "Tricep Pushdown", sets: "3", reps: "12-15", notes: ""},
-          {name: "Cable Lateral Raise (bent arm or low-to-high)", sets: "3-4", reps: "12-15/side", notes: "Shoulder-safe side delt work"}
-        ],
-        rehab: [
-          {name: "Face Pulls", sets: "4", reps: "15-20", notes: ""},
-          {name: "Side-Lying External Rotation", sets: "3", reps: "12-15/side", notes: ""},
-          {name: "Banded External Rotation", sets: "3", reps: "15-20/side", notes: ""},
-          {name: "Wall Slides", sets: "3", reps: "15", notes: ""}
-        ],
-        core: [
-          {name: "Plank", sets: "1", reps: "45-60 seconds", notes: ""},
-          {name: "Pallof Press", sets: "1", reps: "12/side", notes: ""},
-          {name: "Dead Bug", sets: "1", reps: "12/side", notes: ""}
-        ]
+      "day4": {
+            "name": "Day 4: Upper Hypertrophy",
+            "main": [
+                  {
+                        "name": "Incline Bench Press (light DB/machine)",
+                        "sets": "4",
+                        "reps": "8-12",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Cable Row or Seated Row",
+                        "sets": "4",
+                        "reps": "8-12",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Chest Fly (cable/machine)",
+                        "sets": "3",
+                        "reps": "10-15",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Overhead Press (lighter)",
+                        "sets": "3",
+                        "reps": "10-12",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Lat Pulldown",
+                        "sets": "3",
+                        "reps": "10-12",
+                        "notes": ""
+                  },
+                  {
+                        "name": "DB Curl",
+                        "sets": "3",
+                        "reps": "12-15",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Tricep Pushdown",
+                        "sets": "3",
+                        "reps": "12-15",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Cable Lateral Raise",
+                        "sets": "3-4",
+                        "reps": "12-15/side",
+                        "notes": "Shoulder-safe side delt work"
+                  }
+            ],
+            "rehab": [],
+            "core": [
+                  {
+                        "name": "Plank",
+                        "sets": "1",
+                        "reps": "45-60s",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Pallof Press",
+                        "sets": "1",
+                        "reps": "12/side",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Dead Bug",
+                        "sets": "1",
+                        "reps": "12/side",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Plank",
+                        "sets": "1",
+                        "reps": "45-60s",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Pallof Press",
+                        "sets": "1",
+                        "reps": "12/side",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Dead Bug",
+                        "sets": "1",
+                        "reps": "12/side",
+                        "notes": ""
+                  }
+            ]
       },
-      day5: {
-        name: "Day 5: Lower Hypertrophy",
-        exercises: [
-          {name: "Front Squat or Leg Press", sets: "4", reps: "8-12", notes: ""},
-          {name: "Romanian Deadlift", sets: "4", reps: "8-12", notes: ""},
-          {name: "Lunges or Bulgarian Split Squat", sets: "3", reps: "10-12/leg", notes: ""},
-          {name: "Leg Extension", sets: "3", reps: "12-15", notes: ""},
-          {name: "Leg Curl", sets: "3", reps: "12-15", notes: ""},
-          {name: "Seated Calf Raise", sets: "4", reps: "12-15", notes: ""}
-        ],
-        core: [
-          {name: "Plank", sets: "1", reps: "45-60 seconds", notes: ""},
-          {name: "Pallof Press", sets: "1", reps: "12/side", notes: ""},
-          {name: "Dead Bug", sets: "1", reps: "12/side", notes: ""}
-        ]
+      "day5": {
+            "name": "Day 5: Lower Hypertrophy",
+            "main": [
+                  {
+                        "name": "Front Squat or Leg Press",
+                        "sets": "4",
+                        "reps": "8-12",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Romanian Deadlift",
+                        "sets": "4",
+                        "reps": "8-12",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Lunges or Bulgarian Split Squat",
+                        "sets": "3",
+                        "reps": "10-12/leg",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Leg Extension",
+                        "sets": "3",
+                        "reps": "12-15",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Leg Curl",
+                        "sets": "3",
+                        "reps": "12-15",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Seated Calf Raise",
+                        "sets": "4",
+                        "reps": "12-15",
+                        "notes": ""
+                  }
+            ],
+            "core": [
+                  {
+                        "name": "Plank",
+                        "sets": "1",
+                        "reps": "45-60s",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Pallof Press",
+                        "sets": "1",
+                        "reps": "12/side",
+                        "notes": ""
+                  },
+                  {
+                        "name": "Dead Bug",
+                        "sets": "1",
+                        "reps": "12/side",
+                        "notes": ""
+                  }
+            ]
       }
-    },
-    info: {
-      title: "Power/Hypertrophy Upper/Lower Split",
-      description: "4 days per week training program focusing on both strength (power days) and muscle growth (hypertrophy days). Includes rotator cuff rehab and core work.",
-      schedule: "Training Days: Monday, Tuesday, Thursday, Friday (or similar 2-on/1-off/2-on pattern)<br>Rest Days: Wednesday, Saturday, Sunday",
-      notes: [
-        "Warm up thoroughly before each session",
-        "Track your weights and reps each workout",
-        "If front shoulder pain flares, reduce pressing volume",
-        "Focus on controlled movement and proper form",
-        "Rest 2-3 minutes between heavy sets, 60-90s for accessories"
-      ]
+},
+    schedule: {
+      title: "Training Schedule",
+      text: "Monday: Day 1 (Upper Power) | Tuesday: Day 2 (Lower Power) | Wednesday: Rest | Thursday: Day 4 (Upper Hyp) | Friday: Day 5 (Lower Hyp) | Weekend: Rest"
     }
   },
   
   convict: {
     name: "Convict Conditioning",
-    workouts: {
-      'step1-3': { label: 'Steps 1-3 (Beginner)', description: 'Build foundation strength and perfect form with the first 3 progression steps.' },
-      'step4-6': { label: 'Steps 4-6 (Intermediate)', description: 'Increase difficulty and volume with intermediate progressions.' },
-      'step7-10': { label: 'Steps 7-10 (Advanced)', description: 'Master-level movements with full range of motion and unilateral work.' }
-    },
-    progressions: {
-      'step1-3': {
-        pushup: [
-          {step: 1, name: "Wall Push-ups", sets: "3", reps: "50"},
-          {step: 2, name: "Incline Push-ups", sets: "3", reps: "40"},
-          {step: 3, name: "Kneeling Push-ups", sets: "3", reps: "30"}
-        ],
-        squat: [
-          {step: 1, name: "Shoulder Stand Squats", sets: "3", reps: "50"},
-          {step: 2, name: "Jackknife Squats", sets: "3", reps: "40"},
-          {step: 3, name: "Supported Squats", sets: "3", reps: "30"}
-        ],
-        pullup: [
-          {step: 1, name: "Vertical Pulls", sets: "3", reps: "40"},
-          {step: 2, name: "Horizontal Pulls", sets: "3", reps: "30"},
-          {step: 3, name: "Jackknife Pull-Ups", sets: "3", reps: "20"}
-        ],
-        legRaise: [
-          {step: 1, name: "Knee Tucks", sets: "3", reps: "40"},
-          {step: 2, name: "Flat Knee Raises", sets: "3", reps: "35"},
-          {step: 3, name: "Flat Bent Leg Raises", sets: "3", reps: "30"}
-        ],
-        bridge: [
-          {step: 1, name: "Short Bridges", sets: "3", reps: "50"},
-          {step: 2, name: "Straight Bridges", sets: "3", reps: "40"},
-          {step: 3, name: "Angled Bridges", sets: "3", reps: "30"}
-        ],
-        handstand: [
-          {step: 1, name: "Wall Headstands", sets: "2", reps: "60s"},
-          {step: 2, name: "Crow Stands", sets: "2", reps: "60s"},
-          {step: 3, name: "Wall Handstands", sets: "2", reps: "60s"}
-        ]
-      },
-      'step4-6': {
-        pushup: [
-          {step: 4, name: "Half Push-ups", sets: "2", reps: "25"},
-          {step: 5, name: "Full Push-ups", sets: "2", reps: "20"},
-          {step: 6, name: "Close Push-ups", sets: "2", reps: "20"}
-        ],
-        squat: [
-          {step: 4, name: "Half Squats", sets: "2", reps: "50"},
-          {step: 5, name: "Full Squats", sets: "2", reps: "30"},
-          {step: 6, name: "Close Squats", sets: "2", reps: "20"}
-        ],
-        pullup: [
-          {step: 4, name: "Half Pull-Ups", sets: "2", reps: "15"},
-          {step: 5, name: "Full Pull-Ups", sets: "2", reps: "10"},
-          {step: 6, name: "Close Pull-Ups", sets: "2", reps: "8"}
-        ],
-        legRaise: [
-          {step: 4, name: "Flat Frog Raises", sets: "2", reps: "25"},
-          {step: 5, name: "Flat Straight Leg Raises", sets: "2", reps: "20"},
-          {step: 6, name: "Hanging Knee Raises", sets: "2", reps: "15"}
-        ],
-        bridge: [
-          {step: 4, name: "Head Bridges", sets: "2", reps: "25"},
-          {step: 5, name: "Full Bridges", sets: "2", reps: "15"},
-          {step: 6, name: "Wall Walking (Down)", sets: "2", reps: "10"}
-        ],
-        handstand: [
-          {step: 4, name: "Half Handstand Push-ups", sets: "2", reps: "20"},
-          {step: 5, name: "Handstand Push-ups", sets: "2", reps: "15"},
-          {step: 6, name: "Narrow Handstand Push-ups", sets: "2", reps: "12"}
-        ]
-      },
-      'step7-10': {
-        pushup: [
-          {step: 7, name: "Uneven Push-ups", sets: "2", reps: "20/side"},
-          {step: 8, name: "Half One-Arm Push-ups", sets: "2", reps: "20/side"},
-          {step: 9, name: "Lever Push-ups", sets: "2", reps: "20/side"},
-          {step: 10, name: "One-Arm Push-ups", sets: "1", reps: "100/side", master: true}
-        ],
-        squat: [
-          {step: 7, name: "Uneven Squats", sets: "2", reps: "20/side"},
-          {step: 8, name: "Half One-Leg Squats", sets: "2", reps: "20/side"},
-          {step: 9, name: "Assisted One-Leg Squats", sets: "2", reps: "20/side"},
-          {step: 10, name: "One-Leg Squats (Pistol)", sets: "1", reps: "50/side", master: true}
-        ],
-        pullup: [
-          {step: 7, name: "Uneven Pull-Ups", sets: "2", reps: "9/side"},
-          {step: 8, name: "Half One-Arm Pull-ups", sets: "2", reps: "8/side"},
-          {step: 9, name: "Assisted One-Arm Pull-ups", sets: "2", reps: "7/side"},
-          {step: 10, name: "One-Arm Pull-Ups", sets: "1", reps: "6/side", master: true}
-        ],
-        legRaise: [
-          {step: 7, name: "Hanging Bent Leg Raises", sets: "2", reps: "15"},
-          {step: 8, name: "Hanging Frog Raises", sets: "2", reps: "15"},
-          {step: 9, name: "Partial Straight Leg Raises", sets: "2", reps: "15"},
-          {step: 10, name: "Hanging Straight Leg Raises", sets: "1", reps: "30", master: true}
-        ],
-        bridge: [
-          {step: 7, name: "Wall Walking (Up)", sets: "2", reps: "8"},
-          {step: 8, name: "Closing Bridges", sets: "2", reps: "6"},
-          {step: 9, name: "Stand-to-Stand (1/2)", sets: "2", reps: "4"},
-          {step: 10, name: "Stand-to-Stand Bridges", sets: "1", reps: "30", master: true}
-        ],
-        handstand: [
-          {step: 7, name: "Uneven Handstand Push-ups", sets: "2", reps: "10/side"},
-          {step: 8, name: "Half One-Arm Handstand Push-ups", sets: "2", reps: "8/side"},
-          {step: 9, name: "Lever Handstand Push-ups", sets: "2", reps: "6/side"},
-          {step: 10, name: "One-Arm Handstand Push-ups", sets: "1", reps: "5/side", master: true}
-        ]
-      }
-    },
-    info: {
-      title: "Convict Conditioning - Progressive Calisthenics",
-      description: "Bodyweight training system using progressive exercise variations. Master the Big Six: Push-ups, Squats, Pull-ups, Leg Raises, Bridges, and Handstand Push-ups.",
-      schedule: "Train 3-6 days per week. Split exercises across multiple days or do full-body sessions. Rest at least 1 day between sessions for same muscle groups.",
-      notes: [
-        "Progress only when you can complete the 'Progression Standard' reps with perfect form",
-        "Focus on perfect form over speed or high reps",
-        "Take 2-3 minutes rest between sets for strength work",
-        "Start with Step 1 even if it feels easy - build proper foundation",
-        "Listen to your joints - this is strength training, not cardio"
+    description: "Progressive bodyweight calisthenics - The Big Six",
+    exercises: {
+      "Push-ups": [
+            {
+                  "step": 1,
+                  "name": "Wall Push-ups",
+                  "target": "3x50"
+            },
+            {
+                  "step": 2,
+                  "name": "Incline Push-ups",
+                  "target": "3x40"
+            },
+            {
+                  "step": 3,
+                  "name": "Kneeling Push-ups",
+                  "target": "3x30"
+            },
+            {
+                  "step": 4,
+                  "name": "Half Push-ups",
+                  "target": "2x25"
+            },
+            {
+                  "step": 5,
+                  "name": "Full Push-ups",
+                  "target": "2x20"
+            },
+            {
+                  "step": 6,
+                  "name": "Close Push-ups",
+                  "target": "2x20"
+            },
+            {
+                  "step": 7,
+                  "name": "Uneven Push-ups",
+                  "target": "2x20"
+            },
+            {
+                  "step": 8,
+                  "name": "Half One-Arm Push-ups",
+                  "target": "2x20"
+            },
+            {
+                  "step": 9,
+                  "name": "Lever Push-ups",
+                  "target": "2x20"
+            },
+            {
+                  "step": 10,
+                  "name": "One-Arm Push-ups",
+                  "target": "1x100"
+            }
+      ],
+      "Squats": [
+            {
+                  "step": 1,
+                  "name": "Shoulderstand Squats",
+                  "target": "3x50"
+            },
+            {
+                  "step": 2,
+                  "name": "Jackknife Squats",
+                  "target": "3x40"
+            },
+            {
+                  "step": 3,
+                  "name": "Supported Squats",
+                  "target": "3x30"
+            },
+            {
+                  "step": 4,
+                  "name": "Half Squats",
+                  "target": "2x50"
+            },
+            {
+                  "step": 5,
+                  "name": "Full Squats",
+                  "target": "2x30"
+            },
+            {
+                  "step": 6,
+                  "name": "Close Squats",
+                  "target": "2x20"
+            },
+            {
+                  "step": 7,
+                  "name": "Uneven Squats",
+                  "target": "2x20"
+            },
+            {
+                  "step": 8,
+                  "name": "Half One-Leg Squats",
+                  "target": "2x20"
+            },
+            {
+                  "step": 9,
+                  "name": "Assisted One-Leg Squats",
+                  "target": "2x20"
+            },
+            {
+                  "step": 10,
+                  "name": "One-Leg Squats",
+                  "target": "2x50"
+            }
+      ],
+      "Pull-ups": [
+            {
+                  "step": 1,
+                  "name": "Vertical Pulls",
+                  "target": "3x40"
+            },
+            {
+                  "step": 2,
+                  "name": "Horizontal Pulls",
+                  "target": "3x30"
+            },
+            {
+                  "step": 3,
+                  "name": "Jackknife Pull-ups",
+                  "target": "3x20"
+            },
+            {
+                  "step": 4,
+                  "name": "Half Pull-ups",
+                  "target": "2x15"
+            },
+            {
+                  "step": 5,
+                  "name": "Full Pull-ups",
+                  "target": "2x10"
+            },
+            {
+                  "step": 6,
+                  "name": "Close Pull-ups",
+                  "target": "2x10"
+            },
+            {
+                  "step": 7,
+                  "name": "Uneven Pull-ups",
+                  "target": "2x9"
+            },
+            {
+                  "step": 8,
+                  "name": "Half One-Arm Pull-ups",
+                  "target": "2x8"
+            },
+            {
+                  "step": 9,
+                  "name": "Assisted One-Arm Pull-ups",
+                  "target": "2x7"
+            },
+            {
+                  "step": 10,
+                  "name": "One-Arm Pull-ups",
+                  "target": "2x6"
+            }
+      ],
+      "Leg Raises": [
+            {
+                  "step": 1,
+                  "name": "Knee Tucks",
+                  "target": "3x40"
+            },
+            {
+                  "step": 2,
+                  "name": "Flat Knee Raises",
+                  "target": "3x35"
+            },
+            {
+                  "step": 3,
+                  "name": "Flat Bent Leg Raises",
+                  "target": "3x30"
+            },
+            {
+                  "step": 4,
+                  "name": "Flat Frog Raises",
+                  "target": "2x25"
+            },
+            {
+                  "step": 5,
+                  "name": "Flat Straight Leg Raises",
+                  "target": "2x20"
+            },
+            {
+                  "step": 6,
+                  "name": "Hanging Knee Raises",
+                  "target": "2x15"
+            },
+            {
+                  "step": 7,
+                  "name": "Hanging Bent Leg Raises",
+                  "target": "2x15"
+            },
+            {
+                  "step": 8,
+                  "name": "Hanging Frog Raises",
+                  "target": "2x15"
+            },
+            {
+                  "step": 9,
+                  "name": "Partial Straight Leg Raises",
+                  "target": "2x15"
+            },
+            {
+                  "step": 10,
+                  "name": "Hanging Straight Leg Raises",
+                  "target": "2x30"
+            }
+      ],
+      "Bridges": [
+            {
+                  "step": 1,
+                  "name": "Short Bridges",
+                  "target": "3x50"
+            },
+            {
+                  "step": 2,
+                  "name": "Straight Bridges",
+                  "target": "3x40"
+            },
+            {
+                  "step": 3,
+                  "name": "Angled Bridges",
+                  "target": "3x30"
+            },
+            {
+                  "step": 4,
+                  "name": "Head Bridges",
+                  "target": "2x25"
+            },
+            {
+                  "step": 5,
+                  "name": "Half Bridges",
+                  "target": "2x20"
+            },
+            {
+                  "step": 6,
+                  "name": "Full Bridges",
+                  "target": "2x15"
+            },
+            {
+                  "step": 7,
+                  "name": "Wall Walking Bridges (Down)",
+                  "target": "2x10"
+            },
+            {
+                  "step": 8,
+                  "name": "Wall Walking Bridges (Up)",
+                  "target": "2x8"
+            },
+            {
+                  "step": 9,
+                  "name": "Closing Bridges",
+                  "target": "2x6"
+            },
+            {
+                  "step": 10,
+                  "name": "Stand-to-Stand Bridges",
+                  "target": "2x30"
+            }
+      ],
+      "Handstand Push-ups": [
+            {
+                  "step": 1,
+                  "name": "Wall Headstands",
+                  "target": "2min"
+            },
+            {
+                  "step": 2,
+                  "name": "Crow Stands",
+                  "target": "1min"
+            },
+            {
+                  "step": 3,
+                  "name": "Wall Handstands",
+                  "target": "2min"
+            },
+            {
+                  "step": 4,
+                  "name": "Half Handstand Push-ups",
+                  "target": "2x20"
+            },
+            {
+                  "step": 5,
+                  "name": "Handstand Push-ups",
+                  "target": "2x15"
+            },
+            {
+                  "step": 6,
+                  "name": "Close Handstand Push-ups",
+                  "target": "2x12"
+            },
+            {
+                  "step": 7,
+                  "name": "Uneven Handstand Push-ups",
+                  "target": "2x10"
+            },
+            {
+                  "step": 8,
+                  "name": "Half One-Arm Handstand Push-ups",
+                  "target": "2x8"
+            },
+            {
+                  "step": 9,
+                  "name": "Lever Handstand Push-ups",
+                  "target": "2x6"
+            },
+            {
+                  "step": 10,
+                  "name": "One-Arm Handstand Push-ups",
+                  "target": "2x5"
+            }
       ]
+},
+    info: {
+      title: "Convict Conditioning",
+      description: "Progressive calisthenics system with 10-step progressions for each of the Big Six exercises. Master bodyweight strength from beginner to elite levels."
     }
   },
   
   mobility: {
     name: "Mobility Routines",
-    workouts: {
-      'dynamic_performance': { 
-        label: 'Dynamic Performance', 
-        description: 'Pre-workout routine to activate muscles and improve movement patterns. Combines dynamic movements with tissue work.'
-      },
-      'general_mobility': { 
-        label: 'General Mobility', 
-        description: 'All-purpose mobility work for everyday movement quality and joint health.'
-      },
-      'pain_relief': { 
-        label: 'Pain Relief', 
-        description: 'Targeted mobilizations for common pain points including elbow, wrist, and low back issues.'
-      },
-      'strength_stability': { 
-        label: 'Strength & Stability', 
-        description: 'Mobility work paired with strength movements to build stable, strong positions.'
-      },
-      'shoulder_impingement': {
-        label: 'Shoulder Impingement Fix',
-        description: 'Comprehensive shoulder rehabilitation focusing on thoracic mobility, external rotation strengthening, and rotator cuff activation.'
-      },
-      'prehab_fix': {
-        label: 'Pre-Hab & Injury Prevention',
-        description: 'Complete injury prevention protocol including shoulder warm-up, core stability, hip mobility, and spinal decompression.'
-      }
-    },
+    description: "Comprehensive mobility work, tissue prep, and injury prevention",
     routines: {
-      'dynamic_performance': [
-        {name: 'Kettlebell Swing', category: 'Category 2', duration: '12 reps', notes: 'Braced neutral hip hinge screw feet full hip extension no overextension.'},
-        {name: 'Superfriend Triceps Smash', category: 'Area 5', duration: '1 min/arm', notes: 'Partner foot scrubs triceps (light pressure ab mat under arm); targets deep tissue.'},
-        {name: 'Push-Press', category: 'Category 2', duration: '8 reps (moderate)', notes: 'Barbell dip-drive torque off bar head through arms vertical forearms.'},
-        {name: 'Low Back Smash (Option 3)', category: 'Area 6', duration: '2 min', notes: 'Little Battlestar above iliac crest; hips/legs side-to-side shoulders pinned.'},
-        {name: 'Wall Ball', category: 'Category 2', duration: '10 reps', notes: 'Squat to full depth throw to target braced neutral knees out.'},
-        {name: 'Banded Elbow Distraction', category: 'Area 5', duration: '1 min/arm', notes: 'Band in elbow crook; pull hand to face (pronation/supination) 30-60 oscillations.'}
-      ],
-      'general_mobility': [
-        {name: 'Air Squat', category: 'Category 1', duration: '10 reps', notes: 'Feet shoulder-width screw feet into ground brace spine knees out full depth.'},
-        {name: 'Triceps Extension Smash', category: 'Area 5', duration: '2 min/arm', notes: 'Barbell or lacrosse ball on triceps head; floss bend/extend pressure wave. Improves Overhead/Front Rack.'},
-        {name: 'Bench Press', category: 'Category 1', duration: '8 reps (light)', notes: 'Narrow grip torque off bar vertical forearms braced arch (no overextension).'},
-        {name: 'Low Back Smash (Option 1)', category: 'Area 6', duration: '2 min', notes: 'Feet elevated lacrosse ball above pelvis; pressure wave hip to spine neutral spine.'},
-        {name: 'Pull-Up', category: 'Category 1', duration: '5-8 reps (scale with band)', notes: 'Hook grip braced neutral chest to bar straight legs.'},
-        {name: 'Banded Elbow Extension', category: 'Area 5', duration: '1 min/arm', notes: 'Band around elbow floss pronation/supination full extension. Improves Overhead.'}
-      ],
-      'pain_relief': [
-        {name: 'Low Back Smash (Option 3)', category: 'Area 6', duration: '2 min', notes: 'Little Battlestar above iliac crest; hips/legs side-to-side shoulders pinned.'},
-        {name: 'Wall Ball', category: 'Category 2', duration: '10 reps', notes: 'Squat to full depth throw to target braced neutral knees out.'},
-        {name: 'Banded Elbow Distraction', category: 'Area 5', duration: '1 min/arm', notes: 'Band in elbow crook; pull hand to face (pronation/supination) 30-60 oscillations.'},
-        {name: 'Low Back Smash (Option 2)', category: 'Area 6', duration: '2 min', notes: 'Double lacrosse ball on lumbar segments; knees side-to-side neutral spine.'},
-        {name: 'Pushup', category: 'Category 1', duration: '10 reps', notes: 'Hands shoulder-width torque (pits forward)'},
-        {name: 'Elbow VooDoo', category: 'Area 5', duration: '2 min/arm', notes: 'VooDoo Floss wrap; Superfriend extends/rotates arm or floss with bar grips. For elbow pain.'},
-        {name: 'Pelvic Reset', category: 'Area 6', duration: '3 sets (5s each)', notes: 'Push-pull knees (rotation/counter) squeeze ball between knees. Fixes back tweaks.'},
-        {name: 'Floor Press', category: 'Category 1', duration: '8 reps (light)', notes: 'Barbell same setup as bench press'},
-        {name: 'Banded Wrist Distraction', category: 'Area 5', duration: '1 min/wrist', notes: 'Band on wrist floss end-range with VooDoo wrap; fist over thumb for thumb pain.'}
-      ],
-      'strength_stability': [
-        {name: 'Strict Press', category: 'Category 1', duration: '8 reps (moderate)', notes: 'Barbell torque off bar vertical forearms head through arms at lockout.'},
-        {name: 'Forearm Tack and Twist', category: 'Area 5', duration: '1 min/arm', notes: 'Lacrosse ball near elbow crook; twist slack floss wrist flex/extension. Improves Press.'},
-        {name: 'Deadlift', category: 'Category 1', duration: '6 reps (moderate)', notes: 'Screw feet braced neutral hips/shoulders rise together no rounding.'},
-        {name: 'Erector Side Smash', category: 'Area 6', duration: '2 min', notes: 'Gemini/double ball by lumbar spine; hips side-to-side avoid over-rotation.'},
-        {name: 'Dip (Scale with Band)', category: 'Category 1', duration: '5-8 reps', notes: 'Parallel bars/rings thumbs out vertical forearms straight legs load pecs/triceps.'},
-        {name: 'Wrist Tack and Spin', category: 'Area 5', duration: '1 min/wrist', notes: 'Ball at wrist base (thumb sides); twist floss flex/extend. Improves Front Rack.'}
-      ],
-      'shoulder_impingement': [
-        {name: 'Thoracic Spine Rotation', sets: '3 to 5', duration: '5-6 per side', rest: '30s', notes: 'Arms at 45°, rotate chest to open thoracic spine.'},
-        {name: 'Subscapularis Stretch', sets: '3 to 5', duration: '30s per side', rest: '30s', notes: 'Hook arm on doorway, externally rotate, stride out, rotate chest.'},
-        {name: 'Pec Minor Stretch', sets: '3 to 5', duration: '30s per side', rest: '30s', notes: 'Push shoulder back on doorway, pinch shoulder blades, raise arm.'},
-        {name: 'Band Pull Apart (External Rotation)', sets: '3 to 5', duration: '20 (1 rep quality)', rest: '30s', notes: 'Pull band apart, externally rotate thumbs, keep shoulders down.'},
-        {name: 'Band Overhead Protraction', sets: '3 to 5', duration: '8 to 12', rest: '30s', notes: 'Protract arms, externally rotate, raise overhead, maintain tall posture.'},
-        {name: 'Isometric External Rotation', sets: '3 to 5', duration: '5-10s', rest: '30s', notes: 'Anchor band, hold arm in external rotation, step out slightly.'},
-        {name: 'Concentric External Rotation', sets: '3 to 5', duration: '8 to 12', rest: '30s', notes: 'Anchor band, pull arm across body to externally rotate.'},
-        {name: 'Eccentric External Rotation', sets: '3 to 5', duration: '8 to 12', rest: '30s', notes: 'Step out further, control band pulling arm back to internal rotation.'},
-        {name: 'Heavy Eccentric External Rotation', sets: '3 to 5', duration: '6 to 8', rest: '30s', notes: 'Larger step, slow control of band into internal rotation.'},
-        {name: 'Plyometric External Rotation', sets: '3 to 5', duration: '6 to 8', rest: '30s', notes: 'Step out, control band dynamically into internal rotation.'},
-        {name: 'Sword Raise (Isometric)', sets: '3 to 5', duration: '5-10s', rest: '30s', notes: 'Hold band in front, resist internal rotation.'},
-        {name: 'Sword Raise (Concentric)', sets: '3 to 5', duration: '8 to 12', rest: '30s', notes: 'Pull band from pocket to top, externally rotate.'},
-        {name: 'Sword Raise (Eccentric)', sets: '3 to 5', duration: '8 to 12', rest: '30s', notes: 'Control band down to pocket from top position.'},
-        {name: 'Sword Raise (Heavy Eccentric)', sets: '3 to 5', duration: '6 to 8', rest: '30s', notes: 'Larger step, slow control down to pocket.'},
-        {name: 'Sword Raise (Plyometric)', sets: '3 to 5', duration: '6 to 8', rest: '30s', notes: 'Dynamic control down to pocket from top position.'}
-      ],
-      'prehab_fix': [
-        {name: 'Halo', sets: '1', duration: '8 to 10', rest: '0s', notes: 'Hold plate, circle around head to warm up rotator cuff.'},
-        {name: 'Plate Eight', sets: '1', duration: '8 to 10', rest: '0s', notes: 'Draw figure eight on side, focus on front/middle delts.'},
-        {name: 'Plate Shovel', sets: '1', duration: '8 to 10', rest: '0s', notes: 'Lean forward, lift plate over shoulder, target rear delts.'},
-        {name: 'Plate Press Out', sets: '1', duration: '8 to 10', rest: '0s', notes: 'Press plate forward, transition to elevated arm position.'},
-        {name: 'Rocking Press Up', sets: '1', duration: '8 to 10', rest: '0s', notes: 'Rock plate up overhead, prep for overhead pressing.'},
-        {name: 'Thoracic Spine Rotation', sets: '3 to 5', duration: '5-6 per side', rest: '30s', notes: 'Arms at 45°, rotate chest to open thoracic spine.'},
-        {name: 'Subscapularis Stretch', sets: '3 to 5', duration: '30s per side', rest: '30s', notes: 'Hook arm on doorway, externally rotate, stride out, rotate chest.'},
-        {name: 'Pec Minor Stretch', sets: '3 to 5', duration: '30s per side', rest: '30s', notes: 'Push shoulder back on doorway, pinch shoulder blades, raise arm.'},
-        {name: 'Band Pull Apart (External Rotation)', sets: '3 to 5', duration: '20 (1 rep quality)', rest: '30s', notes: 'Pull band apart, externally rotate thumbs, keep shoulders down.'},
-        {name: 'Band Overhead Protraction', sets: '3 to 5', duration: '8 to 10', rest: '30s', notes: 'Protract arms, externally rotate, raise overhead, maintain tall posture.'},
-        {name: 'Isometric External Rotation', sets: '3 to 5', duration: '5-10s', rest: '30s', notes: 'Anchor band, hold arm in external rotation, step out slightly.'},
-        {name: 'Concentric External Rotation', sets: '3 to 5', duration: '5-10s', rest: '30s', notes: 'Anchor band, pull arm across body to externally rotate.'},
-        {name: 'Eccentric External Rotation', sets: '3 to 5', duration: '5-10s', rest: '30s', notes: 'Step out further, control band pulling arm back to internal rotation.'},
-        {name: 'Heavy Eccentric External Rotation', sets: '3 to 5', duration: '5-10s', rest: '30s', notes: 'Larger step, slow control of band into internal rotation.'},
-        {name: 'Plyometric External Rotation', sets: '3 to 5', duration: '5-10s', rest: '30s', notes: 'Step out, control band dynamically into internal rotation.'},
-        {name: 'Sword Raise (Isometric)', sets: '3 to 5', duration: '5-10s', rest: '30s', notes: 'Hold band in front, resist internal rotation.'},
-        {name: 'Sword Raise (Concentric)', sets: '3 to 5', duration: '5-10s', rest: '30s', notes: 'Pull band from pocket to top, externally rotate.'},
-        {name: 'Sword Raise (Eccentric)', sets: '3 to 5', duration: '5-10s', rest: '30s', notes: 'Control band down to pocket from top position.'},
-        {name: 'Sword Raise (Heavy Eccentric)', sets: '3 to 5', duration: '5-10s', rest: '30s', notes: 'Larger step, slow control down to pocket.'},
-        {name: 'Sword Raise (Plyometric)', sets: '3 to 5', duration: '5-10s', rest: '30s', notes: 'Dynamic control down to pocket from top position.'},
-        {name: 'Hip Flexor Squat', sets: '3 to 4', duration: '8 to 12', rest: '60s', notes: 'Elbows down, actively pull down with hip flexors, stabilize back.'},
-        {name: 'Band-Assisted Squat', sets: '3 to 4', duration: '8 to 12', rest: '60s', notes: 'Pull bands down to engage hip flexors, push butt back.'},
-        {name: 'Wall Rotator Cuff Activation', sets: '3 to 4', duration: '5 to 6', rest: '30s', notes: 'Back against wall, keep fingers and elbows on wall, externally rotate arms.'},
-        {name: 'Janda Sit Up', sets: '3 to 4', duration: '10 to 12', rest: '30-60s', notes: 'Anchor band, contract glutes/hamstrings to turn off hip flexors.'},
-        {name: 'Gymnast Abs', sets: '3 to 4', duration: '10 to 12', rest: '30-60s', notes: 'In Captain\'s Chair, posterior pelvic tilt, lift tailbone.'},
-        {name: 'Pallof Press', sets: '3 to 4', duration: '10-12 per side', rest: '30-60s', notes: 'Stand on one leg, press band overhead, stabilize core.'},
-        {name: 'Sledge Hammer Swings', sets: '3 to 4', duration: '30s', rest: '30-60s', notes: 'Twist torso against band resistance, feet planted.'},
-        {name: 'Jump Out (Band)', sets: '3 to 4', duration: '8-10', rest: '30-60s', notes: 'Jump out, resist band pull, focus on anti-rotation.'},
-        {name: 'Suitcase Carry', sets: '3 to 4', duration: '30-40s per side', rest: '30-60s', notes: 'Walk with heavy dumbbell, keep shoulders level.'},
-        {name: 'Side Plank Leg Lift', sets: '3 to 4', duration: '20-30s per side', rest: '30-60s', notes: 'Lift top leg in side plank, focus on lateral stability.'},
-        {name: 'Quad Stretch (Lateral)', sets: '3 to 4', duration: '10-12 flexions', rest: '30s', notes: 'Use implement on vastus lateralis, bend knee while keeping leg locked.'},
-        {name: 'Spinal Decompression Hang', sets: '2', duration: '1 min', rest: '0s', notes: 'Hang from pullup bar, drop pelvis, toes lightly touch ground.'},
-        {name: 'Ab Hang', sets: '2', duration: '1 min', rest: '0s', notes: 'Hang with hollowed core, pull shoulder blades down for scapular stability.'},
-        {name: 'TFL Flossing', sets: '3 to 4', duration: '10-12 flexions', rest: '30s', notes: 'Use Fat Gripz or tennis balls on TFL, flex hip while pressing.'}
-      ]
-    },
+      dynamic: {
+        name: "Dynamic Performance",
+        description: "Pre-workout movement prep and activation",
+        exercises: [
+          {
+                    "name": "Air Squat",
+                    "sets": "2-3 sets",
+                    "reps": "5 reps",
+                    "notes": "Full depth neutral knees out"
+          },
+          {
+                    "name": "Pushup",
+                    "sets": "2-3 sets",
+                    "reps": "5 reps",
+                    "notes": "Hands shoulder-width torque"
+          },
+          {
+                    "name": "Jump and Land (Low Box)",
+                    "sets": "2-3 sets",
+                    "reps": "3 reps",
+                    "notes": "Load hips land soft"
+          },
+          {
+                    "name": "Shoulder Roll",
+                    "sets": "2-3 sets",
+                    "reps": "10 rolls",
+                    "notes": "Forward back controlled"
+          },
+          {
+                    "name": "Dislocate",
+                    "sets": "2-3 sets",
+                    "reps": "10 reps",
+                    "notes": "PVC arms wide pull through"
+          },
+          {
+                    "name": "Cat/Camel",
+                    "sets": "1 set",
+                    "reps": "10 reps",
+                    "notes": "Cat: spine round Camel: spine sag"
+          },
+          {
+                    "name": "Hip Halo",
+                    "sets": "2-3 sets",
+                    "reps": "5/direction",
+                    "notes": "Big hip circles neutral spine"
+          },
+          {
+                    "name": "Leg Swing Front/Back",
+                    "sets": "2-3 sets",
+                    "reps": "10/leg",
+                    "notes": "Swing leg support on wall neutral spine"
+          },
+          {
+                    "name": "Leg Swing Side/Side",
+                    "sets": "2-3 sets",
+                    "reps": "10/leg",
+                    "notes": "Swing leg across support on wall neutral spine"
+          },
+          {
+                    "name": "Trunk Twist",
+                    "sets": "2-3 sets",
+                    "reps": "10/side",
+                    "notes": "PVC overhead rotate torso hips stable"
+          },
+          {
+                    "name": "Shoulder Internal Rotation",
+                    "sets": "Category 1",
+                    "reps": "2 min",
+                    "notes": "Band overhead pull down internal rotate"
+          },
+          {
+                    "name": "Double Lacrosse Ball Overhead",
+                    "sets": "Area 1",
+                    "reps": "2 min",
+                    "notes": "Back on double ball arms overhead slide"
+          },
+          {
+                    "name": "Calf Smash",
+                    "sets": "Area 2",
+                    "reps": "2 min/leg",
+                    "notes": "Lacrosse ball on calf/Achilles contract slack"
+          },
+          {
+                    "name": "T-Spine Smash (Floor)",
+                    "sets": "Area 3",
+                    "reps": "2 min",
+                    "notes": "Double ball on thoracic roll flex/extend arms"
+          },
+          {
+                    "name": "Banded Lat Stretch",
+                    "sets": "Category 2",
+                    "reps": "2 min/side",
+                    "notes": "Band overhead lean away active pull"
+          },
+          {
+                    "name": "Erector Side Smash",
+                    "sets": "Area 6",
+                    "reps": "2 min",
+                    "notes": "Double ball by lumbar spine"
+          },
+          {
+                    "name": "Wrist Tack and Spin",
+                    "sets": "Area 5",
+                    "reps": "1 min/wrist",
+                    "notes": "Ball at wrist base twist"
+          },
+          {
+                    "name": "Banded Hip Distraction",
+                    "sets": "Area 4",
+                    "reps": "2 min/leg",
+                    "notes": "Band in hip crease lunge front knee out"
+          },
+          {
+                    "name": "Glute Smash",
+                    "sets": "Area 4",
+                    "reps": "2 min/side",
+                    "notes": "Ball on glute leg over knee rotate"
+          },
+          {
+                    "name": "TFL/IT Band Smash",
+                    "sets": "Area 4",
+                    "reps": "2 min/side",
+                    "notes": "Ball on side hip above knee roll up/down"
+          },
+          {
+                    "name": "Quad Smash",
+                    "sets": "Area 4",
+                    "reps": "2 min/leg",
+                    "notes": "Ball on quad roll/flex knee"
+          },
+          {
+                    "name": "Anterior Ankle Mob",
+                    "sets": "Area 2",
+                    "reps": "2 min/ankle",
+                    "notes": "Band at ankle crease lunge drive knee forward"
+          },
+          {
+                    "name": "Thoracic Spine Rotation",
+                    "sets": "3-5 Sets",
+                    "reps": "5-6/side",
+                    "notes": "Arms at 45\u00b0 rotate chest | 30s"
+          },
+          {
+                    "name": "Subscapularis Stretch",
+                    "sets": "3-5 Sets",
+                    "reps": "30s/side",
+                    "notes": "Hook arm externally rotate | 30s"
+          },
+          {
+                    "name": "Pec Minor Stretch",
+                    "sets": "3-5 Sets",
+                    "reps": "30s/side",
+                    "notes": "Push shoulder back raise arm | 30s"
+          },
+          {
+                    "name": "Band Pull Apart (Ext Rotation)",
+                    "sets": "3-5 Sets",
+                    "reps": "20 reps",
+                    "notes": "Pull apart externally rotate | 30s"
+          },
+          {
+                    "name": "Sword Raise",
+                    "sets": "3-5 Sets",
+                    "reps": "8-12",
+                    "notes": "Control down to pocket | 30s"
+          }
+]
+      },
+      prehab: {
+        name: "PreHab & Injury Prevention",
+        description: "Comprehensive injury prevention protocol",
+        exercises: [
+          {
+                    "name": "Halo",
+                    "sets": "1",
+                    "reps": "8-10",
+                    "rest": "0s",
+                    "notes": "Circle plate around head"
+          },
+          {
+                    "name": "Plate Eight",
+                    "sets": "1",
+                    "reps": "8-10",
+                    "rest": "0s",
+                    "notes": "Figure eight on side"
+          },
+          {
+                    "name": "Plate Shovel",
+                    "sets": "1",
+                    "reps": "8-10",
+                    "rest": "0s",
+                    "notes": "Lift plate over shoulder"
+          },
+          {
+                    "name": "Plate Press Out",
+                    "sets": "1",
+                    "reps": "8-10",
+                    "rest": "0s",
+                    "notes": "Press forward to elevated"
+          },
+          {
+                    "name": "Rocking Press Up",
+                    "sets": "1",
+                    "reps": "8-10",
+                    "rest": "0s",
+                    "notes": "Rock plate up overhead"
+          },
+          {
+                    "name": "Thoracic Spine Rotation",
+                    "sets": "3-5",
+                    "reps": "5-6/side",
+                    "rest": "30s",
+                    "notes": "Arms 45\u00b0 rotate chest"
+          },
+          {
+                    "name": "Subscapularis Stretch",
+                    "sets": "3-5",
+                    "reps": "30s/side",
+                    "rest": "30s",
+                    "notes": "Hook arm externally rotate"
+          },
+          {
+                    "name": "Pec Minor Stretch",
+                    "sets": "3-5",
+                    "reps": "30s/side",
+                    "rest": "30s",
+                    "notes": "Push shoulder back raise arm"
+          },
+          {
+                    "name": "Band Pull Apart",
+                    "sets": "3-5",
+                    "reps": "20",
+                    "rest": "30s",
+                    "notes": "Pull apart externally rotate"
+          },
+          {
+                    "name": "Band Overhead Protraction",
+                    "sets": "3-5",
+                    "reps": "8-10",
+                    "rest": "30s",
+                    "notes": "Protract externally rotate overhead"
+          },
+          {
+                    "name": "Hip Flexor Squat",
+                    "sets": "3-4",
+                    "reps": "8-12",
+                    "rest": "60s",
+                    "notes": "Elbows down pull with hip flexors"
+          },
+          {
+                    "name": "Band-Assisted Squat",
+                    "sets": "3-4",
+                    "reps": "8-12",
+                    "rest": "60s",
+                    "notes": "Pull bands engage hip flexors"
+          },
+          {
+                    "name": "Wall Rotator Cuff Activation",
+                    "sets": "3-4",
+                    "reps": "5-6",
+                    "rest": "30s",
+                    "notes": "Fingers/elbows on wall"
+          },
+          {
+                    "name": "Janda Sit Up",
+                    "sets": "3-4",
+                    "reps": "10-12",
+                    "rest": "60s",
+                    "notes": "Contract glutes/hamstrings"
+          },
+          {
+                    "name": "Gymnast Abs",
+                    "sets": "3-4",
+                    "reps": "10-12",
+                    "rest": "60s",
+                    "notes": "Posterior pelvic tilt lift tailbone"
+          },
+          {
+                    "name": "Pallof Press",
+                    "sets": "3-4",
+                    "reps": "10-12/side",
+                    "rest": "60s",
+                    "notes": "One leg press overhead"
+          },
+          {
+                    "name": "Sledge Hammer Swings",
+                    "sets": "3-4",
+                    "reps": "30s",
+                    "rest": "60s",
+                    "notes": "Twist torso against band"
+          },
+          {
+                    "name": "Jump Out (Band)",
+                    "sets": "3-4",
+                    "reps": "8-10",
+                    "rest": "60s",
+                    "notes": "Jump out resist band"
+          },
+          {
+                    "name": "Suitcase Carry",
+                    "sets": "3-4",
+                    "reps": "30-40s/side",
+                    "rest": "60s",
+                    "notes": "Walk heavy DB shoulders level"
+          },
+          {
+                    "name": "Side Plank Leg Lift",
+                    "sets": "3-4",
+                    "reps": "20-30s/side",
+                    "rest": "60s",
+                    "notes": "Lift top leg lateral stability"
+          }
+]
+      }
+    }
+  },
+  
+  five31: {
+    name: "5-3-1 Classic",
+    description: "Jim Wendler's 5-3-1 strength program",
+    content: [
+      "Percentages & Rep Scheme (same every cycle)",
+      "Week 1 \u2014 5's: 65% \u00d75, 75% \u00d75, 85% \u00d75+ (AMRAP)",
+      "Week 2 \u2014 3's: 70% \u00d73, 80% \u00d73, 90% \u00d73+ (AMRAP)",
+      "Week 3 \u2014 5/3/1: 75% \u00d75, 85% \u00d73, 95% \u00d71+ (AMRAP)",
+      "Week 4 \u2014 Deload: 40% \u00d75, 50% \u00d75, 60% \u00d75 (no AMRAP, light\u2014or off)",
+      "Classic 4-Day Spreadsheet Layout (copy to Sheets/Excel)",
+      "Enter your Training Maxes here (top):",
+      "Overhead Press",
+      "Bench Press",
+      "Week X / Cycle X (duplicate block for each cycle; vary assistance slightly per week as shown below for variety)",
+      "Monday \u2013 Overhead Press Day (Main: OHP focus \u2192 emphasize pulling + triceps/shoulder stability + core)",
+      "Assistance (2\u20133 exercises \u2013 vary weekly):",
+      "Week 1: Chin-ups or Pull-ups (3\u20135\u00d7 max reps or assisted) + Dips (3\u20135\u00d710\u201315) + Face Pulls (3\u20134\u00d715\u201320 light band/cable)",
+      "Week 2: Barbell Rows (4\u00d710) + Push-ups (3\u00d7 max, elevate if needed) + Rear Delt Flys (3\u00d712\u201315 DB)",
+      "Week 3: Inverted Rows (4\u00d710\u201312) + Close-Grip Bench (light, 3\u00d710) + Band Pull-Aparts (3\u00d720)",
+      "Core Session (every Monday \u2013 3 exercises, 3 sets each):",
+      "Ab Wheel Rollouts or Plank (3\u00d78\u201312 rolls or 3\u00d730\u201360s hold)",
+      "Hanging Leg Raises or Knee Raises (3\u00d710\u201315)",
+      "Farmer Carries (3\u00d740\u201360s walk heavy DBs/kettlebells)",
+      "Tuesday \u2013 Deadlift Day (Main: Posterior chain focus \u2192 light pulling/hamstrings + single-leg + core)",
+      "Assistance (2\u20133 exercises \u2013 vary weekly):",
+      "Week 1: Romanian Deadlifts (light, 3\u20134\u00d78\u201310) + Lunges (3\u00d710/side walking or reverse) + Back Raises (3\u00d712\u201315)",
+      "Week 2: Good Mornings (light bar, 3\u00d710) + Bulgarian Split Squats (3\u00d78\u201310/side bodyweight or DB) + Cable Pull-Throughs (3\u00d712\u201315)",
+      "Week 3: Single-Leg RDL (DB, 3\u00d710/side) + Step-Ups (3\u00d710/side box) + Glute-Ham Raises or Nordic Curls (3\u00d76\u201310)",
+      "Core Session (every Tuesday \u2013 3 exercises, 3 sets each):",
+      "Pallof Press (band/cable, 3\u00d710\u201312/side anti-rotation)",
+      "Side Planks (3\u00d730\u201345s/side)",
+      "Dead Bugs (3\u00d710\u201312/side slow)",
+      "Thursday \u2013 Bench Press Day (Main: Horizontal push \u2192 balance with heavy pulling + triceps + core)",
+      "Assistance (2\u20133 exercises \u2013 vary weekly):",
+      "Week 1: Barbell or DB Rows (4\u00d710) + Dips (weighted if possible, 3\u20134\u00d78\u201312) + Tricep Pushdowns (3\u00d712\u201315)",
+      "Week 2: Pull-Ups or Lat Pulldowns (3\u20135\u00d78\u201312) + Overhead Tricep Extensions (3\u00d710\u201312) + Face Pulls (3\u00d715\u201320)",
+      "Week 3: Chest-Supported Rows (3\u00d710\u201312) + Close-Grip Push-Ups (3\u00d7 max) + Band Face Pulls (3\u00d720)",
+      "Core Session (every Thursday \u2013 3 exercises, 3 sets each):",
+      "Ab Wheel or Barbell Rollouts (3\u00d78\u201312)",
+      "Russian Twists (3\u00d715\u201320/side light med ball or plate)",
+      "Plank Variations (front/side, 3\u00d745\u201360s total)",
+      "Friday \u2013 Squat Day (Main: Quad/hip dominant \u2192 single-leg + posterior + core emphasis)",
+      "Assistance (2\u20133 exercises \u2013 vary weekly):",
+      "Week 1: Lunges (walking or reverse, 3\u00d710/side) + Back Raises or Hyperextensions (3\u00d712\u201315) + Leg Curls (machine or sliders, 3\u00d712\u201315)",
+      "Week 2: Goblet Squats or Front Squats (light, 3\u20134\u00d710) + Single-Leg Glute Bridges (3\u00d712/side) + Calf Raises (3\u00d715\u201320)",
+      "Week 3: Bulgarian Split Squats (3\u00d78\u201310/side) + Good Mornings (light, 3\u00d710) + Farmer Carries (3\u00d750\u201360s)",
+      "Core Session (every Friday \u2013 3 exercises, 3 sets each):",
+      "Hanging Knee/Leg Raises (3\u00d710\u201315)",
+      "Bird Dogs (3\u00d710/side hold 5s)",
+      "Farmer Carries or Suitcase Carries (3\u00d740\u201360s/side heavy)",
+      "Key Setup Rules (unchanged, fill these in first)",
+      "Training Max (TM) = 90% of your true 1RM (or conservative estimate if no recent 1RM). Example: Bench 1RM 225 lbs \u2192 TM = 200 lbs (round down if needed).",
+      "Increase TM after each full 4-week cycle: +5 lbs upper body lifts, +10 lbs lower body lifts (even if you didn't hit all reps).",
+      "Warm-ups: Ramp up to working sets (e.g., empty bar \u2192 40% \u2192 50% etc., 3\u20135 reps each).",
+      "Last set (the + set): Go for AMRAP (as many reps as possible with good form \u2014 aim to beat minimum reps).",
+      "Rest 3\u20135+ minutes between heavy sets.",
+      "Assistance: 2\u20133 exercises after main work (25\u201350+ total reps each). Progressive: add reps/weight over time.",
+      "Core: Added as a mini-session (3 exercises, 3 sets each) after assistance\u2014keep it light/fast."
+],
     info: {
-      title: "Mobility & Tissue Work Routines",
-      description: "Comprehensive mobility routines combining movement prep, tissue work, and targeted mobilizations. Choose the routine that matches your training needs.",
-      schedule: "Can be performed daily or as needed. Dynamic Performance before workouts, Pain Relief as needed, General Mobility 3-4x/week, Strength & Stability on training days.",
-      notes: [
-        "Perform tissue work with moderate pressure - discomfort is OK, sharp pain is not",
-        "Spend extra time on areas that feel restricted or tight",
-        "Combine mobilizations with active movement for best results",
-        "Use tools: lacrosse balls, VooDoo bands, foam rollers, resistance bands",
-        "2-3 minutes per area is typically sufficient for tissue work"
-      ]
+      title: "5-3-1 Classic Program",
+      description: "Monthly progression using Training Max percentages. 4-week cycles with built-in progression."
+    }
+  },
+  
+  rehab: {
+    name: "6-8 Week Rehab Roadmap",
+    description: "Progressive rehab protocol for returning to training",
+    content: [
+      "GLOBAL WARM-UP (EVERY SESSION)",
+      "Exercise        Sets    Reps/Time       Load    Notes",
+      "Incline Push-Ups        2       15      BW      Hands on bench or bar (30\u201336\")",
+      "Bodyweight Squat        2       20      BW      Smooth, pain-free",
+      "Thoracic Rotation (Quadruped)   2       6/side  BW      Rotate through chest",
+      "Band External Rotation (Isometric)      2       10s/side        Light band      No shrugging",
+      "Bird Dog        2       6/side (5s hold)        BW      No pelvic shift",
+      "WEEKS 1\u20132 (PHASE 1: RE-ESTABLISH CAPACITY)",
+      "DAY 1 \u2014 UPPER POWER (SHOULDER SAFE)",
+      "Exercise        Sets    Reps    Load    Notes",
+      "Floor Press (Barbell)   4       5       65 lb (40% BW)  RPE ~6",
+      "Chest-Supported DB Row  4       6       25 lb   DBs",
+      "Close Push-Ups  2       12\u201315   BW      3 reps in reserve",
+      "Band ER (Slow Eccentric)        2       8/side  Light band      3\u20134s lower",
+      "DAY 2 \u2014 LOWER POWER (SPINE SAFE)",
+      "Exercise        Sets    Reps    Load    Notes",
+      "Trap Bar Deadlift       4       5       80\u201385 lb (50% BW)       RPE ~6",
+      "Goblet Squat    4       6       30 lb   Vertical torso",
+      "Reverse Lunge   3       6/side  BW or 15 lb DBs Controlled",
+      "Pallof Press    2       10/side Light cable/band        Anti-rotation",
+      "DAY 3 \u2014 UPPER HYPERTROPHY + REHAB",
+      "Exercise        Sets    Reps    Load    Notes",
+      "Incline DB Press (Neutral)      3       10      25 lb   DBs",
+      "1-Arm DB or Cable Row   3       12/side 30 lb   No torso twist",
+      "Face Pull       3       15      Light   ER emphasis",
+      "Sword Raise (Band)      2       12      Light band      Controlled",
+      "DAY 4 \u2014 LOWER HYPERTROPHY",
+      "Exercise        Sets    Reps    Load    Notes",
+      "Front Squat (Light)     3       10      35\u201345 lb        Upright, pain-free",
+      "Hip Thrust / Glute Bridge       3       12      65 lb (40% BW)  Pause at top",
+      "Single-Leg RDL  3       8/side  20 lb DB        Hips square",
+      "Side Plank      2       25s/side        BW      Neutral spine",
+      "WEEKS 3\u20134 (PHASE 2: LOADING CONFIDENCE)",
+      "Progression Rules (apply to all lifts):",
+      "Barbell: +10 lb",
+      "Dumbbells: +5 lb each",
+      "Reps & sets stay the same",
+      "Exercise        New Load (Example)      Notes",
+      "Neutral DB Bench        30 lb DBs       Replaces floor press",
+      "Trap Bar Deadlift       95 lb   Still elevated if needed",
+      "Goblet Squat    40 lb   Controlled tempo",
+      "Hip Thrust      85 lb   Pause maintained",
+      "Calisthenics volume: ~70\u201375% of CC targets",
+      "Introduce: Close Push-Ups, Hanging Knee Raises (if pain-free)",
+      "WEEKS 5\u20136 (PHASE 3: RETURN TO BARBELL)",
+      "NEW INTRODUCTIONS (PAIN-FREE ONLY)",
+      "Exercise        Sets    Reps    Load    Notes",
+      "Bench Press (Paused)    3       5       80\u201385 lb (50% BW)       1\u20132s pause",
+      "Deadlift (Floor)        3       5       90 lb (55% BW)  RPE \u22647",
+      "Front Squat     3       8       Light\u2013Moderate  Preferred over back squat",
+      "Calisthenics: ~80% of CC targets",
+      "Test ONE movement per week only.",
+      "WEEKS 7\u20138 (PHASE 4: UNRESTRICTED TARGETS)",
+      "Lift    Target Load (% BW)      Approx Weight   Notes",
+      "Bench Press     65\u201370% BW       105\u2013115 lb      RPE \u22648",
+      "Deadlift        70% BW  115 lb  No grinders",
+      "Squat   60\u201365% BW       100\u2013107 lb      Depth pain-free",
+      "Rehab volume reduced to 1 movement per joint in warm-up only.",
+      "PROGRESSION / REGRESSION RULES",
+      "Condition       Action",
+      "Pain \u22643/10, no next-day flare   Progress load next week",
+      "Pain during lift or next day    Hold load or reduce 10\u201315%",
+      "Movement hesitation or guarding Drop back one phase",
+      "Flare-up persists >48 hrs       Reduce volume 20\u201330% for 1\u20132 weeks"
+],
+    info: {
+      title: "Rehab Roadmap",
+      description: "8-week structured return to training with pain management and progressive loading."
     }
   }
 };
