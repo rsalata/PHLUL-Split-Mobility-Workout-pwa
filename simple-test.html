@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMPLE TEST</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #111; color: #0f0; }
+        .ok { color: #0f0; } .bad { color: #f00; }
+    </style>
+</head>
+<body>
+    <h1>SIMPLE TEST</h1>
+    <div id="result">Loading...</div>
+    
+    <script src="./workout-data.js"></script>
+    <script>
+        const result = document.getElementById('result');
+        
+        if (typeof WORKOUT_PROGRAMS === 'undefined') {
+            result.innerHTML = '<p class="bad">❌ FAILED - workout-data.js did not load</p>';
+            result.innerHTML += '<p>Open browser console (F12) to see errors</p>';
+        } else {
+            const programs = Object.keys(WORKOUT_PROGRAMS);
+            result.innerHTML = '<p class="ok">✅ SUCCESS!</p>';
+            result.innerHTML += '<p class="ok">Found ' + programs.length + ' programs:</p>';
+            result.innerHTML += '<ul>';
+            programs.forEach(p => {
+                result.innerHTML += '<li class="ok">' + p + ' - ' + WORKOUT_PROGRAMS[p].name + '</li>';
+            });
+            result.innerHTML += '</ul>';
+            result.innerHTML += '<p><a href="index.html" style="color:#0ff">→ GO TO MAIN APP</a></p>';
+        }
+    </script>
+</body>
+</html>

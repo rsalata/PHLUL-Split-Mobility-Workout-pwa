@@ -249,10 +249,6 @@ const WORKOUT_PROGRAMS = {
         label: 'Shoulder Impingement Fix',
         description: 'Comprehensive shoulder rehabilitation focusing on thoracic mobility, external rotation strengthening, and rotator cuff activation.'
       },
-      'rehab_split_20min': {
-        label: '20-Min Rehab Split',
-        description: '3-day/week rehab protocol to restore full shoulder and lumbar function. Combines tissue prep, isometric control, strength building, and dynamic re-integration.'
-      },
       'prehab_fix': {
         label: 'Pre-Hab & Injury Prevention',
         description: 'Complete injury prevention protocol including shoulder warm-up, core stability, hip mobility, and spinal decompression.'
@@ -310,39 +306,6 @@ const WORKOUT_PROGRAMS = {
         {name: 'Sword Raise (Eccentric)', sets: '3 to 5', duration: '8 to 12', rest: '30s', notes: 'Control band down to pocket from top position.'},
         {name: 'Sword Raise (Heavy Eccentric)', sets: '3 to 5', duration: '6 to 8', rest: '30s', notes: 'Larger step, slow control down to pocket.'},
         {name: 'Sword Raise (Plyometric)', sets: '3 to 5', duration: '6 to 8', rest: '30s', notes: 'Dynamic control down to pocket from top position.'}
-      ],
-      'rehab_split_20min': [
-        // DAY 1 — Mobility & Isometrics
-        {name: '─── DAY 1: Mobility & Isometrics ───', sets: '', duration: '', rest: '', notes: 'Focus: Reduce neural threat, restore pain-free ROM, re-establish positioning'},
-        {name: 'Wrist Tack & Spin', sets: '3–4', duration: '1 min/wrist', rest: '—', notes: 'Ball at wrist base; flex/extend + rotate'},
-        {name: 'Thoracic Spine Rotation', sets: '3', duration: '6/side', rest: '30s', notes: 'Rotate through chest, hips quiet'},
-        {name: 'Pec Minor Doorway Stretch', sets: '3', duration: '30s/side', rest: '30s', notes: 'Scapula down/back, no rib flare'},
-        {name: 'Subscapularis Stretch', sets: '3', duration: '30s/side', rest: '30s', notes: 'Externally rotate, turn chest away'},
-        {name: 'Wall Rotator Cuff Activation', sets: '3', duration: '6/side', rest: '30s', notes: 'Elbows/wrists on wall'},
-        {name: 'Isometric External Rotation', sets: '4', duration: '10s holds', rest: '30s', notes: 'Band (light) - No shrugging'},
-        {name: 'McGill Curl-Up', sets: '3', duration: '6 reps (10s)', rest: '30s', notes: 'Neutral spine'},
-        {name: 'Pelvic Reset', sets: '3', duration: '5s each direction', rest: '30s', notes: 'Push–pull knees'},
-        
-        // DAY 2 — Strength & Control
-        {name: '─── DAY 2: Strength & Control ───', sets: '', duration: '', rest: '', notes: 'Focus: Increase tissue tolerance, build rotator cuff & trunk endurance'},
-        {name: 'Band Pull-Apart (ER Bias)', sets: '3', duration: '15–20', rest: '30s', notes: 'Thumbs rotate back'},
-        {name: 'Band Overhead Protraction', sets: '3', duration: '8–12', rest: '30s', notes: 'Reach → rotate → raise'},
-        {name: 'External Rotation (Concentric)', sets: '3', duration: '10–12', rest: '30s', notes: 'Smooth pull'},
-        {name: 'External Rotation (Eccentric)', sets: '3', duration: '8–10', rest: '30s', notes: '3–4s lowering'},
-        {name: 'Sword Raise (PNF D2)', sets: '3', duration: '10–12', rest: '30s', notes: 'Pocket → eyebrow'},
-        {name: 'Bird Dog', sets: '3', duration: '6/side (5s)', rest: '30s', notes: 'No pelvic shift'},
-        {name: 'Side Plank', sets: '3', duration: '20–30s', rest: '30s', notes: 'Straight line'},
-        {name: 'Half-Kneeling Hip Flexor Stretch', sets: '2', duration: '30s/side', rest: '30s', notes: 'Glute squeeze'},
-        
-        // DAY 3 — Dynamic Control & Integration
-        {name: '─── DAY 3: Dynamic Control & Integration ───', sets: '', duration: '', rest: '', notes: 'Focus: Restore speed, timing, and control - prepare for real-world loading'},
-        {name: 'Heavy Eccentric External Rotation', sets: '3', duration: '6–8', rest: '30s', notes: 'Band (heavier) - 4–5s lowering'},
-        {name: 'Plyometric External Rotation', sets: '3', duration: '6–8', rest: '30s', notes: 'Fast catch, control'},
-        {name: 'Sword Raise (Heavy Eccentric)', sets: '3', duration: '6–8', rest: '30s', notes: 'Slow down phase'},
-        {name: 'Sword Raise (Plyometric)', sets: '3', duration: '6–8', rest: '30s', notes: 'Dynamic control'},
-        {name: 'Hip Hinge Patterning', sets: '3', duration: '8', rest: '30s', notes: 'PVC/Dowel - 3-point contact'},
-        {name: 'Glute Bridge', sets: '3', duration: '10 (2s hold)', rest: '30s', notes: 'Posterior tilt'},
-        {name: 'Pallof Press', sets: '3', duration: '10/side', rest: '30s', notes: 'Resist rotation'}
       ],
       'prehab_fix': [
         {name: 'Halo', sets: '1', duration: '8 to 10', rest: '0s', notes: 'Hold plate, circle around head to warm up rotator cuff.'},
@@ -543,69 +506,5 @@ const WORKOUT_PROGRAMS = {
         "Test new movements ONE at a time during Weeks 5-6"
       ]
     }
-  }
-};
-
-// Science-Based Templates (Full Workout Programs)
-const SCIENCE_TEMPLATES = {
-  'back1': {
-    name: 'Lower Back Focus (60 min)',
-    rows: [
-      ['Barbell Back Squat', '4×6 @ RPE 8', '4 sets'],
-      ['Romanian Deadlift', '3×10 @ RPE 7', '3 sets'],
-      ['Bench Press', '4×6 @ RPE 8', '4 sets'],
-      ['Barbell Row', '4×8 @ RPE 7', '4 sets'],
-      ['Overhead Press', '3×8 @ RPE 7', '3 sets'],
-      ['Lat Pulldown', '3×10 @ RPE 7', '3 sets'],
-      ['Accessories (user-selected)', 'Per config', '2-3 sets each']
-    ]
-  },
-  'upper1': {
-    name: 'Upper Body Emphasis (50 min)',
-    rows: [
-      ['Bench Press', '5×5 @ RPE 8', '5 sets'],
-      ['Weighted Pull-Ups', '4×6 @ RPE 8', '4 sets'],
-      ['Overhead Press', '4×6 @ RPE 7', '4 sets'],
-      ['Barbell Row', '4×8 @ RPE 7', '4 sets'],
-      ['Dips', '3×8-12 @ RPE 7', '3 sets'],
-      ['Face Pulls', '3×15 @ RPE 6', '3 sets'],
-      ['Accessories (user-selected)', 'Per config', '2-3 sets each']
-    ]
-  },
-  'powerbuilding': {
-    name: 'Powerbuilding Split (70 min)',
-    rows: [
-      ['Squat or Deadlift (alternate)', '5×3 @ RPE 9', '5 sets'],
-      ['Bench Press', '5×5 @ RPE 8', '5 sets'],
-      ['Barbell Row', '4×6 @ RPE 8', '4 sets'],
-      ['Romanian Deadlift', '3×8 @ RPE 7', '3 sets'],
-      ['Overhead Press', '3×8 @ RPE 7', '3 sets'],
-      ['Weighted Pull-Ups', '3×6-8 @ RPE 8', '3 sets'],
-      ['Accessories (user-selected)', 'Per config', '3-4 sets each']
-    ]
-  }
-};
-
-// 5/3/1 BBB Data Structure
-const BBB531_DATA = {
-  name: "5/3/1 Boring But Big",
-  description: "Classic Wendler 5/3/1 with Boring But Big assistance work. Enter your Training Maxes (~90% of 1RM), select week and BBB percentage.",
-  weekSchemes: {
-    '1': { label: 'Week 1 — 65/75/85 × 5+', percentages: [0.65, 0.75, 0.85], reps: [5, 5, '5+'] },
-    '2': { label: 'Week 2 — 70/80/90 × 3+', percentages: [0.70, 0.80, 0.90], reps: [5, 5, '3+'] },
-    '3': { label: 'Week 3 — 75/85/95 × 1+', percentages: [0.75, 0.85, 0.95], reps: [5, 5, '1+'] },
-    '4': { label: 'Week 4 — Deload 40/50/60 × 5', percentages: [0.40, 0.50, 0.60], reps: [5, 5, 5] }
-  },
-  days: [
-    { name: 'Day 1', lift: 'Overhead Press', key: 'ohp' },
-    { name: 'Day 2', lift: 'Deadlift', key: 'dead' },
-    { name: 'Day 3', lift: 'Bench Press', key: 'bench' },
-    { name: 'Day 4', lift: 'Squat', key: 'squat' }
-  ],
-  accessoryOptions: {
-    ohp: ['Dips', 'Lateral Raises', 'Face Pulls', 'Triceps Pushdowns', 'Incline DB Press', 'Push-ups'],
-    dead: ['Back Extensions', 'Hanging Leg Raises', 'Hamstring Curls', 'Barbell Rows', 'Pull-ups', 'Reverse Hypers'],
-    bench: ['DB Incline Press', 'Triceps Pushdowns', 'Chest Flyes', 'Push-ups', 'CGBP', 'Face Pulls'],
-    squat: ['Leg Press', 'Walking Lunges', 'Bulgarian Split Squats', 'Leg Extensions', 'Hack Squat', 'Calf Raises']
   }
 };

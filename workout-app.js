@@ -151,27 +151,6 @@
 
   // Update workout selector based on program
   function updateWorkoutSelector(program) {
-    // Handle science-based templates
-    if (program === 'science') {
-      workoutSelect.innerHTML = '';
-      Object.keys(SCIENCE_TEMPLATES).forEach(key => {
-        const option = document.createElement('option');
-        option.value = key;
-        option.textContent = SCIENCE_TEMPLATES[key].name;
-        workoutSelect.appendChild(option);
-      });
-      currentWorkout = Object.keys(SCIENCE_TEMPLATES)[0];
-      workoutLabel.textContent = 'Template';
-      return;
-    }
-    
-    // BBB doesn't use workout selector (hidden in renderWorkout)
-    if (program === 'bbb531') {
-      currentWorkout = '';
-      return;
-    }
-    
-    // Standard programs (PHLUL, Convict, Mobility, Rehab8Week)
     const programData = WORKOUT_PROGRAMS[program];
     workoutSelect.innerHTML = '';
     Object.keys(programData.workouts).forEach(key => {
@@ -197,11 +176,6 @@
 
   // Update info section
   function updateInfoSection() {
-    // Science and BBB handle their own info display
-    if (currentProgram === 'science' || currentProgram === 'bbb531') {
-      return;
-    }
-    
     const programData = WORKOUT_PROGRAMS[currentProgram];
     const info = programData.info;
     
@@ -532,138 +506,10 @@
     attachInputListeners();
   }
 
-  // Render Science-Based workout
-  function renderScienceBasedWorkout(templateKey) {
-    const template = SCIENCE_TEMPLATES[templateKey];
-    
-    progressionNotesDiv.innerHTML = `<h4>Science-Based Full Workout</h4><p>Evidence-based training templates optimized for strength and hypertrophy. Select accessories in config below.</p>`;
-
-    let html = `<h2 style="margin:0 0 16px">${template.name}</h2>`;
-    html += '<table><thead><tr><th>Exercise</th><th>Target Reps/Duration</th><th>Sets</th></tr></thead><tbody>';
-    template.rows.forEach(([ex, duration, sets]) => {
-      html += `<tr><td>${ex}</td><td>${duration}</td><td>${sets}</td></tr>`;
-    });
-    html += '</tbody></table>';
-    html += '<p class="muted" style="margin-top:16px">RPE = Rate of Perceived Exertion (6-10 scale). Accessories can be customized based on your goals.</p>';
-
-    workoutDisplay.innerHTML = html;
-  }
-
-  // Render BBB 5/3/1 workout
-  function renderBBB531Workout() {
-    const bbbData = BBB531_DATA;
-    
-    // Get or initialize state
-    if (!userData.bbb531State) {
-      userData.bbb531State = {
-        tm: { squat: 315, bench: 225, dead: 405, ohp: 135 },
-        week: '1',
-        bbbpct: 0.6,
-        round: 5
-      };
-      saveData(userData);
-    }
-    const state = userData.bbb531State;
-    
-    progressionNotesDiv.innerHTML = `<h4>5/3/1 Boring But Big</h4><p>${bbbData.description}</p>`;
-
-    let html = '<h2 style="margin:0 0 16px">Configuration</h2>';
-    
-    // TM Inputs
-    html += '<div class="grid-4">';
-    const lifts = [
-      {label: 'Squat TM (lb)', key: 'squat'},
-      {label: 'Bench TM (lb)', key: 'bench'},
-      {label: 'Deadlift TM (lb)', key: 'dead'},
-      {label: 'OHP TM (lb)', key: 'ohp'}
-    ];
-    lifts.forEach(lift => {
-      html += `<div>
-        <label>${lift.label}</label>
-        <input type="number" min="0" step="5" value="${state.tm[lift.key]}" 
-          onchange="updateBBBState('tm', '${lift.key}', +this.value)">
-      </div>`;
-    });
-    html += '</div>';
-    
-    // Week & BBB% & Round
-    html += '<div class="grid" style="margin-top:12px">';
-    html += '<div><label>Week</label><select onchange="updateBBBState(\'week\', null, this.value)">';
-    Object.entries(bbbData.weekSchemes).forEach(([key, scheme]) => {
-      html += `<option value="${key}" ${state.week === key ? 'selected' : ''}>${scheme.label}</option>`;
-    });
-    html += '</select></div>';
-    
-    html += '<div><label>BBB % of TM (5×10)</label><select onchange="updateBBBState(\'bbbpct\', null, +this.value)">';
-    [[0.5, '50%'], [0.6, '60%'], [0.7, '70%']].forEach(([val, txt]) => {
-      html += `<option value="${val}" ${state.bbbpct === val ? 'selected' : ''}>${txt}</option>`;
-    });
-    html += '</select></div>';
-    html += '</div>';
-    
-    html += '<div style="margin-top:12px;max-width:240px"><label>Round to nearest</label><select onchange="updateBBBState(\'round\', null, +this.value)">';
-    [[1, '1 lb'], [2.5, '2.5 lb'], [5, '5 lb'], [10, '10 lb']].forEach(([val, txt]) => {
-      html += `<option value="${val}" ${state.round === val ? 'selected' : ''}>${txt}</option>`;
-    });
-    html += '</select></div>';
-    
-    // Calculate weights
-    const scheme = bbbData.weekSchemes[state.week];
-    html += '<h2 style="margin:24px 0 16px">Program Output</h2>';
-    html += '<table><thead><tr><th>Day</th><th>Lift</th><th>Set 1</th><th>Set 2</th><th>Set 3 (AMRAP)</th><th>BBB 5×10</th></tr></thead><tbody>';
-    
-    bbbData.days.forEach(day => {
-      const tm = state.tm[day.key];
-      const roundTo = (x, base) => Math.round(x / base) * base;
-      const fmt = (w) => ((w > 0 ? w : 0).toFixed(0)) + " lb";
-      
-      const s1 = roundTo(tm * scheme.percentages[0], state.round);
-      const s2 = roundTo(tm * scheme.percentages[1], state.round);
-      const s3 = roundTo(tm * scheme.percentages[2], state.round);
-      const bbb = roundTo(tm * state.bbbpct, state.round);
-      
-      html += `<tr>
-        <td>${day.name}</td>
-        <td>${day.lift}</td>
-        <td>${fmt(s1)} × ${scheme.reps[0]}</td>
-        <td>${fmt(s2)} × ${scheme.reps[1]}</td>
-        <td>${fmt(s3)} × ${scheme.reps[2]}</td>
-        <td>${fmt(bbb)} × 10 (5 sets)</td>
-      </tr>`;
-    });
-    html += '</tbody></table>';
-    html += '<p class="muted" style="margin-top:16px">Main sets follow classic 5/3/1. BBB is 5×10 at the chosen percentage. Add 2-3 accessories per day as needed.</p>';
-
-    workoutDisplay.innerHTML = html;
-  }
-
-  // BBB state updater
-  window.updateBBBState = function(field, subfield, value) {
-    if (!userData.bbb531State) {
-      userData.bbb531State = { tm: {}, week: '1', bbbpct: 0.6, round: 5 };
-    }
-    
-    if (subfield) {
-      userData.bbb531State[field][subfield] = value;
-    } else {
-      userData.bbb531State[field] = value;
-    }
-    saveData(userData);
-    renderBBB531Workout();
-  };
-
   // Main render function
   function renderWorkout() {
-    programBadge.textContent = WORKOUT_PROGRAMS[currentProgram]?.name || BBB531_DATA.name || 'Science-Based';
-    
-    // Show/hide workout selector based on program type
-    const workoutSelector = document.getElementById('workout-selector-container');
-    if (currentProgram === 'science' || currentProgram === 'bbb531') {
-      workoutSelector.style.display = 'none';
-    } else {
-      workoutSelector.style.display = 'flex';
-      updateInfoSection();
-    }
+    programBadge.textContent = WORKOUT_PROGRAMS[currentProgram].name;
+    updateInfoSection();
     
     if (currentProgram === 'phlul') {
       renderPHLULWorkout(currentWorkout);
@@ -673,11 +519,6 @@
       renderMobilityWorkout(currentWorkout);
     } else if (currentProgram === 'rehab_8week') {
       renderRehab8WeekWorkout(currentWorkout);
-    } else if (currentProgram === 'science') {
-      const templateKey = currentWorkout || 'back1';
-      renderScienceBasedWorkout(templateKey);
-    } else if (currentProgram === 'bbb531') {
-      renderBBB531Workout();
     }
   }
 
