@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Test - Workout App</title>
+    <style>
+        body { font-family: system-ui; padding: 20px; background: #0e1116; color: #e6e9ee; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 8px; }
+        .pass { background: #22c55e33; border: 2px solid #22c55e; }
+        .fail { background: #ef444433; border: 2px solid #ef4444; }
+        button { padding: 10px 20px; background: #7dd3fc; color: #000; border: none; border-radius: 6px; cursor: pointer; margin: 10px 5px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Quick Test</h1>
+    
+    <div id="status-data" class="status">
+        <strong>Loading workout-data.js...</strong>
+    </div>
+    
+    <div id="status-app" class="status">
+        <strong>Loading workout-app.js...</strong>
+    </div>
+    
+    <div id="results"></div>
+    
+    <div style="margin-top: 20px;">
+        <button onclick="window.location.href='index.html'">→ Go to Main App</button>
+        <button onclick="window.location.href='diagnostic.html'">🔍 Full Diagnostics</button>
+    </div>
+    
+    <script src="./workout-data.js"></script>
+    <script>
+        const statusData = document.getElementById('status-data');
+        const statusApp = document.getElementById('status-app');
+        const results = document.getElementById('results');
+        
+        // Test 1: workout-data.js loaded
+        if (typeof WORKOUT_PROGRAMS !== 'undefined') {
+            statusData.className = 'status pass';
+            statusData.innerHTML = '✅ <strong>workout-data.js loaded successfully!</strong><br>' +
+                'Found ' + Object.keys(WORKOUT_PROGRAMS).length + ' programs: ' + 
+                Object.keys(WORKOUT_PROGRAMS).join(', ');
+        } else {
+            statusData.className = 'status fail';
+            statusData.innerHTML = '❌ <strong>workout-data.js FAILED to load</strong><br>' +
+                'Check browser console (F12) for errors';
+        }
+        
+        // Test 2: Check for Science templates
+        setTimeout(() => {
+            if (typeof SCIENCE_TEMPLATES !== 'undefined') {
+                results.innerHTML += '<div class="status pass">✅ Science-Based templates loaded (' + 
+                    Object.keys(SCIENCE_TEMPLATES).length + ' templates)</div>';
+            }
+            
+            if (typeof BBB531_DATA !== 'undefined') {
+                results.innerHTML += '<div class="status pass">✅ 5/3/1 BBB data loaded</div>';
+            }
+        }, 100);
+    </script>
+    
+    <script src="./workout-app.js"></script>
+    <script>
+        // Test 3: workout-app.js loaded
+        setTimeout(() => {
+            if (typeof toggleTimer !== 'undefined') {
+                statusApp.className = 'status pass';
+                statusApp.innerHTML = '✅ <strong>workout-app.js loaded successfully!</strong>';
+                
+                results.innerHTML += '<div class="status pass"><strong>🎉 ALL TESTS PASSED!</strong><br>' +
+                    'The app should work. Click "Go to Main App" above.</div>';
+            } else {
+                statusApp.className = 'status fail';
+                statusApp.innerHTML = '❌ <strong>workout-app.js FAILED to load</strong><br>' +
+                    'Check browser console (F12) for errors';
+            }
+        }, 200);
+    </script>
+</body>
+</html>

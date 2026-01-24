@@ -369,7 +369,7 @@ const WORKOUT_PROGRAMS = {
         {name: 'Band-Assisted Squat', sets: '3 to 4', duration: '8 to 12', rest: '60s', notes: 'Pull bands down to engage hip flexors, push butt back.'},
         {name: 'Wall Rotator Cuff Activation', sets: '3 to 4', duration: '5 to 6', rest: '30s', notes: 'Back against wall, keep fingers and elbows on wall, externally rotate arms.'},
         {name: 'Janda Sit Up', sets: '3 to 4', duration: '10 to 12', rest: '30-60s', notes: 'Anchor band, contract glutes/hamstrings to turn off hip flexors.'},
-        {name: 'Gymnast Abs', sets: '3 to 4', duration: '10 to 12', rest: '30-60s', notes: 'In Captain\\'s Chair, posterior pelvic tilt, lift tailbone.'},
+        {name: 'Gymnast Abs', sets: '3 to 4', duration: '10 to 12', rest: '30-60s', notes: "In Captain's Chair, posterior pelvic tilt, lift tailbone."},
         {name: 'Pallof Press', sets: '3 to 4', duration: '10-12 per side', rest: '30-60s', notes: 'Stand on one leg, press band overhead, stabilize core.'},
         {name: 'Sledge Hammer Swings', sets: '3 to 4', duration: '30s', rest: '30-60s', notes: 'Twist torso against band resistance, feet planted.'},
         {name: 'Jump Out (Band)', sets: '3 to 4', duration: '8-10', rest: '30-60s', notes: 'Jump out, resist band pull, focus on anti-rotation.'},
@@ -541,16 +541,6 @@ const WORKOUT_PROGRAMS = {
         "Loads shown are examples based on 165 lb bodyweight - adjust for your BW",
         "Maintain 70-80% of Convict Conditioning targets for calisthenics",
         "Test new movements ONE at a time during Weeks 5-6"
-      ]
-    }
-  }
-      schedule: "Can be performed daily or as needed. Dynamic Performance before workouts, Pain Relief as needed, General Mobility 3-4x/week, Strength & Stability on training days.",
-      notes: [
-        "Perform tissue work with moderate pressure - discomfort is OK, sharp pain is not",
-        "Spend extra time on areas that feel restricted or tight",
-        "Combine mobilizations with active movement for best results",
-        "Use tools: lacrosse balls, VooDoo bands, foam rollers, resistance bands",
-        "2-3 minutes per area is typically sufficient for tissue work"
       ]
     }
   }
