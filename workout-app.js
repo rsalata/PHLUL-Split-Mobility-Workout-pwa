@@ -4,12 +4,20 @@ let currentProgram = 'phlul';
 let currentSession = 'day1';
 
 // Initialize app
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
+  console.log('Initializing app...');
   loadSelections();
   setupEventListeners();
   updateSessionDropdown();
   renderWorkout();
-});
+}
+
+// Run init when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
 
 function setupEventListeners() {
   document.getElementById('program-select').addEventListener('change', (e) => {
@@ -78,15 +86,16 @@ function updateSessionDropdown() {
 
 function updateProgramInfo() {
   const program = WORKOUT_PROGRAMS[currentProgram];
+  console.log('Updating program info for:', currentProgram, program);
+  
   document.getElementById('program-badge').textContent = program.name;
   
-  const infoCard = document.getElementById('program-info-card');
   const title = document.getElementById('program-title');
   const description = document.getElementById('program-description');
   const scheduleDiv = document.getElementById('schedule-info');
   
-  title.textContent = program.info ? program.info.title : program.name;
-  description.textContent = program.info ? program.info.description : program.description;
+  title.textContent = (program.info && program.info.title) ? program.info.title : program.name;
+  description.textContent = (program.info && program.info.description) ? program.info.description : program.description;
   
   if (program.schedule) {
     scheduleDiv.innerHTML = `<h4>${program.schedule.title}</h4><p>${program.schedule.text}</p>`;
@@ -97,24 +106,36 @@ function updateProgramInfo() {
 }
 
 function renderWorkout() {
+  console.log('Rendering workout:', currentProgram, currentSession);
   const display = document.getElementById('workout-display');
   updateProgramInfo();
   
-  if (currentProgram === 'phlul') {
-    renderPHLUL();
-  } else if (currentProgram === 'convict') {
-    renderConvict();
-  } else if (currentProgram === 'mobility') {
-    renderMobility();
-  } else if (currentProgram === 'five31') {
-    renderTextProgram('five31');
-  } else if (currentProgram === 'rehab') {
-    renderTextProgram('rehab');
+  try {
+    if (currentProgram === 'phlul') {
+      renderPHLUL();
+    } else if (currentProgram === 'convict') {
+      renderConvict();
+    } else if (currentProgram === 'mobility') {
+      renderMobility();
+    } else if (currentProgram === 'five31') {
+      renderTextProgram('five31');
+    } else if (currentProgram === 'rehab') {
+      renderTextProgram('rehab');
+    }
+  } catch (e) {
+    console.error('Error rendering workout:', e);
+    display.innerHTML = `<div style="color:var(--bad)">Error loading workout: ${e.message}</div>`;
   }
 }
 
 function renderPHLUL() {
   const day = WORKOUT_PROGRAMS.phlul.days[currentSession];
+  if (!day) {
+    console.error('Day not found:', currentSession);
+    document.getElementById('workout-display').innerHTML = `<div style="color:var(--bad)">Error: Day ${currentSession} not found</div>`;
+    return;
+  }
+  
   const sessionKey = `${currentProgram}_${currentSession}`;
   const sessionData = loadSessionData(sessionKey);
   
@@ -135,7 +156,7 @@ function renderPHLUL() {
   });
   html += '</tbody></table></div>';
   
-  // Rehab section if exists
+  // Rehab section if exists and has content
   if (day.rehab && day.rehab.length > 0) {
     const startIdx = day.main.length;
     html += '<div class="section-title" onclick="toggleSection(this)">Rotator Cuff Rehab <span class="arrow">▼</span></div>';
@@ -302,6 +323,8 @@ function loadSelections() {
   const savedProgram = localStorage.getItem('currentProgram');
   const savedSession = localStorage.getItem('currentSession');
   
+  console.log('Loading selections:', savedProgram, savedSession);
+  
   if (savedProgram && WORKOUT_PROGRAMS[savedProgram]) {
     currentProgram = savedProgram;
     document.getElementById('program-select').value = currentProgram;
@@ -310,6 +333,8 @@ function loadSelections() {
   if (savedSession) {
     currentSession = savedSession;
   }
+  
+  console.log('Current program:', currentProgram, 'Current session:', currentSession);
 }
 
 // Data management functions

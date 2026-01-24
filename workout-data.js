@@ -277,6 +277,10 @@ const WORKOUT_PROGRAMS = {
             ]
       }
 },
+    info: {
+      title: "PHLUL Split",
+      description: "Power/Hypertrophy Upper/Lower 4-day split focusing on strength and muscle growth. Includes core work on all days."
+    },
     schedule: {
       title: "Training Schedule",
       text: "Monday: Day 1 (Upper Power) | Tuesday: Day 2 (Lower Power) | Wednesday: Rest | Thursday: Day 4 (Upper Hyp) | Friday: Day 5 (Lower Hyp) | Weekend: Rest"

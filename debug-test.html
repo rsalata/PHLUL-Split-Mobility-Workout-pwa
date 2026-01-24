@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Test Workout App</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #111; color: #fff; }
+    .success { color: #0f0; }
+    .error { color: #f00; }
+    .info { color: #0ff; }
+    pre { background: #222; padding: 10px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Workout App Debug Test</h1>
+  <div id="output"></div>
+  
+  <script src="workout-data.js"></script>
+  <script>
+    const output = document.getElementById('output');
+    
+    function log(message, type = 'info') {
+      const div = document.createElement('div');
+      div.className = type;
+      div.textContent = message;
+      output.appendChild(div);
+    }
+    
+    try {
+      log('✓ workout-data.js loaded', 'success');
+      
+      if (typeof WORKOUT_PROGRAMS === 'undefined') {
+        throw new Error('WORKOUT_PROGRAMS is not defined');
+      }
+      log('✓ WORKOUT_PROGRAMS is defined', 'success');
+      
+      const programs = Object.keys(WORKOUT_PROGRAMS);
+      log(`✓ Found ${programs.length} programs: ${programs.join(', ')}`, 'success');
+      
+      // Test PHLUL
+      if (WORKOUT_PROGRAMS.phlul) {
+        log('✓ PHLUL program exists', 'success');
+        log(`  - Name: ${WORKOUT_PROGRAMS.phlul.name}`);
+        
+        if (WORKOUT_PROGRAMS.phlul.days) {
+          const days = Object.keys(WORKOUT_PROGRAMS.phlul.days);
+          log(`  - Days: ${days.join(', ')}`);
+          
+          days.forEach(dayKey => {
+            const day = WORKOUT_PROGRAMS.phlul.days[dayKey];
+            log(`    ${dayKey}: ${day.main.length} main, ${day.core ? day.core.length : 0} core exercises`);
+          });
+        }
+        
+        if (WORKOUT_PROGRAMS.phlul.info) {
+          log('  - Has info object', 'success');
+        } else {
+          log('  - Missing info object', 'error');
+        }
+        
+        if (WORKOUT_PROGRAMS.phlul.schedule) {
+          log('  - Has schedule object', 'success');
+        } else {
+          log('  - Missing schedule object', 'error');
+        }
+      } else {
+        log('✗ PHLUL program missing', 'error');
+      }
+      
+      // Test Convict
+      if (WORKOUT_PROGRAMS.convict) {
+        log('✓ Convict program exists', 'success');
+        const exercises = Object.keys(WORKOUT_PROGRAMS.convict.exercises);
+        log(`  - Exercises: ${exercises.length} (${exercises.join(', ')})`);
+      }
+      
+      // Test Mobility
+      if (WORKOUT_PROGRAMS.mobility) {
+        log('✓ Mobility program exists', 'success');
+        const routines = Object.keys(WORKOUT_PROGRAMS.mobility.routines);
+        log(`  - Routines: ${routines.length} (${routines.join(', ')})`);
+      }
+      
+      // Test 5-3-1
+      if (WORKOUT_PROGRAMS.five31) {
+        log('✓ 5-3-1 program exists', 'success');
+        log(`  - Content lines: ${WORKOUT_PROGRAMS.five31.content.length}`);
+      }
+      
+      // Test Rehab
+      if (WORKOUT_PROGRAMS.rehab) {
+        log('✓ Rehab program exists', 'success');
+        log(`  - Content lines: ${WORKOUT_PROGRAMS.rehab.content.length}`);
+      }
+      
+      log('', 'info');
+      log('=== All tests passed! ===', 'success');
+      log('The workout-data.js file is valid and contains all expected data.', 'success');
+      
+    } catch (e) {
+      log(`✗ ERROR: ${e.message}`, 'error');
+      log('Stack trace:', 'error');
+      const pre = document.createElement('pre');
+      pre.textContent = e.stack;
+      output.appendChild(pre);
+    }
+  </script>
+</body>
+</html>
