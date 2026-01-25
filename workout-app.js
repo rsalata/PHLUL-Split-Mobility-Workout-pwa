@@ -1,535 +1,367 @@
+// Workout App Logic
 
-(function(){
-  const STORAGE_KEY = 'workout_programs_data_v1';
-  const SESSION_KEY = 'workout_programs_session_v1';
+let currentProgram = 'phlul';
+let currentSession = 'day1';
+
+// Initialize app
+document.addEventListener('DOMContentLoaded', () => {
+  loadSelections();
+  setupEventListeners();
+  updateSessionDropdown();
+  renderWorkout();
+});
+
+function setupEventListeners() {
+  document.getElementById('program-select').addEventListener('change', (e) => {
+    currentProgram = e.target.value;
+    saveSelections();
+    updateSessionDropdown();
+    updateProgramInfo();
+    renderWorkout();
+  });
+
+  document.getElementById('session-select').addEventListener('change', (e) => {
+    currentSession = e.target.value;
+    saveSelections();
+    renderWorkout();
+  });
+}
+
+function updateSessionDropdown() {
+  const select = document.getElementById('session-select');
+  const label = document.getElementById('session-label');
+  select.innerHTML = '';
+
+  const program = WORKOUT_PROGRAMS[currentProgram];
   
-  let currentProgram = 'phlul';
-  let currentWorkout = '1-4';
-  let timerIntervals = {};
-  let userData = {};
-  let sessionData = {};
-
-  // DOM elements
-  const programSelect = document.getElementById('program-select');
-  const workoutSelect = document.getElementById('workout-select');
-  const programBadge = document.getElementById('program-badge');
-  const workoutLabel = document.getElementById('workout-label');
-  const workoutDisplay = document.getElementById('workout-display');
-  const progressionNotesDiv = document.getElementById('progression-notes');
-  const programTitle = document.getElementById('program-title');
-  const programDescription = document.getElementById('program-description');
-  const scheduleText = document.getElementById('schedule-text');
-  const generalNotes = document.getElementById('general-notes');
-
-  // Load/Save functions
-  function loadData() {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? JSON.parse(saved) : {};
-    } catch (e) {
-      return {};
-    }
-  }
-
-  function saveData(data) {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch (e) {
-      console.error('Failed to save data:', e);
-    }
-  }
-
-  function loadSessionData() {
-    try {
-      const saved = localStorage.getItem(SESSION_KEY);
-      return saved ? JSON.parse(saved) : {};
-    } catch (e) {
-      return {};
-    }
-  }
-
-  function saveSessionData(data) {
-    try {
-      localStorage.setItem(SESSION_KEY, JSON.stringify(data));
-    } catch (e) {
-      console.error('Failed to save session data:', e);
-    }
-  }
-
-  userData = loadData();
-  sessionData = loadSessionData();
-
-  // Helper functions
-  function getExerciseId(program, workout, dayKey, section, index) {
-    return `${program}_${workout}_${dayKey}_${section}_${index}`;
-  }
-
-  function getUserExerciseData(id) {
-    return userData[id] || { weight: '', sets: '', reps: '', notes: '' };
-  }
-
-  function updateUserExerciseData(id, field, value) {
-    if (!userData[id]) {
-      userData[id] = { weight: '', sets: '', reps: '', notes: '' };
-    }
-    userData[id][field] = value;
-    saveData(userData);
-  }
-
-  function getSessionId(program, dayKey) {
-    return `${program}_${dayKey}`;
-  }
-
-  function formatTime(seconds) {
-    const h = Math.floor(seconds / 3600);
-    const m = Math.floor((seconds % 3600) / 60);
-    const s = seconds % 60;
-    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-  }
-
-  // Timer functions
-  window.toggleTimer = function(sessionId) {
-    if (!sessionData[sessionId]) {
-      sessionData[sessionId] = { date: new Date().toISOString(), elapsed: 0, running: false };
-    }
-    
-    const session = sessionData[sessionId];
-    session.running = !session.running;
-    session.date = new Date().toISOString();
-    
-    if (session.running) {
-      session.startTime = Date.now() - (session.elapsed * 1000);
-      timerIntervals[sessionId] = setInterval(() => {
-        session.elapsed = Math.floor((Date.now() - session.startTime) / 1000);
-        updateTimerDisplay(sessionId);
-        saveSessionData(sessionData);
-      }, 1000);
-    } else {
-      clearInterval(timerIntervals[sessionId]);
-    }
-    
-    updateTimerDisplay(sessionId);
-    saveSessionData(sessionData);
-  };
-
-  window.resetTimer = function(sessionId) {
-    clearInterval(timerIntervals[sessionId]);
-    sessionData[sessionId] = { date: new Date().toISOString(), elapsed: 0, running: false };
-    updateTimerDisplay(sessionId);
-    saveSessionData(sessionData);
-  };
-
-  function updateTimerDisplay(sessionId) {
-    const timerEl = document.getElementById(`timer-${sessionId}`);
-    const btnEl = document.getElementById(`timer-btn-${sessionId}`);
-    if (timerEl && sessionData[sessionId]) {
-      timerEl.textContent = formatTime(sessionData[sessionId].elapsed);
-      if (btnEl) {
-        btnEl.textContent = sessionData[sessionId].running ? 'Pause' : 'Start';
-        btnEl.classList.toggle('active', sessionData[sessionId].running);
-      }
-    }
-  }
-
-  // Collapsible sections
-  window.toggleCollapse = function(sectionId) {
-    const content = document.getElementById(sectionId);
-    const header = document.querySelector(`[data-section="${sectionId}"]`);
-    if (content && header) {
-      const isCollapsed = content.classList.contains('collapsed');
-      if (isCollapsed) {
-        content.style.maxHeight = content.scrollHeight + 'px';
-        content.classList.remove('collapsed');
-        header.classList.remove('collapsed');
-      } else {
-        content.style.maxHeight = '0';
-        content.classList.add('collapsed');
-        header.classList.add('collapsed');
-      }
-    }
-  };
-
-  // Update workout selector based on program
-  function updateWorkoutSelector(program) {
-    const programData = WORKOUT_PROGRAMS[program];
-    workoutSelect.innerHTML = '';
-    Object.keys(programData.workouts).forEach(key => {
+  if (currentProgram === 'phlul') {
+    label.textContent = 'Day';
+    Object.keys(program.days).forEach(key => {
       const option = document.createElement('option');
       option.value = key;
-      option.textContent = programData.workouts[key].label;
-      workoutSelect.appendChild(option);
+      option.textContent = program.days[key].name;
+      select.appendChild(option);
     });
-    workoutSelect.value = Object.keys(programData.workouts)[0];
-    currentWorkout = workoutSelect.value;
+    currentSession = currentSession in program.days ? currentSession : 'day1';
     
-    // Update label based on program type
-    if (program === 'convict') {
-      workoutLabel.textContent = 'Progression';
-    } else if (program === 'mobility') {
-      workoutLabel.textContent = 'Routine';
-    } else {
-      workoutLabel.textContent = 'Week Range';
-    }
-  }
-
-  // Update info section
-  function updateInfoSection() {
-    const programData = WORKOUT_PROGRAMS[currentProgram];
-    const info = programData.info;
-    
-    programTitle.textContent = info.title;
-    programDescription.textContent = info.description;
-    scheduleText.innerHTML = info.schedule;
-    
-    generalNotes.innerHTML = info.notes.map(note => `<li>${note}</li>`).join('');
-  }
-
-  // Attach input listeners
-  function attachInputListeners() {
-    workoutDisplay.querySelectorAll('input').forEach(input => {
-      input.addEventListener('input', (e) => {
-        const id = e.target.dataset.id;
-        const field = e.target.dataset.field;
-        updateUserExerciseData(id, field, e.target.value);
-      });
+  } else if (currentProgram === 'convict') {
+    label.textContent = 'Exercise';
+    Object.keys(program.exercises).forEach(key => {
+      const option = document.createElement('option');
+      option.value = key;
+      option.textContent = key;
+      select.appendChild(option);
     });
-  }
-
-  // Render PHLUL workout
-  function renderPHLULWorkout(workout) {
-    const programData = WORKOUT_PROGRAMS.phlul;
-    const workoutInfo = programData.workouts[workout];
+    currentSession = currentSession in program.exercises ? currentSession : 'Push-ups';
     
-    progressionNotesDiv.innerHTML = `<h4>${workoutInfo.label}</h4><p>${workoutInfo.description}</p>`;
-
-    let html = '<h2 style="margin:0 0 16px">Weekly Training Split</h2>';
-
-    Object.keys(programData.days).forEach(dayKey => {
-      const day = programData.days[dayKey];
-      const sessionId = getSessionId('phlul', dayKey);
-      const session = sessionData[sessionId] || { date: new Date().toISOString(), elapsed: 0, running: false };
-      const sessionDate = new Date(session.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      
-      html += `<div class="day-title">
-        <span>${day.name}</span>
-        <div class="session-info">
-          <span>Last: ${sessionDate}</span>
-          <span class="timer" id="timer-${sessionId}">${formatTime(session.elapsed)}</span>
-          <button class="timer-btn ${session.running ? 'active' : ''}" id="timer-btn-${sessionId}" onclick="toggleTimer('${sessionId}')">
-            ${session.running ? 'Pause' : 'Start'}
-          </button>
-          <button class="timer-btn" onclick="resetTimer('${sessionId}')">Reset</button>
-        </div>
-      </div>`;
-      
-      html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Weight (lb)</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
-      day.exercises.forEach((ex, idx) => {
-        const id = getExerciseId('phlul', workout, dayKey, 'exercises', idx);
-        const saved = getUserExerciseData(id);
-        html += `<tr>
-          <td>${ex.name}</td>
-          <td class="input-cell"><input type="number" placeholder="0" value="${saved.weight}" data-id="${id}" data-field="weight" min="0" step="5"></td>
-          <td class="input-cell"><input type="number" placeholder="${ex.sets}" value="${saved.sets}" data-id="${id}" data-field="sets" min="0" step="1"></td>
-          <td class="input-cell"><input type="number" placeholder="${ex.reps}" value="${saved.reps}" data-id="${id}" data-field="reps" min="0" step="1"></td>
-          <td class="notes-cell"><input type="text" placeholder="${ex.notes || 'Notes...'}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
-        </tr>`;
-      });
-      html += '</tbody></table>';
-
-      if (day.rehab) {
-        const rehabId = `rehab-${dayKey}`;
-        html += `<div class="section-title collapsed" data-section="${rehabId}" onclick="toggleCollapse('${rehabId}')">
-          <span>Rotator Cuff Rehab Block (Warm-up or Finisher)</span>
-          <span class="arrow">▼</span>
-        </div>`;
-        html += `<div class="collapsible-content collapsed" id="${rehabId}" style="max-height: 0;">`;
-        html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Weight (lb)</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
-        day.rehab.forEach((ex, idx) => {
-          const id = getExerciseId('phlul', workout, dayKey, 'rehab', idx);
-          const saved = getUserExerciseData(id);
-          html += `<tr>
-            <td>${ex.name}</td>
-            <td class="input-cell"><input type="number" placeholder="0" value="${saved.weight}" data-id="${id}" data-field="weight" min="0" step="5"></td>
-            <td class="input-cell"><input type="number" placeholder="${ex.sets}" value="${saved.sets}" data-id="${id}" data-field="sets" min="0" step="1"></td>
-            <td class="input-cell"><input type="number" placeholder="${ex.reps}" value="${saved.reps}" data-id="${id}" data-field="reps" min="0" step="1"></td>
-            <td class="notes-cell"><input type="text" placeholder="${ex.notes || 'Notes...'}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
-          </tr>`;
-        });
-        html += '</tbody></table></div>';
-      }
-
-      const coreId = `core-${dayKey}`;
-      html += `<div class="section-title collapsed" data-section="${coreId}" onclick="toggleCollapse('${coreId}')">
-        <span>Core Circuit (3 rounds)</span>
-        <span class="arrow">▼</span>
-      </div>`;
-      html += `<div class="collapsible-content collapsed" id="${coreId}" style="max-height: 0;">`;
-      html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Weight (lb)</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
-      day.core.forEach((ex, idx) => {
-        const id = getExerciseId('phlul', workout, dayKey, 'core', idx);
-        const saved = getUserExerciseData(id);
-        html += `<tr>
-          <td>${ex.name}</td>
-          <td class="input-cell"><input type="number" placeholder="0" value="${saved.weight}" data-id="${id}" data-field="weight" min="0" step="5"></td>
-          <td class="input-cell"><input type="number" placeholder="${ex.sets}" value="${saved.sets}" data-id="${id}" data-field="sets" min="0" step="1"></td>
-          <td class="input-cell"><input type="number" placeholder="${ex.reps}" value="${saved.reps}" data-id="${id}" data-field="reps" min="0" step="1"></td>
-          <td class="notes-cell"><input type="text" placeholder="${ex.notes || 'Notes...'}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
-        </tr>`;
-      });
-      html += '</tbody></table></div>';
+  } else if (currentProgram === 'mobility') {
+    label.textContent = 'Routine';
+    Object.keys(program.routines).forEach(key => {
+      const option = document.createElement('option');
+      option.value = key;
+      option.textContent = program.routines[key].name;
+      select.appendChild(option);
     });
-
-    workoutDisplay.innerHTML = html;
-    attachInputListeners();
+    currentSession = currentSession in program.routines ? currentSession : 'dynamic';
+    
+  } else if (currentProgram === 'five31' || currentProgram === 'rehab') {
+    label.textContent = 'View';
+    const option = document.createElement('option');
+    option.value = 'full';
+    option.textContent = 'Full Program';
+    select.appendChild(option);
+    currentSession = 'full';
   }
+  
+  select.value = currentSession;
+}
 
-  // Render Convict Conditioning workout
-  function renderConvictWorkout(workout) {
-    const programData = WORKOUT_PROGRAMS.convict;
-    const workoutInfo = programData.workouts[workout];
-    const progs = programData.progressions[workout];
-    
-    progressionNotesDiv.innerHTML = `<h4>${workoutInfo.label}</h4><p>${workoutInfo.description}</p>`;
+function updateProgramInfo() {
+  const program = WORKOUT_PROGRAMS[currentProgram];
+  document.getElementById('program-badge').textContent = program.name;
+  
+  const infoCard = document.getElementById('program-info-card');
+  const title = document.getElementById('program-title');
+  const description = document.getElementById('program-description');
+  const scheduleDiv = document.getElementById('schedule-info');
+  
+  title.textContent = program.info ? program.info.title : program.name;
+  description.textContent = program.info ? program.info.description : program.description;
+  
+  if (program.schedule) {
+    scheduleDiv.innerHTML = `<h4>${program.schedule.title}</h4><p>${program.schedule.text}</p>`;
+    scheduleDiv.style.display = 'block';
+  } else {
+    scheduleDiv.style.display = 'none';
+  }
+}
 
-    let html = '<h2 style="margin:0 0 16px">The Big Six Progressions</h2>';
-    
-    // Progression table
-    html += '<div class="info-box" style="margin-bottom:24px;overflow-x:auto"><h4>Progression Standards</h4><table style="font-size:13px"><thead><tr><th>Step</th><th>Push-ups</th><th>Squats</th><th>Pull-ups</th><th>Leg Raises</th><th>Bridges</th><th>Handstand Push-ups</th></tr></thead><tbody>';
-    
-    const maxSteps = Math.max(progs.pushup.length, progs.squat.length, progs.pullup.length, progs.legRaise.length, progs.bridge.length, progs.handstand.length);
-    for (let i = 0; i < maxSteps; i++) {
-      const pushup = progs.pushup[i] || {};
-      const squat = progs.squat[i] || {};
-      const pullup = progs.pullup[i] || {};
-      const legRaise = progs.legRaise[i] || {};
-      const bridge = progs.bridge[i] || {};
-      const handstand = progs.handstand[i] || {};
-      
-      html += `<tr${pushup.master ? ' style="background:rgba(125,211,252,0.1)"' : ''}>
-        <td style="text-align:center;font-weight:600;color:var(--acc)">${pushup.step || ''}</td>
-        <td>${pushup.name ? `${pushup.name}<br><span style="color:var(--muted)">${pushup.sets}×${pushup.reps}</span>` : ''}</td>
-        <td>${squat.name ? `${squat.name}<br><span style="color:var(--muted)">${squat.sets}×${squat.reps}</span>` : ''}</td>
-        <td>${pullup.name ? `${pullup.name}<br><span style="color:var(--muted)">${pullup.sets}×${pullup.reps}</span>` : ''}</td>
-        <td>${legRaise.name ? `${legRaise.name}<br><span style="color:var(--muted)">${legRaise.sets}×${legRaise.reps}</span>` : ''}</td>
-        <td>${bridge.name ? `${bridge.name}<br><span style="color:var(--muted)">${bridge.sets}×${bridge.reps}</span>` : ''}</td>
-        <td>${handstand.name ? `${handstand.name}<br><span style="color:var(--muted)">${handstand.sets}×${handstand.reps}</span>` : ''}</td>
-      </tr>`;
-    }
-    html += '</tbody></table></div>';
+function renderWorkout() {
+  const display = document.getElementById('workout-display');
+  updateProgramInfo();
+  
+  if (currentProgram === 'phlul') {
+    renderPHLUL();
+  } else if (currentProgram === 'convict') {
+    renderConvict();
+  } else if (currentProgram === 'mobility') {
+    renderMobility();
+  } else if (currentProgram === 'five31') {
+    renderTextProgram('five31');
+  } else if (currentProgram === 'rehab') {
+    renderTextProgram('rehab');
+  }
+}
 
-    // Tracking section
-    const sessionId = getSessionId('convict', 'bigSix');
-    const session = sessionData[sessionId] || { date: new Date().toISOString(), elapsed: 0, running: false };
-    const sessionDate = new Date(session.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    
-    html += `<div class="day-title">
-      <span>Training Log</span>
-      <div class="session-info">
-        <span>Last: ${sessionDate}</span>
-        <span class="timer" id="timer-${sessionId}">${formatTime(session.elapsed)}</span>
-        <button class="timer-btn ${session.running ? 'active' : ''}" id="timer-btn-${sessionId}" onclick="toggleTimer('${sessionId}')">
-          ${session.running ? 'Pause' : 'Start'}
-        </button>
-        <button class="timer-btn" onclick="resetTimer('${sessionId}')">Reset</button>
-      </div>
-    </div>`;
-    
-    const exercises = [
-      {name: "Push-ups", key: "pushup"},
-      {name: "Squats", key: "squat"},
-      {name: "Pull-ups", key: "pullup"},
-      {name: "Leg Raises", key: "legRaise"},
-      {name: "Bridges", key: "bridge"},
-      {name: "Handstand Push-ups", key: "handstand"}
-    ];
-    
-    html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Current Step</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
-    exercises.forEach((ex, idx) => {
-      const id = getExerciseId('convict', workout, 'bigSix', 'exercises', idx);
-      const saved = getUserExerciseData(id);
+function renderPHLUL() {
+  const day = WORKOUT_PROGRAMS.phlul.days[currentSession];
+  const sessionKey = `${currentProgram}_${currentSession}`;
+  const sessionData = loadSessionData(sessionKey);
+  
+  let html = `<div class="day-title">${day.name}<div class="session-info"><span>Date: ${sessionData.date || new Date().toLocaleDateString()}</span></div></div>`;
+  
+  // Main exercises
+  html += '<div class="table-wrapper">';
+  html += '<table><thead><tr><th>Exercise</th><th>Weight</th><th>Sets</th><th>Reps</th><th>Notes</th></tr></thead><tbody>';
+  day.main.forEach((ex, idx) => {
+    const saved = sessionData.exercises[idx] || {};
+    html += `<tr>
+      <td>${ex.name}</td>
+      <td class="input-cell"><input type="number" placeholder="${ex.sets}" data-idx="${idx}" data-field="weight" value="${saved.weight || ''}" /></td>
+      <td class="input-cell"><input type="number" placeholder="${ex.sets}" data-idx="${idx}" data-field="sets" value="${saved.sets || ''}" /></td>
+      <td class="input-cell"><input type="number" placeholder="${ex.reps}" data-idx="${idx}" data-field="reps" value="${saved.reps || ''}" /></td>
+      <td class="notes-cell"><input type="text" placeholder="${ex.notes}" data-idx="${idx}" data-field="notes" value="${saved.notes || ''}" /></td>
+    </tr>`;
+  });
+  html += '</tbody></table></div>';
+  
+  // Rehab section if exists
+  if (day.rehab && day.rehab.length > 0) {
+    const startIdx = day.main.length;
+    html += '<div class="section-title" onclick="toggleSection(this)">Rotator Cuff Rehab <span class="arrow">▼</span></div>';
+    html += '<div class="collapsible-content"><div class="table-wrapper">';
+    html += '<table><thead><tr><th>Exercise</th><th>Weight</th><th>Sets</th><th>Reps</th><th>Notes</th></tr></thead><tbody>';
+    day.rehab.forEach((ex, idx) => {
+      const actualIdx = startIdx + idx;
+      const saved = sessionData.exercises[actualIdx] || {};
       html += `<tr>
         <td>${ex.name}</td>
-        <td class="input-cell"><input type="number" placeholder="1-10" value="${saved.weight}" data-id="${id}" data-field="weight" min="1" max="10" step="1"></td>
-        <td class="input-cell"><input type="number" placeholder="Sets" value="${saved.sets}" data-id="${id}" data-field="sets" min="0" step="1"></td>
-        <td class="input-cell"><input type="number" placeholder="Reps" value="${saved.reps}" data-id="${id}" data-field="reps" min="0" step="1"></td>
-        <td class="notes-cell"><input type="text" placeholder="Notes..." value="${saved.notes}" data-id="${id}" data-field="notes"></td>
+        <td class="input-cell"><input type="number" placeholder="${ex.sets}" data-idx="${actualIdx}" data-field="weight" value="${saved.weight || ''}" /></td>
+        <td class="input-cell"><input type="number" placeholder="${ex.sets}" data-idx="${actualIdx}" data-field="sets" value="${saved.sets || ''}" /></td>
+        <td class="input-cell"><input type="number" placeholder="${ex.reps}" data-idx="${actualIdx}" data-field="reps" value="${saved.reps || ''}" /></td>
+        <td class="notes-cell"><input type="text" placeholder="${ex.notes}" data-idx="${actualIdx}" data-field="notes" value="${saved.notes || ''}" /></td>
       </tr>`;
     });
-    html += '</tbody></table>';
-
-    workoutDisplay.innerHTML = html;
-    attachInputListeners();
+    html += '</tbody></table></div></div>';
   }
+  
+  // Core section
+  if (day.core && day.core.length > 0) {
+    const startIdx = day.main.length + (day.rehab ? day.rehab.length : 0);
+    html += '<div class="section-title" onclick="toggleSection(this)">Core Circuit <span class="arrow">▼</span></div>';
+    html += '<div class="collapsible-content"><div class="table-wrapper">';
+    html += '<table><thead><tr><th>Exercise</th><th>Weight</th><th>Sets</th><th>Reps</th><th>Notes</th></tr></thead><tbody>';
+    day.core.forEach((ex, idx) => {
+      const actualIdx = startIdx + idx;
+      const saved = sessionData.exercises[actualIdx] || {};
+      html += `<tr>
+        <td>${ex.name}</td>
+        <td class="input-cell"><input type="number" placeholder="-" data-idx="${actualIdx}" data-field="weight" value="${saved.weight || ''}" /></td>
+        <td class="input-cell"><input type="number" placeholder="${ex.sets}" data-idx="${actualIdx}" data-field="sets" value="${saved.sets || ''}" /></td>
+        <td class="input-cell"><input type="number" placeholder="${ex.reps}" data-idx="${actualIdx}" data-field="reps" value="${saved.reps || ''}" /></td>
+        <td class="notes-cell"><input type="text" placeholder="${ex.notes}" data-idx="${actualIdx}" data-field="notes" value="${saved.notes || ''}" /></td>
+      </tr>`;
+    });
+    html += '</tbody></table></div></div>';
+  }
+  
+  document.getElementById('workout-display').innerHTML = html;
+  attachInputListeners(sessionKey);
+}
 
-  // Render Mobility Routine
-  function renderMobilityWorkout(workout) {
-    const programData = WORKOUT_PROGRAMS.mobility;
-    const workoutInfo = programData.workouts[workout];
-    const exercises = programData.routines[workout];
-    
-    progressionNotesDiv.innerHTML = `<h4>${workoutInfo.label}</h4><p>${workoutInfo.description}</p>`;
+function renderConvict() {
+  const exercises = WORKOUT_PROGRAMS.convict.exercises[currentSession];
+  const sessionKey = `${currentProgram}_${currentSession}`;
+  const sessionData = loadSessionData(sessionKey);
+  
+  let html = `<div class="day-title">${currentSession} - Progressions</div>`;
+  html += '<div class="table-wrapper">';
+  html += '<table><thead><tr><th>Step</th><th>Progression</th><th>Target</th><th>Current</th><th>Notes</th></tr></thead><tbody>';
+  
+  exercises.forEach((ex, idx) => {
+    const saved = sessionData.exercises[idx] || {};
+    html += `<tr>
+      <td>Step ${ex.step}</td>
+      <td>${ex.name}</td>
+      <td>${ex.target}</td>
+      <td class="input-cell"><input type="text" placeholder="e.g. 2x15" data-idx="${idx}" data-field="current" value="${saved.current || ''}" /></td>
+      <td class="notes-cell"><input type="text" placeholder="Progress notes" data-idx="${idx}" data-field="notes" value="${saved.notes || ''}" /></td>
+    </tr>`;
+  });
+  
+  html += '</tbody></table></div>';
+  document.getElementById('workout-display').innerHTML = html;
+  attachInputListeners(sessionKey);
+}
 
-    let html = '<h2 style="margin:0 0 16px">Mobility Routine</h2>';
+function renderMobility() {
+  const routine = WORKOUT_PROGRAMS.mobility.routines[currentSession];
+  const sessionKey = `${currentProgram}_${currentSession}`;
+  const sessionData = loadSessionData(sessionKey);
+  
+  let html = `<div class="day-title">${routine.name}<div class="session-info"><span>${routine.description}</span></div></div>`;
+  html += '<div class="table-wrapper">';
+  html += '<table><thead><tr><th>Exercise</th><th>Sets/Category</th><th>Duration/Reps</th><th>Notes</th><th>Done</th></tr></thead><tbody>';
+  
+  routine.exercises.forEach((ex, idx) => {
+    const saved = sessionData.exercises[idx] || {};
+    const rest = ex.rest ? ` | Rest: ${ex.rest}` : '';
+    html += `<tr>
+      <td>${ex.name}</td>
+      <td>${ex.sets}</td>
+      <td>${ex.reps}</td>
+      <td class="notes-cell">${ex.notes}${rest}</td>
+      <td class="input-cell"><input type="checkbox" data-idx="${idx}" data-field="done" ${saved.done ? 'checked' : ''} /></td>
+    </tr>`;
+  });
+  
+  html += '</tbody></table></div>';
+  document.getElementById('workout-display').innerHTML = html;
+  attachInputListeners(sessionKey);
+}
 
-    // Session tracking
-    const sessionId = getSessionId('mobility', workout);
-    const session = sessionData[sessionId] || { date: new Date().toISOString(), elapsed: 0, running: false };
-    const sessionDate = new Date(session.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    
-    html += `<div class="day-title">
-      <span>Session Tracking</span>
-      <div class="session-info">
-        <span>Last: ${sessionDate}</span>
-        <span class="timer" id="timer-${sessionId}">${formatTime(session.elapsed)}</span>
-        <button class="timer-btn ${session.running ? 'active' : ''}" id="timer-btn-${sessionId}" onclick="toggleTimer('${sessionId}')">
-          ${session.running ? 'Pause' : 'Start'}
-        </button>
-        <button class="timer-btn" onclick="resetTimer('${sessionId}')">Reset</button>
-      </div>
-    </div>`;
-    
-    // Check if exercises have 'sets' field (new format) or 'category' field (old format)
-    const hasSetField = exercises[0] && exercises[0].sets !== undefined;
-    
-    if (hasSetField) {
-      // New format with sets/rest columns
-      html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps/Time</th><th class="input-cell">Rest</th><th style="width:80px">Done</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
-      exercises.forEach((ex, idx) => {
-        const id = getExerciseId('mobility', workout, 'routine', 'exercises', idx);
-        const saved = getUserExerciseData(id);
-        html += `<tr>
-          <td><strong>${ex.name}</strong></td>
-          <td class="input-cell" style="text-align:center"><span class="muted">${ex.sets}</span></td>
-          <td class="input-cell" style="text-align:center"><strong>${ex.duration}</strong></td>
-          <td class="input-cell" style="text-align:center"><span class="muted">${ex.rest}</span></td>
-          <td style="text-align:center"><input type="checkbox" ${saved.sets === '1' ? 'checked' : ''} data-id="${id}" data-field="sets" onchange="this.dataset.value = this.checked ? '1' : ''; updateUserExerciseData('${id}', 'sets', this.checked ? '1' : ''); " style="width:20px;height:20px;cursor:pointer"></td>
-          <td class="notes-cell"><input type="text" placeholder="${ex.notes}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
-        </tr>`;
-      });
+function renderTextProgram(programType) {
+  const program = WORKOUT_PROGRAMS[programType];
+  const content = program.content;
+  
+  let html = `<div class="day-title">${program.name}</div>`;
+  html += '<div style="line-height:1.7;max-width:100%;overflow-x:auto;">';
+  
+  content.forEach(line => {
+    if (line.includes('WEEK') || line.includes('DAY') || line.includes('PHASE')) {
+      html += `<h3 style="color:var(--yellow);margin-top:24px;margin-bottom:12px">${line}</h3>`;
+    } else if (line.length > 100) {
+      html += `<p style="margin:8px 0">${line}</p>`;
     } else {
-      // Old format with category column
-      html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Duration/Reps</th><th style="width:120px">Category</th><th style="width:80px">Completed</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
-      exercises.forEach((ex, idx) => {
-        const id = getExerciseId('mobility', workout, 'routine', 'exercises', idx);
-        const saved = getUserExerciseData(id);
-        html += `<tr>
-          <td><strong>${ex.name}</strong><br><span class="muted" style="font-size:12px">${ex.notes}</span></td>
-          <td class="input-cell" style="text-align:center"><strong>${ex.duration}</strong></td>
-          <td style="text-align:center"><span class="muted" style="font-size:12px">${ex.category}</span></td>
-          <td style="text-align:center"><input type="checkbox" ${saved.sets === '1' ? 'checked' : ''} data-id="${id}" data-field="sets" onchange="this.dataset.value = this.checked ? '1' : ''; updateUserExerciseData('${id}', 'sets', this.checked ? '1' : ''); " style="width:20px;height:20px;cursor:pointer"></td>
-          <td class="notes-cell"><input type="text" placeholder="Personal notes..." value="${saved.notes}" data-id="${id}" data-field="notes"></td>
-        </tr>`;
+      html += `<p style="margin:4px 0;padding-left:12px">${line}</p>`;
+    }
+  });
+  
+  html += '</div>';
+  document.getElementById('workout-display').innerHTML = html;
+}
+
+function attachInputListeners(sessionKey) {
+  const inputs = document.querySelectorAll('input');
+  inputs.forEach(input => {
+    input.addEventListener('change', () => {
+      saveWorkoutData(sessionKey, input);
+    });
+  });
+}
+
+function saveWorkoutData(sessionKey, input) {
+  const sessionData = loadSessionData(sessionKey);
+  const idx = parseInt(input.dataset.idx);
+  const field = input.dataset.field;
+  
+  if (!sessionData.exercises[idx]) {
+    sessionData.exercises[idx] = {};
+  }
+  
+  if (input.type === 'checkbox') {
+    sessionData.exercises[idx][field] = input.checked;
+  } else {
+    sessionData.exercises[idx][field] = input.value;
+  }
+  
+  sessionData.date = new Date().toLocaleDateString();
+  localStorage.setItem(sessionKey, JSON.stringify(sessionData));
+}
+
+function loadSessionData(sessionKey) {
+  const stored = localStorage.getItem(sessionKey);
+  if (stored) {
+    return JSON.parse(stored);
+  }
+  return { date: null, exercises: {} };
+}
+
+function toggleSection(element) {
+  element.classList.toggle('collapsed');
+  const content = element.nextElementSibling;
+  content.classList.toggle('collapsed');
+}
+
+function saveSelections() {
+  localStorage.setItem('currentProgram', currentProgram);
+  localStorage.setItem('currentSession', currentSession);
+}
+
+function loadSelections() {
+  const savedProgram = localStorage.getItem('currentProgram');
+  const savedSession = localStorage.getItem('currentSession');
+  
+  if (savedProgram && WORKOUT_PROGRAMS[savedProgram]) {
+    currentProgram = savedProgram;
+    document.getElementById('program-select').value = currentProgram;
+  }
+  
+  if (savedSession) {
+    currentSession = savedSession;
+  }
+}
+
+// Data management functions
+function exportData() {
+  const allData = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('phlul_') || key.startsWith('convict_') || key.startsWith('mobility_') || key.startsWith('five31_') || key.startsWith('rehab_')) {
+      allData[key] = JSON.parse(localStorage.getItem(key));
+    }
+  }
+  
+  const dataStr = JSON.stringify(allData, null, 2);
+  const blob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `workout-data-${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      Object.keys(data).forEach(key => {
+        localStorage.setItem(key, JSON.stringify(data[key]));
       });
-    }
-    html += '</tbody></table>';
-
-    workoutDisplay.innerHTML = html;
-    attachInputListeners();
-  }
-
-  // Main render function
-  function renderWorkout() {
-    programBadge.textContent = WORKOUT_PROGRAMS[currentProgram].name;
-    updateInfoSection();
-    
-    if (currentProgram === 'phlul') {
-      renderPHLULWorkout(currentWorkout);
-    } else if (currentProgram === 'convict') {
-      renderConvictWorkout(currentWorkout);
-    } else if (currentProgram === 'mobility') {
-      renderMobilityWorkout(currentWorkout);
-    }
-  }
-
-  // Event listeners
-  programSelect.addEventListener('change', (e) => {
-    currentProgram = e.target.value;
-    updateWorkoutSelector(currentProgram);
-    renderWorkout();
-  });
-
-  workoutSelect.addEventListener('change', (e) => {
-    currentWorkout = e.target.value;
-    renderWorkout();
-  });
-
-  // Data management functions
-  window.exportData = function() {
-    const exportData = {
-      version: 1,
-      exportDate: new Date().toISOString(),
-      userData: userData,
-      sessionData: sessionData
-    };
-    
-    const dataStr = JSON.stringify(exportData, null, 2);
-    const blob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `workout-data-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    alert('✅ Data exported successfully!');
-  };
-
-  window.importData = function(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      try {
-        const imported = JSON.parse(e.target.result);
-        
-        if (!imported.userData || !imported.sessionData) {
-          alert('❌ Invalid data file format');
-          return;
-        }
-        
-        const confirmMsg = `This will replace your current data with the imported data.\n\nImported data from: ${new Date(imported.exportDate).toLocaleString()}\n\nContinue?`;
-        if (!confirm(confirmMsg)) {
-          event.target.value = '';
-          return;
-        }
-        
-        userData = imported.userData;
-        sessionData = imported.sessionData;
-        saveData(userData);
-        saveSessionData(sessionData);
-        renderWorkout();
-        
-        alert('✅ Data imported successfully!');
-      } catch (error) {
-        alert('❌ Error importing data: ' + error.message);
-      }
-      event.target.value = '';
-    };
-    reader.readAsText(file);
-  };
-
-  window.clearAllData = function() {
-    const confirmMsg = '⚠️ WARNING: This will permanently delete ALL your workout data and session history.\n\nThis action cannot be undone!\n\nType "DELETE" to confirm:';
-    const userInput = prompt(confirmMsg);
-    
-    if (userInput === 'DELETE') {
-      localStorage.removeItem(STORAGE_KEY);
-      localStorage.removeItem(SESSION_KEY);
-      userData = {};
-      sessionData = {};
-      Object.keys(timerIntervals).forEach(key => clearInterval(timerIntervals[key]));
-      timerIntervals = {};
+      alert('Data imported successfully!');
       renderWorkout();
-      alert('✅ All data has been cleared');
-    } else if (userInput !== null) {
-      alert('❌ Deletion cancelled - incorrect confirmation');
+    } catch (err) {
+      alert('Error importing data: ' + err.message);
     }
   };
+  reader.readAsText(file);
+}
 
-  // Initial setup
-  updateWorkoutSelector(currentProgram);
-  renderWorkout();
-})();
+function clearAllData() {
+  const confirmed = prompt('Type DELETE to clear all workout data');
+  if (confirmed === 'DELETE') {
+    const keys = Object.keys(localStorage);
+    keys.forEach(key => {
+      if (key.startsWith('phlul_') || key.startsWith('convict_') || key.startsWith('mobility_') || key.startsWith('five31_') || key.startsWith('rehab_')) {
+        localStorage.removeItem(key);
+      }
+    });
+    alert('All workout data cleared!');
+    renderWorkout();
+  }
+}
