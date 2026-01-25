@@ -1,130 +1,176 @@
-# Workout Programs PWA — Complete Training Suite
+# Complete Workout Programs PWA
 
-A comprehensive Progressive Web App with 6 complete training programs for all fitness goals.
+A Progressive Web App for tracking multiple comprehensive workout programs from your spreadsheet.
 
-## Programs Included
+## Programs Included (All from Your Spreadsheet!)
 
 ### 1. PHLUL Split
 Power/Hypertrophy Upper/Lower 4-day training split
-- Upper Power, Lower Power, Upper Hypertrophy, Lower Hypertrophy days
-- Rotator cuff rehab exercises
-- Core training circuits
-- 12-week progressive overload system
+- **Day 1**: Upper Power (strength focus)
+- **Day 2**: Lower Power (strength focus)
+- **Day 4**: Upper Hypertrophy (muscle building)
+- **Day 5**: Lower Hypertrophy (muscle building)
+- Core circuits included with each day
+- 12-week progressive overload system (Weeks 1-4, 5-8, 9-12)
 
-### 2. Convict Conditioning
+### 2. 6-8 Week Rehab Roadmap
+Progressive return-to-training program focusing on shoulder & spine safety
+- **Global Warm-Up**: Required before every session
+- **Week 1-2**: Re-establish capacity with light weights
+- **Week 3-4**: Loading confidence with 10-15% weight increases
+- **Week 5-6**: Return to barbell with controlled progression
+- **Week 7-8**: Unrestricted targets and full training resume
+- Built-in pain management and progression rules
+- 4 training days: Upper Power, Lower Power, Upper Hypertrophy, Lower Hypertrophy
+
+### 3. 5/3/1 Classic (Jim Wendler's Program)
+Proven strength program built around 4 main barbell lifts
+- **Monday**: Overhead Press
+- **Tuesday**: Deadlift
+- **Thursday**: Bench Press
+- **Friday**: Squat
+- Progressive percentages: 65%, 75%, 85% (with AMRAP final set)
+- 4-week cycles: Week 1 (5s), Week 2 (3s), Week 3 (5/3/1), Week 4 (Deload)
+- Varied assistance work each week
+- Core training integrated with each session
+- **Training Max Setup**: Enter your 1RM and app calculates 90% training max
+
+### 4. Convict Conditioning
 Progressive bodyweight calisthenics system
-- The Big Six: Push-ups, Squats, Pull-ups, Leg Raises, Bridges, Handstand Push-ups
-- 10-step progressions for each exercise
-- Beginner to Master level training
-- Based on Paul Wade's progressive calisthenics system
+- **The Big Six Exercises**: Push-ups, Squats, Pull-ups, Leg Raises, Bridges, Handstand Push-ups
+- **10 Progressive Steps** for each exercise (from beginner to master level)
+- Grouped into: Steps 1-3 (Beginner), Steps 4-6 (Intermediate), Steps 7-10 (Advanced)
+- Master goals: One-arm push-ups, pistol squats, one-arm pull-ups, hanging leg raises
 
-### 3. Mobility Routines
-Comprehensive mobility and tissue work (7 routines)
-- **Dynamic Performance** - Pre-workout activation and movement prep
-- **General Mobility** - All-purpose mobility for joint health
-- **Pain Relief** - Targeted mobilizations for common pain points
-- **Strength & Stability** - Mobility work paired with strength movements
-- **Shoulder Impingement Fix** - 15-exercise shoulder rehab protocol
-- **20-Min Rehab Split** - 3-day/week shoulder & lumbar restoration program
-- **Pre-Hab & Injury Prevention** - Complete injury prevention protocol (34 exercises)
-
-### 4. 8-Week Rehab Weightlifting
-Progressive return-to-lifting protocol
-- **Phase 1 (Weeks 1-2)**: Re-establish capacity with light loads
-- **Phase 2 (Weeks 3-4)**: Build loading confidence
-- **Phase 3 (Weeks 5-6)**: Return to barbell movements
-- **Phase 4 (Weeks 7-8)**: Reach unrestricted training targets
-- Includes global warm-up and progression/regression rules
-- Designed for shoulder and spine safety
-
-### 5. Science-Based Full Workout
-Evidence-based training templates
-- Lower Back Focus (60 min)
-- Upper Body Emphasis (50 min)
-- Powerbuilding Split (70 min)
-- Optimized for strength and hypertrophy
-- RPE-based intensity
-
-### 6. 5/3/1 Boring But Big
-Classic Wendler 5/3/1 with BBB assistance
-- Dynamic weight calculation based on Training Max
-- 4-week cycles with deload
-- Configurable BBB percentage (50%, 60%, 70%)
-- Customizable accessories per day
-- Auto-rounding to nearest plate increment
+### 5. Mobility Routines
+Movement prep and injury prevention
+- **Dynamic Performance**: Pre-workout warm-up routine (10 movements)
+  - Air squats, pushups, jumps, shoulder rolls, dislocates, hip halos, leg swings
+- **PreHab Fix**: Shoulder health and injury prevention (10 exercises)
+  - Plate series (halo, eight, shovel, press out), rotations, stretches, band work
 
 ## Features
-- **6 complete training programs** - From rehab to powerbuilding, all in one app
-- **Multi-program support** - Switch between PHLUL, Convict, Mobility, Rehab, Science-Based, and BBB
-- **Interactive workout tracking** - Fill in weight, sets, reps, and notes for each exercise
-- **Dynamic weight calculation** - 5/3/1 BBB auto-calculates all working weights
+- **Multi-program support** - Switch between 5 complete workout programs
+- **Interactive workout tracking** - Fill in weight, sets, reps, and notes
 - **Suggested values** - Placeholder text shows recommended sets/reps
 - **Automatic progress saving** - All data persists via localStorage
-- **Data management** - Export your data as JSON backup, import to restore, or clear all data
+- **Data management** - Export/Import your data as JSON backup
 - **Session tracking** - Date stamp and timer for each workout
 - **Collapsible sections** - Rehab and core sections collapse to reduce scrolling
-- **Progressive overload tracking** - Monitor your progress through different phases
-- **Progression/regression rules** - Built-in guidelines for 8-Week Rehab program
 - Dark theme, mobile-friendly design
 - Offline support via Service Worker
 - Installable as a PWA on mobile and desktop
 
-## Data Management
+## How to Use
 
-### Export Data
-Click "📥 Export Data" to download a JSON file containing all your workout logs and session history. This file can be used as a backup or to transfer your data to another device.
+### Switching Programs
+1. Use the **Program** dropdown in the header to select your workout program
+2. The app will automatically load the appropriate structure
 
-### Import Data
-Click "📤 Import Data" to restore previously exported data. This will replace your current data with the imported file.
+### Selecting Workouts/Phases
+- **PHLUL**: Choose from Weeks 1-4, 5-8, or 9-12
+- **Rehab**: Choose from Weeks 1-2, 3-4, 5-6, or 7-8
+- **5/3/1**: Choose from Week 1 (5s), Week 2 (3s), Week 3 (5/3/1), or Week 4 (Deload)
+- **Convict Conditioning**: Choose from Steps 1-3, 4-6, or 7-10
+- **Mobility**: Choose Dynamic Performance or PreHab Fix
 
-### Clear All Data
-Click "🗑️ Clear All Data" if you want to start fresh. You'll need to type "DELETE" to confirm (this action cannot be undone).
+### Tracking Your Workouts
+1. Fill in the **weight/load**, **reps**, and **notes** fields for each exercise
+2. Click **Start Session** to begin timing your workout
+3. Data automatically saves as you type
+4. Check off exercises as you complete them
+
+### Managing Your Data
+- **Export Data**: Download a JSON file with all your progress
+- **Import Data**: Restore from a previous export
+- **Clear All Data**: Start fresh (requires typing "DELETE" to confirm)
 
 ## Deployment to GitHub Pages
 
 1. Create a new GitHub repository
-2. Place all these files at the repository root:
-   - `index.html`
-   - `manifest.webmanifest`
-   - `sw.js`
-   - `README.md`
-   - `icons/` folder with icon-192.png and icon-512.png
+2. Upload ALL these files to the repository root:
+   - ✅ `index.html` - Main HTML file
+   - ✅ `workout-data.js` - All workout programs
+   - ✅ `workout-app.js` - App logic
+   - ✅ `sw.js` - Service worker
+   - ✅ `manifest.webmanifest` - PWA manifest
+   - ✅ `icons/` folder with both icon-192.png and icon-512.png
 
-3. Enable GitHub Pages in repository settings:
+3. Enable GitHub Pages:
    - Go to Settings → Pages
    - Source: Deploy from a branch
    - Branch: main (or master) / root
    - Save
 
-4. Your app will be available at: `https://[username].github.io/[repo-name]/`
+4. Your app will be live at: `https://[username].github.io/[repo-name]/`
 
-## Training Guidance
+## Important Notes
 
-### PHLUL Split
-**Weeks 1-4**: Foundation Phase - Focus on establishing proper form
-**Weeks 5-8**: Progressive Overload - Add 5-10% weight when consistently hitting top rep ranges
-**Weeks 9-12**: Peak Intensity - Push intensity on main lifts, optional deload in Week 12
+### PHLUL Program
+- 4 days per week: Mon/Tue (power), Thu/Fri (hypertrophy)
+- Rest days: Wed/Sat/Sun
+- Progress through 12 weeks with increasing intensity
 
-### 8-Week Rehab Weightlifting
-**Weeks 1-2**: Re-establish capacity with light loads (RPE ≤6)
-**Weeks 3-4**: Progress loads (+10lb barbell, +5lb dumbbells)
-**Weeks 5-6**: Return to barbell movements (RPE ≤7)
-**Weeks 7-8**: Reach unrestricted targets (65-70% BW lifts)
-*Follow progression/regression rules built into the program*
+### Rehab Program
+- **ALWAYS do Global Warm-Up** before every session
+- Stop if pain exceeds 3/10
+- Follow progression rules carefully
+- Don't rush - proper form over weight
 
-### 5/3/1 Boring But Big
-**Week 1**: 65/75/85% × 5+
-**Week 2**: 70/80/90% × 3+
-**Week 3**: 75/85/95% × 1+
-**Week 4**: Deload at 40/50/60% × 5
+### 5/3/1 Program
+- Training Max = 90% of your true 1RM
+- Increase TM after each 4-week cycle: +5 lbs upper, +10 lbs lower
+- Last set is AMRAP (as many reps as possible)
+- Rest 3-5+ minutes between main lift sets
+- Assistance work varies each week
 
-## Training Schedule
-- **PHLUL**: Monday, Tuesday, Thursday, Friday (or similar 2-on/1-off/2-on pattern)
-- **Convict Conditioning**: 3-6 days per week, rest between same muscle groups
-- **Mobility Routines**: Daily or as needed
-- **8-Week Rehab**: 4 days per week with rest days between
-- **Science-Based**: 3-4 days per week depending on template
-- **5/3/1 BBB**: 4 days per week (OHP, Dead, Bench, Squat)
+### Convict Conditioning
+- Progress only with perfect form
+- Don't skip steps even if they seem easy
+- Take 2-3 minutes rest between sets
+- This is strength training, not cardio
+
+### Mobility Routines
+- Dynamic Performance: Before every workout (5-10 min)
+- PreHab Fix: 2-3x per week on separate days
+- Focus on quality over speed
+- Never force into painful ranges
+
+## Troubleshooting
+
+**Dropdowns not working?**
+- Make sure `workout-data.js` and `workout-app.js` are uploaded
+- Clear browser cache and hard refresh (Ctrl+Shift+R)
+
+**Data not saving?**
+- Ensure localStorage is enabled in your browser
+- Export your data regularly as backup
+
+**Service Worker errors?**
+- Ensure `sw.js` is in the repository root
+- Clear cache and re-register service worker
+
+## Technical Details
+
+- **Framework**: Vanilla JavaScript (no dependencies)
+- **Storage**: localStorage for persistence
+- **Offline Support**: Service Worker caching
+- **PWA**: Installable on mobile and desktop
+- **No tracking**: All data stays on your device
+
+## Source
+
+All workout programs extracted from your `Complete_Workout_Programs.xlsx` spreadsheet:
+- PHLUL Overview sheet
+- 6-8 Week Rehab Roadmap sheet
+- 5-3-1 Classic sheet
+- Convict Conditioning sheet
+- Mobility sheets (Dynamic Perf & PreHab Fix)
 
 ## License
-This is a personal workout tracker. Feel free to modify for your own use.
+
+This is a personal workout tracker built from your own workout programs. Feel free to modify for your own use.
+
+---
+
+**Ready to train?** Open `index.html` in your browser or deploy to GitHub Pages! 💪

@@ -167,8 +167,6 @@
       workoutLabel.textContent = 'Progression';
     } else if (program === 'mobility') {
       workoutLabel.textContent = 'Routine';
-    } else if (program === 'rehab_8week') {
-      workoutLabel.textContent = 'Phase';
     } else {
       workoutLabel.textContent = 'Week Range';
     }
@@ -429,83 +427,6 @@
     attachInputListeners();
   }
 
-  // Render 8-Week Rehab workout
-  function renderRehab8WeekWorkout(phase) {
-    const programData = WORKOUT_PROGRAMS.rehab_8week;
-    const phaseInfo = programData.workouts[phase];
-    
-    progressionNotesDiv.innerHTML = `<h4>${phaseInfo.label}</h4><p>${phaseInfo.description}</p>`;
-
-    let html = '<h2 style="margin:0 0 16px">8-Week Rehab Program</h2>';
-    
-    // Global Warm-Up Section
-    html += '<div class="section-title" style="background:var(--yellow);color:#000;cursor:default"><span>⚠️ GLOBAL WARM-UP (Perform Before Every Session)</span></div>';
-    html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps/Time</th><th style="width:80px">Done</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
-    programData.globalWarmup.forEach((ex, idx) => {
-      const id = getExerciseId('rehab_8week', phase, 'warmup', 'exercises', idx);
-      const saved = getUserExerciseData(id);
-      html += `<tr>
-        <td><strong>${ex.name}</strong></td>
-        <td class="input-cell" style="text-align:center"><span class="muted">${ex.sets}</span></td>
-        <td class="input-cell" style="text-align:center"><strong>${ex.reps}</strong></td>
-        <td style="text-align:center"><input type="checkbox" ${saved.sets === '1' ? 'checked' : ''} data-id="${id}" data-field="sets" onchange="updateUserExerciseData('${id}', 'sets', this.checked ? '1' : '');" style="width:20px;height:20px;cursor:pointer"></td>
-        <td class="notes-cell">${ex.notes}</td>
-      </tr>`;
-    });
-    html += '</tbody></table>';
-
-    // Training Days
-    Object.keys(programData.days).forEach(dayKey => {
-      const day = programData.days[dayKey];
-      const exercises = day[phase];
-      
-      if (!exercises) return;
-      
-      const sessionId = getSessionId('rehab_8week', dayKey + '_' + phase);
-      const session = sessionData[sessionId] || { date: new Date().toISOString(), elapsed: 0, running: false };
-      const sessionDate = new Date(session.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      
-      html += `<div class="day-title">
-        <span>${day.name}</span>
-        <div class="session-info">
-          <span>Last: ${sessionDate}</span>
-          <span class="timer" id="timer-${sessionId}">${formatTime(session.elapsed)}</span>
-          <button class="timer-btn ${session.running ? 'active' : ''}" id="timer-btn-${sessionId}" onclick="toggleTimer('${sessionId}')">
-            ${session.running ? 'Pause' : 'Start'}
-          </button>
-          <button class="timer-btn" onclick="resetTimer('${sessionId}')">Reset</button>
-        </div>
-      </div>`;
-      
-      html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="input-cell">Load</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
-      exercises.forEach((ex, idx) => {
-        const id = getExerciseId('rehab_8week', phase, dayKey, 'exercises', idx);
-        const saved = getUserExerciseData(id);
-        html += `<tr>
-          <td>${ex.name}</td>
-          <td class="input-cell"><input type="text" placeholder="${ex.sets}" value="${saved.sets}" data-id="${id}" data-field="sets"></td>
-          <td class="input-cell"><input type="text" placeholder="${ex.reps}" value="${saved.reps}" data-id="${id}" data-field="reps"></td>
-          <td class="input-cell"><input type="text" placeholder="${ex.load}" value="${saved.weight}" data-id="${id}" data-field="weight"></td>
-          <td class="notes-cell"><input type="text" placeholder="${ex.notes || 'Notes...'}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
-        </tr>`;
-      });
-      html += '</tbody></table>';
-    });
-    
-    // Progression Rules
-    const rules = programData.progressionRules;
-    html += `<div class="info-box" style="margin-top:24px">`;
-    html += `<h4>${rules.title}</h4>`;
-    html += '<table><thead><tr><th>Condition</th><th>Action</th></tr></thead><tbody>';
-    rules.rules.forEach(rule => {
-      html += `<tr><td>${rule.condition}</td><td><strong>${rule.action}</strong></td></tr>`;
-    });
-    html += '</tbody></table></div>';
-
-    workoutDisplay.innerHTML = html;
-    attachInputListeners();
-  }
-
   // Main render function
   function renderWorkout() {
     programBadge.textContent = WORKOUT_PROGRAMS[currentProgram].name;
@@ -517,8 +438,6 @@
       renderConvictWorkout(currentWorkout);
     } else if (currentProgram === 'mobility') {
       renderMobilityWorkout(currentWorkout);
-    } else if (currentProgram === 'rehab_8week') {
-      renderRehab8WeekWorkout(currentWorkout);
     }
   }
 

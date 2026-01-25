@@ -46,12 +46,7 @@
     .info-box{background:var(--panel);border:1px solid var(--ring);border-radius:12px;padding:14px;margin:12px 0}
     .info-box h4{margin:0 0 8px;font-size:14px;color:var(--acc}}
     .info-box p{margin:4px 0;font-size:13px}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-    @media (max-width:720px){
-      th,td{padding:8px;font-size:14px}
-      .grid,.grid-4{grid-template-columns:1fr}
-    }
+    @media (max-width:720px){th,td{padding:8px;font-size:14px}}
   </style>
   <meta name="theme-color" content="#0e1116">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -70,12 +65,13 @@
           <label for="program-select" class="muted" style="font-size:12px;margin:0">Program</label>
           <select id="program-select">
             <option value="phlul">PHLUL Split</option>
+            <option value="rehab">6-8 Week Rehab</option>
+            <option value="wendler531">5/3/1 Classic</option>
             <option value="convict">Convict Conditioning</option>
             <option value="mobility">Mobility Routines</option>
-            <option value="rehab_8week">8-Week Rehab</option>
           </select>
         </div>
-        <div id="workout-selector-container" style="display:flex;align-items:center;gap:8px">
+        <div style="display:flex;align-items:center;gap:8px">
           <label for="workout-select" class="muted" style="font-size:12px;margin:0" id="workout-label">Week Range</label>
           <select id="workout-select">
             <option value="1-4">Weeks 1-4</option>
@@ -91,27 +87,26 @@
 
     <div class="card" id="program-info-card">
       <h2 id="program-title" style="margin:0 0 8px">Power/Hypertrophy Upper/Lower Split</h2>
-      <p class="muted" id="program-description">4 days per week training program focusing on both strength (power days) and muscle growth (hypertrophy days). Includes rotator cuff rehab and core work.</p>
+      <p class="muted" id="program-description">4 days per week training program focusing on both strength and muscle growth.</p>
       
-      <div class="info-box" id="schedule-box">
+      <div class="info-box">
         <h4 id="schedule-title">Training Schedule</h4>
-        <p id="schedule-text"><strong>Training Days:</strong> Monday, Tuesday, Thursday, Friday (or similar 2-on/1-off/2-on pattern)<br><strong>Rest Days:</strong> Wednesday, Saturday, Sunday</p>
+        <p id="schedule-text"><strong>Training Days:</strong> Monday, Tuesday, Thursday, Friday<br><strong>Rest Days:</strong> Wednesday, Saturday, Sunday</p>
       </div>
 
       <div id="progression-notes" class="info-box">
         <h4>Weeks 1-4: Foundation Phase</h4>
-        <p>Establish proper form with moderate weights. Prioritize rotator cuff rehab and core work.</p>
+        <p>Establish proper form with moderate weights.</p>
       </div>
     </div>
 
-    <div class="card" id="general-notes-card">
+    <div class="card">
       <h3 style="margin:0 0 8px">General Notes</h3>
       <ul class="muted" id="general-notes" style="line-height:1.6">
         <li>Warm up thoroughly before each session</li>
         <li>Track your weights and reps each workout</li>
-        <li>If front shoulder pain flares, reduce pressing volume</li>
         <li>Focus on controlled movement and proper form</li>
-        <li>Rest 2-3 minutes between heavy sets, 60-90s for accessories</li>
+        <li>Rest appropriately between sets</li>
       </ul>
     </div>
 
@@ -126,10 +121,10 @@
       <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
     </div>
   </main>
-  <footer>© 2025 — Complete Workout Programs Suite. No tracking, no servers.</footer>
+  <footer>© 2025 — Workout Programs Tracker. No tracking, no servers.</footer>
 
-  <script src="./workout-data.js"></script>
-  <script src="./workout-app.js"></script>
+  <script src="workout-data.js"></script>
+  <script src="workout-app.js"></script>
   <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
