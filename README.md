@@ -1,205 +1,176 @@
-# Workout Programs PWA - All-in-One Edition
+# Complete Workout Programs PWA
 
-A Progressive Web App for tracking multiple workout programs, built directly from your workout spreadsheet.
+A Progressive Web App for tracking multiple comprehensive workout programs from your spreadsheet.
 
-## 📋 Programs Included
+## Programs Included (All from Your Spreadsheet!)
 
 ### 1. PHLUL Split
 Power/Hypertrophy Upper/Lower 4-day training split
-- **Day 1**: Upper Power - Heavy compound movements with rotator cuff rehab
-- **Day 2**: Lower Power - Heavy squats and deadlifts
-- **Day 4**: Upper Hypertrophy - Higher volume upper body work
-- **Day 5**: Lower Hypertrophy - Higher volume leg training
-- Includes rotator cuff rehab exercises and core training on all days
+- **Day 1**: Upper Power (strength focus)
+- **Day 2**: Lower Power (strength focus)
+- **Day 4**: Upper Hypertrophy (muscle building)
+- **Day 5**: Lower Hypertrophy (muscle building)
+- Core circuits included with each day
+- 12-week progressive overload system (Weeks 1-4, 5-8, 9-12)
 
-### 2. Convict Conditioning
+### 2. 6-8 Week Rehab Roadmap
+Progressive return-to-training program focusing on shoulder & spine safety
+- **Global Warm-Up**: Required before every session
+- **Week 1-2**: Re-establish capacity with light weights
+- **Week 3-4**: Loading confidence with 10-15% weight increases
+- **Week 5-6**: Return to barbell with controlled progression
+- **Week 7-8**: Unrestricted targets and full training resume
+- Built-in pain management and progression rules
+- 4 training days: Upper Power, Lower Power, Upper Hypertrophy, Lower Hypertrophy
+
+### 3. 5/3/1 Classic (Jim Wendler's Program)
+Proven strength program built around 4 main barbell lifts
+- **Monday**: Overhead Press
+- **Tuesday**: Deadlift
+- **Thursday**: Bench Press
+- **Friday**: Squat
+- Progressive percentages: 65%, 75%, 85% (with AMRAP final set)
+- 4-week cycles: Week 1 (5s), Week 2 (3s), Week 3 (5/3/1), Week 4 (Deload)
+- Varied assistance work each week
+- Core training integrated with each session
+- **Training Max Setup**: Enter your 1RM and app calculates 90% training max
+
+### 4. Convict Conditioning
 Progressive bodyweight calisthenics system
-- **The Big Six**: Push-ups, Squats, Pull-ups, Leg Raises, Bridges, Handstand Push-ups
-- 10-step progressions for each exercise (60 total progressions)
-- From beginner to master level training
-- Based on Paul Wade's progressive calisthenics system
+- **The Big Six Exercises**: Push-ups, Squats, Pull-ups, Leg Raises, Bridges, Handstand Push-ups
+- **10 Progressive Steps** for each exercise (from beginner to master level)
+- Grouped into: Steps 1-3 (Beginner), Steps 4-6 (Intermediate), Steps 7-10 (Advanced)
+- Master goals: One-arm push-ups, pistol squats, one-arm pull-ups, hanging leg raises
 
-### 3. Mobility Routines
-Comprehensive mobility and tissue work
-- **Dynamic Performance** - Pre-workout activation and movement prep (27 exercises)
-- **PreHab & Injury Prevention** - Complete injury prevention protocol (20 exercises)
-- Includes tissue work, smashing, banding, and active mobilizations
-- Perfect for warm-ups or dedicated mobility sessions
+### 5. Mobility Routines
+Movement prep and injury prevention
+- **Dynamic Performance**: Pre-workout warm-up routine (10 movements)
+  - Air squats, pushups, jumps, shoulder rolls, dislocates, hip halos, leg swings
+- **PreHab Fix**: Shoulder health and injury prevention (10 exercises)
+  - Plate series (halo, eight, shovel, press out), rotations, stretches, band work
 
-### 4. 5-3-1 Classic
-Jim Wendler's proven strength program
-- 4-week cycles with built-in progression
-- Week 1 (5's), Week 2 (3's), Week 3 (5/3/1), Week 4 (Deload)
-- Training max based system
-- Complete program details included
+## Features
+- **Multi-program support** - Switch between 5 complete workout programs
+- **Interactive workout tracking** - Fill in weight, sets, reps, and notes
+- **Suggested values** - Placeholder text shows recommended sets/reps
+- **Automatic progress saving** - All data persists via localStorage
+- **Data management** - Export/Import your data as JSON backup
+- **Session tracking** - Date stamp and timer for each workout
+- **Collapsible sections** - Rehab and core sections collapse to reduce scrolling
+- Dark theme, mobile-friendly design
+- Offline support via Service Worker
+- Installable as a PWA on mobile and desktop
 
-### 5. 6-8 Week Rehab Roadmap
-Progressive return to training protocol
-- Structured 8-week rehabilitation program
-- Pain management and progressive loading
-- Global warm-ups for every session
-- Phase-based progression rules
+## How to Use
 
-## ✨ Features
+### Switching Programs
+1. Use the **Program** dropdown in the header to select your workout program
+2. The app will automatically load the appropriate structure
 
-- **Multi-Program Support** - Switch between 5 complete workout programs
-- **Interactive Tracking** - Fill in weights, sets, reps, and notes for each exercise
-- **Session Selection** - Choose specific days/routines within each program
-- **Automatic Progress Saving** - All data persists via localStorage
-- **Data Management** - Export, import, or clear all workout data
-- **Collapsible Sections** - Organize rehab and core work to reduce scrolling
-- **Dark Theme** - Easy on the eyes, mobile-friendly design
-- **Offline Support** - Works without internet via Service Worker
-- **Installable PWA** - Add to home screen on mobile and desktop
-
-## 🎯 How to Use
-
-### Program Selection
-1. Use the **Program** dropdown to select your workout program
-2. Use the **Session** dropdown to select the specific day/routine
-3. The app remembers your last selection
+### Selecting Workouts/Phases
+- **PHLUL**: Choose from Weeks 1-4, 5-8, or 9-12
+- **Rehab**: Choose from Weeks 1-2, 3-4, 5-6, or 7-8
+- **5/3/1**: Choose from Week 1 (5s), Week 2 (3s), Week 3 (5/3/1), or Week 4 (Deload)
+- **Convict Conditioning**: Choose from Steps 1-3, 4-6, or 7-10
+- **Mobility**: Choose Dynamic Performance or PreHab Fix
 
 ### Tracking Your Workouts
+1. Fill in the **weight/load**, **reps**, and **notes** fields for each exercise
+2. Click **Start Session** to begin timing your workout
+3. Data automatically saves as you type
+4. Check off exercises as you complete them
 
-**PHLUL Split:**
-- Fill in Weight, Sets, Reps for each exercise
-- Add notes about how the set felt
-- Rotator Cuff and Core sections are collapsible
+### Managing Your Data
+- **Export Data**: Download a JSON file with all your progress
+- **Import Data**: Restore from a previous export
+- **Clear All Data**: Start fresh (requires typing "DELETE" to confirm)
 
-**Convict Conditioning:**
-- Track which step you're currently on
-- Log your current performance (e.g., "2x15")
-- Add notes about progress
+## Deployment to GitHub Pages
 
-**Mobility Routines:**
-- Check off exercises as you complete them
-- Review the full routine before starting
+1. Create a new GitHub repository
+2. Upload ALL these files to the repository root:
+   - ✅ `index.html` - Main HTML file
+   - ✅ `workout-data.js` - All workout programs
+   - ✅ `workout-app.js` - App logic
+   - ✅ `sw.js` - Service worker
+   - ✅ `manifest.webmanifest` - PWA manifest
+   - ✅ `icons/` folder with both icon-192.png and icon-512.png
 
-**5-3-1 & Rehab:**
-- View complete program information
-- Reference during your training
+3. Enable GitHub Pages:
+   - Go to Settings → Pages
+   - Source: Deploy from a branch
+   - Branch: main (or master) / root
+   - Save
 
-### Data Management
+4. Your app will be live at: `https://[username].github.io/[repo-name]/`
 
-**Export Data**: Download a JSON backup of all your workout logs
-**Import Data**: Restore previously exported data
-**Clear All Data**: Start fresh (requires typing "DELETE" to confirm)
+## Important Notes
 
-## 📱 Deployment to GitHub Pages
+### PHLUL Program
+- 4 days per week: Mon/Tue (power), Thu/Fri (hypertrophy)
+- Rest days: Wed/Sat/Sun
+- Progress through 12 weeks with increasing intensity
 
-### Required Files
-Your repository must include ALL of these files in the root directory:
-```
-your-repo/
-├── index.html              ← Main HTML file
-├── workout-data.js         ← Program data (REQUIRED!)
-├── workout-app.js          ← App logic (REQUIRED!)
-├── sw.js                   ← Service worker (REQUIRED!)
-├── manifest.webmanifest    ← PWA manifest
-├── README.md               ← This file
-└── icons/
-    ├── icon-192.png        ← App icon 192x192
-    └── icon-512.png        ← App icon 512x512
-```
+### Rehab Program
+- **ALWAYS do Global Warm-Up** before every session
+- Stop if pain exceeds 3/10
+- Follow progression rules carefully
+- Don't rush - proper form over weight
 
-### Deployment Steps
+### 5/3/1 Program
+- Training Max = 90% of your true 1RM
+- Increase TM after each 4-week cycle: +5 lbs upper, +10 lbs lower
+- Last set is AMRAP (as many reps as possible)
+- Rest 3-5+ minutes between main lift sets
+- Assistance work varies each week
 
-1. **Create a GitHub Repository**
-   - Go to github.com and create a new repository
-   - Make it public or private (your choice)
+### Convict Conditioning
+- Progress only with perfect form
+- Don't skip steps even if they seem easy
+- Take 2-3 minutes rest between sets
+- This is strength training, not cardio
 
-2. **Upload ALL Files**
-   - Upload every file from this outputs folder
-   - Make sure to include the `icons/` folder with both PNG files
-   - DO NOT skip the JavaScript files - they're essential!
+### Mobility Routines
+- Dynamic Performance: Before every workout (5-10 min)
+- PreHab Fix: 2-3x per week on separate days
+- Focus on quality over speed
+- Never force into painful ranges
 
-3. **Enable GitHub Pages**
-   - Go to repository Settings
-   - Navigate to "Pages" in the left sidebar
-   - Under "Source", select "Deploy from a branch"
-   - Select branch: `main` (or `master`)
-   - Select folder: `/ (root)`
-   - Click "Save"
+## Troubleshooting
 
-4. **Wait for Deployment**
-   - GitHub will build and deploy your site (takes 1-2 minutes)
-   - Look for the green checkmark in the Actions or Deployments tab
-   - Your site will be at: `https://yourusername.github.io/your-repo-name/`
+**Dropdowns not working?**
+- Make sure `workout-data.js` and `workout-app.js` are uploaded
+- Clear browser cache and hard refresh (Ctrl+Shift+R)
 
-5. **Clear Browser Cache**
-   - After deployment, hard refresh your browser
-   - Open Developer Tools (F12)
-   - Right-click the refresh button → "Empty Cache and Hard Reload"
-   - Or test in incognito/private mode
+**Data not saving?**
+- Ensure localStorage is enabled in your browser
+- Export your data regularly as backup
 
-## 🔧 Troubleshooting
+**Service Worker errors?**
+- Ensure `sw.js` is in the repository root
+- Clear cache and re-register service worker
 
-### App Loads But Dropdowns Don't Work
-**Problem**: Page loads but program/session selection doesn't work
-**Solution**: You're missing the JavaScript files! Upload `workout-data.js` and `workout-app.js`
+## Technical Details
 
-### Console Errors
-**Problem**: Browser console shows "Failed to fetch" or "404" errors
-**Solution**: Check that ALL files are uploaded, especially the JavaScript files
+- **Framework**: Vanilla JavaScript (no dependencies)
+- **Storage**: localStorage for persistence
+- **Offline Support**: Service Worker caching
+- **PWA**: Installable on mobile and desktop
+- **No tracking**: All data stays on your device
 
-### Service Worker Errors
-**Problem**: Console shows "sw.js not found"
-**Solution**: Upload the `sw.js` file to your repository root
+## Source
 
-### Old Version Still Showing
-**Problem**: You updated files but old version still appears
-**Solution**: 
-1. Clear browser cache (Ctrl+Shift+Delete)
-2. Hard refresh (Ctrl+Shift+R or Cmd+Shift+R)
-3. Or open in incognito/private mode
+All workout programs extracted from your `Complete_Workout_Programs.xlsx` spreadsheet:
+- PHLUL Overview sheet
+- 6-8 Week Rehab Roadmap sheet
+- 5-3-1 Classic sheet
+- Convict Conditioning sheet
+- Mobility sheets (Dynamic Perf & PreHab Fix)
 
-## 📊 Data Structure
+## License
 
-Your workout data is stored in `workout-data.js` which was generated directly from your spreadsheet. The structure is:
-
-```javascript
-WORKOUT_PROGRAMS = {
-  phlul: { days: {...}, schedule: {...} },
-  convict: { exercises: {...} },
-  mobility: { routines: {...} },
-  five31: { content: [...] },
-  rehab: { content: [...] }
-}
-```
-
-All your training data is saved to browser localStorage and organized by:
-- Program name (phlul, convict, mobility, five31, rehab)
-- Session identifier (day1, Push-ups, dynamic, etc.)
-
-## 🎨 Customization
-
-To modify the programs:
-1. Edit your spreadsheet
-2. Re-run the parser script to generate new `workout-data.js`
-3. Replace the file in your repository
-4. GitHub Pages will automatically redeploy
-
-## 📝 Notes
-
-- The app works entirely offline after first load
-- No data ever leaves your device
-- Export your data regularly as a backup
-- Compatible with all modern browsers
-- Mobile-optimized with horizontal scrolling tables
-
-## 🔒 Privacy
-
-- No tracking, no analytics, no servers
-- All data stored locally in your browser
-- No account required, no login needed
-- Your workout data never leaves your device
-
-## 📄 License
-
-This is a personal workout tracker. Feel free to modify for your own use.
+This is a personal workout tracker built from your own workout programs. Feel free to modify for your own use.
 
 ---
 
-**Built with:** Vanilla JavaScript, localStorage, PWA technologies
-**Generated from:** Your Complete Workout Programs spreadsheet
-**Version:** 2.0 - All-in-One Edition
+**Ready to train?** Open `index.html` in your browser or deploy to GitHub Pages! 💪
