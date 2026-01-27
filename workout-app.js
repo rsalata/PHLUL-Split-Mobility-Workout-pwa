@@ -148,6 +148,24 @@
     }
   };
 
+  // Toggle day sections
+  window.toggleDay = function(dayId) {
+    const content = document.getElementById(dayId);
+    const header = document.querySelector(`[data-day="${dayId}"]`);
+    if (content && header) {
+      const isCollapsed = content.classList.contains('collapsed');
+      if (isCollapsed) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        content.classList.remove('collapsed');
+        header.classList.remove('collapsed');
+      } else {
+        content.style.maxHeight = '0';
+        content.classList.add('collapsed');
+        header.classList.add('collapsed');
+      }
+    }
+  };
+
   // Update workout selector based on program
   function updateWorkoutSelector(program) {
     const programData = WORKOUT_PROGRAMS[program];
@@ -213,8 +231,19 @@
       const session = sessionData[sessionId] || { date: new Date().toISOString(), elapsed: 0, running: false };
       const sessionDate = new Date(session.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       
-      html += `<div class="day-title">
+      const dayContentId = `day-${dayKey}`;
+      
+      // Day header (collapsible) - starts collapsed
+      html += `<div class="day-header collapsed" data-day="${dayContentId}" onclick="toggleDay('${dayContentId}')">
         <span>${day.name}</span>
+        <span class="arrow">▼</span>
+      </div>`;
+      
+      // Day content (collapsible) - starts collapsed
+      html += `<div class="day-content collapsed" id="${dayContentId}" style="max-height:0">`;
+      
+      html += `<div class="day-title">
+        <span style="font-size:14px;color:var(--muted)">Session Tracking</span>
         <div class="session-info">
           <span>Last: ${sessionDate}</span>
           <span class="timer" id="timer-${sessionId}">${formatTime(session.elapsed)}</span>
@@ -239,32 +268,10 @@
       });
       html += '</tbody></table>';
 
-      if (day.rehab) {
-        const rehabId = `rehab-${dayKey}`;
-        html += `<div class="section-title collapsed" data-section="${rehabId}" onclick="toggleCollapse('${rehabId}')">
-          <span>Rotator Cuff Rehab Block (Warm-up or Finisher)</span>
-          <span class="arrow">▼</span>
-        </div>`;
-        html += `<div class="collapsible-content collapsed" id="${rehabId}" style="max-height: 0;">`;
-        html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Weight (lb)</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
-        day.rehab.forEach((ex, idx) => {
-          const id = getExerciseId('phlul', workout, dayKey, 'rehab', idx);
-          const saved = getUserExerciseData(id);
-          html += `<tr>
-            <td>${ex.name}</td>
-            <td class="input-cell"><input type="number" placeholder="0" value="${saved.weight}" data-id="${id}" data-field="weight" min="0" step="5"></td>
-            <td class="input-cell"><input type="number" placeholder="${ex.sets}" value="${saved.sets}" data-id="${id}" data-field="sets" min="0" step="1"></td>
-            <td class="input-cell"><input type="number" placeholder="${ex.reps}" value="${saved.reps}" data-id="${id}" data-field="reps" min="0" step="1"></td>
-            <td class="notes-cell"><input type="text" placeholder="${ex.notes || 'Notes...'}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
-          </tr>`;
-        });
-        html += '</tbody></table></div>';
-      }
-
       if (day.core) {
         const coreId = `core-${dayKey}`;
         html += `<div class="section-title collapsed" data-section="${coreId}" onclick="toggleCollapse('${coreId}')">
-          <span>Core Circuit (3 rounds)</span>
+          <span>Core Circuit</span>
           <span class="arrow">▼</span>
         </div>`;
         html += `<div class="collapsible-content collapsed" id="${coreId}" style="max-height: 0;">`;
@@ -282,6 +289,8 @@
         });
         html += '</tbody></table></div>';
       }
+      
+      html += '</div>'; // Close day-content
     });
 
     workoutDisplay.innerHTML = html;
@@ -327,8 +336,19 @@
       const session = sessionData[sessionId] || { date: new Date().toISOString(), elapsed: 0, running: false };
       const sessionDate = new Date(session.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       
-      html += `<div class="day-title">
+      const dayContentId = `day-${dayKey}`;
+      
+      // Day header (collapsible) - starts collapsed
+      html += `<div class="day-header collapsed" data-day="${dayContentId}" onclick="toggleDay('${dayContentId}')">
         <span>${day.name}</span>
+        <span class="arrow">▼</span>
+      </div>`;
+      
+      // Day content (collapsible) - starts collapsed
+      html += `<div class="day-content collapsed" id="${dayContentId}" style="max-height:0">`;
+      
+      html += `<div class="day-title">
+        <span style="font-size:14px;color:var(--muted)">Session Tracking</span>
         <div class="session-info">
           <span>Last: ${sessionDate}</span>
           <span class="timer" id="timer-${sessionId}">${formatTime(session.elapsed)}</span>
@@ -348,10 +368,12 @@
           <td class="input-cell"><input type="text" placeholder="${ex.load}" value="${saved.weight}" data-id="${id}" data-field="weight"></td>
           <td class="input-cell"><input type="number" placeholder="${ex.sets}" value="${saved.sets}" data-id="${id}" data-field="sets" min="0" step="1"></td>
           <td class="input-cell"><input type="text" placeholder="${ex.reps}" value="${saved.reps}" data-id="${id}" data-field="reps"></td>
-          <td class="notes-cell"><input type="text" placeholder="Additional notes..." value="${saved.notes}" data-id="${id}" data-field="notes"></td>
+          <td class="notes-cell"><input type="text" placeholder="Notes..." value="${saved.notes}" data-id="${id}" data-field="notes"></td>
         </tr>`;
       });
       html += '</tbody></table>';
+      
+      html += '</div>'; // Close day-content
     });
 
     // Progression Rules (collapsible)
@@ -382,9 +404,8 @@
 
     let html = '<h2 style="margin:0 0 16px">5/3/1 Training Days</h2>';
 
-    // Show which week we're on and what it means
     let weekNum = workout.replace('week', '');
-    html += `<div class="info-box"><p><strong>This is ${workoutInfo.label}</strong>: ${workoutInfo.description}</p></div>`;
+    html += `<div class="info-box"><p><strong>${workoutInfo.label}</strong>: ${workoutInfo.description}</p></div>`;
 
     Object.keys(programData.days).forEach(dayKey => {
       const day = programData.days[dayKey];
@@ -392,8 +413,19 @@
       const session = sessionData[sessionId] || { date: new Date().toISOString(), elapsed: 0, running: false };
       const sessionDate = new Date(session.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       
-      html += `<div class="day-title">
+      const dayContentId = `day-${dayKey}`;
+      
+      // Day header (collapsible) - starts collapsed
+      html += `<div class="day-header collapsed" data-day="${dayContentId}" onclick="toggleDay('${dayContentId}')">
         <span>${day.name}</span>
+        <span class="arrow">▼</span>
+      </div>`;
+      
+      // Day content (collapsible) - starts collapsed
+      html += `<div class="day-content collapsed" id="${dayContentId}" style="max-height:0">`;
+      
+      html += `<div class="day-title">
+        <span style="font-size:14px;color:var(--muted)">Session Tracking</span>
         <div class="session-info">
           <span>Last: ${sessionDate}</span>
           <span class="timer" id="timer-${sessionId}">${formatTime(session.elapsed)}</span>
@@ -421,7 +453,7 @@
       });
       html += '</tbody></table>';
 
-      // Assistance Work (varies by week)
+      // Assistance Work
       const assistanceKey = `week${weekNum}`;
       if (day.assistance && day.assistance[assistanceKey]) {
         html += '<h3 style="margin:16px 0 8px;color:var(--yellow)">Assistance Work</h3>';
@@ -460,6 +492,8 @@
         });
         html += '</tbody></table></div>';
       }
+      
+      html += '</div>'; // Close day-content
     });
 
     workoutDisplay.innerHTML = html;
@@ -571,11 +605,9 @@
       </div>
     </div>`;
     
-    // Check if exercises have 'rest' field (new format)
     const hasRestField = routine.exercises[0] && routine.exercises[0].rest !== undefined;
     
     if (hasRestField) {
-      // PreHab format with sets/rest columns
       html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="input-cell">Rest</th><th style="width:80px">Done</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
       routine.exercises.forEach((ex, idx) => {
         const id = getExerciseId('mobility', workout, 'routine', 'exercises', idx);
@@ -586,11 +618,10 @@
           <td class="input-cell" style="text-align:center"><span class="muted">${ex.reps}</span></td>
           <td class="input-cell" style="text-align:center"><span class="muted">${ex.rest}</span></td>
           <td style="text-align:center"><input type="checkbox" ${saved.sets === '1' ? 'checked' : ''} data-id="${id}" data-field="sets" onchange="updateUserExerciseData('${id}', 'sets', this.checked ? '1' : '');" style="width:20px;height:20px;cursor:pointer"></td>
-          <td class="notes-cell"><input type="text" placeholder="Personal notes..." value="${saved.notes}" data-id="${id}" data-field="notes"></td>
+          <td class="notes-cell"><input type="text" placeholder="Notes..." value="${saved.notes}" data-id="${id}" data-field="notes"></td>
         </tr>`;
       });
     } else {
-      // Dynamic format - simpler table
       html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th style="width:80px">Done</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
       routine.exercises.forEach((ex, idx) => {
         const id = getExerciseId('mobility', workout, 'routine', 'exercises', idx);
@@ -600,7 +631,7 @@
           <td class="input-cell" style="text-align:center"><span class="muted">${ex.sets}</span></td>
           <td class="input-cell" style="text-align:center"><span class="muted">${ex.reps}</span></td>
           <td style="text-align:center"><input type="checkbox" ${saved.sets === '1' ? 'checked' : ''} data-id="${id}" data-field="sets" onchange="updateUserExerciseData('${id}', 'sets', this.checked ? '1' : '');" style="width:20px;height:20px;cursor:pointer"></td>
-          <td class="notes-cell"><input type="text" placeholder="Personal notes..." value="${saved.notes}" data-id="${id}" data-field="notes"></td>
+          <td class="notes-cell"><input type="text" placeholder="Notes..." value="${saved.notes}" data-id="${id}" data-field="notes"></td>
         </tr>`;
       });
     }

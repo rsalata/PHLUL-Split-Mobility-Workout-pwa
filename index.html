@@ -10,7 +10,7 @@
     body{margin:0;background:linear-gradient(180deg,#0c1018 0%,#0e1116 100%);color:var(--text);font:500 16px/1.45 system-ui,Segoe UI,Roboto,Inter,Arial}
     .shell{max-width:980px;margin:0 auto;padding:28px 18px}
     header{position:sticky;top:0;background:rgba(14,17,22,.92);backdrop-filter:saturate(1.1) blur(6px);border-bottom:1px solid var(--ring);z-index:10}
-    .head{max-width:980px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:10px 18px}
+    .head{max-width:980px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:10px 18px;flex-wrap:wrap}
     .logo{width:34px;height:34px;border-radius:10px;background:#111;border:1px solid var(--ring);display:grid;place-items:center;font-weight:800;font-size:14px}
     h1{font-size:20px;margin:0}
     .card{background:var(--card);border:1px solid var(--ring);border-radius:16px;padding:18px;margin:18px 0}
@@ -21,22 +21,29 @@
     input[type="number"],input[type="text"]{width:100%;padding:6px 8px;border-radius:6px;border:1px solid var(--ring);background:#0f1320;color:var(--text);font-size:14px}
     input[type="number"]:focus,input[type="text"]:focus{outline:none;border-color:var(--acc)}
     input::placeholder{color:var(--muted);opacity:0.6}
-    table{width:100%;border-collapse:collapse;margin-top:12px}
-    th,td{padding:10px;border-bottom:1px solid var(--ring)}
+    table{width:100%;border-collapse:collapse;margin-top:12px;table-layout:fixed}
+    th,td{padding:10px;border-bottom:1px solid var(--ring);overflow-wrap:break-word;word-wrap:break-word}
     th{text-align:left;font-weight:600;color:var(--acc)}
     td{text-align:left;vertical-align:middle}
     td:nth-child(2),td:nth-child(3),td:nth-child(4){text-align:center;width:90px}
     .input-cell{width:90px}
-    .notes-cell{min-width:150px}
+    .notes-cell{min-width:150px;max-width:250px}
+    .notes-cell input{white-space:normal;word-wrap:break-word;overflow-wrap:break-word;min-height:34px}
     .day-title{font-size:18px;font-weight:700;margin:24px 0 12px;color:var(--acc);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
     .day-title:first-child{margin-top:0}
+    .day-header{font-size:17px;font-weight:700;margin:18px 0 8px;color:var(--acc);cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--panel);border-radius:10px;border:1px solid var(--ring)}
+    .day-header:hover{background:rgba(125,211,252,0.1);border-color:var(--acc)}
+    .day-header .arrow{transition:transform 0.3s;font-size:14px;color:var(--acc)}
+    .day-header.collapsed .arrow{transform:rotate(-90deg)}
+    .day-content{overflow:hidden;transition:max-height 0.4s ease-out}
+    .day-content.collapsed{max-height:0}
     .section-title{font-size:15px;font-weight:600;margin:18px 0 8px;color:var(--yellow);cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--panel);border-radius:8px;border:1px solid var(--ring)}
     .section-title:hover{background:var(--card)}
     .section-title .arrow{transition:transform 0.3s;font-size:12px}
     .section-title.collapsed .arrow{transform:rotate(-90deg)}
     .collapsible-content{overflow:hidden;transition:max-height 0.3s ease-out}
     .collapsible-content.collapsed{max-height:0}
-    .note{font-size:13px;color:var(--muted);font-style:italic}
+    .note{font-size:13px;color:var(--muted);font-style:italic;word-wrap:break-word}
     .session-info{display:flex;gap:12px;align-items:center;font-size:14px;color:var(--muted);flex-wrap:wrap}
     .timer{color:var(--acc);font-weight:600;font-size:16px}
     .timer-btn{padding:6px 12px;border-radius:6px;border:1px solid var(--ring);background:var(--panel);color:var(--text);cursor:pointer;font-size:13px;font-family:inherit}
@@ -46,7 +53,11 @@
     .info-box{background:var(--panel);border:1px solid var(--ring);border-radius:12px;padding:14px;margin:12px 0}
     .info-box h4{margin:0 0 8px;font-size:14px;color:var(--acc}}
     .info-box p{margin:4px 0;font-size:13px}
-    @media (max-width:720px){th,td{padding:8px;font-size:14px}}
+    @media (max-width:720px){
+      th,td{padding:8px;font-size:14px}
+      .notes-cell{max-width:200px}
+      table{font-size:13px}
+    }
   </style>
   <meta name="theme-color" content="#0e1116">
   <meta name="apple-mobile-web-app-capable" content="yes">
