@@ -287,7 +287,7 @@
             <td class="notes-cell"><input type="text" placeholder="${ex.notes || 'Notes...'}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
           </tr>`;
         });
-        html += '</tbody></table></div>';
+        html += '</tbody></table></div></div>'; // Close table-scroll and collapsible-content
       }
       
       html += '</div>'; // Close day-content
@@ -490,7 +490,7 @@
             <td class="notes-cell"><input type="text" placeholder="${ex.notes}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
           </tr>`;
         });
-        html += '</tbody></table></div>';
+        html += '</tbody></table></div></div>'; // Close table-scroll and collapsible-content
       }
       
       html += '</div>'; // Close day-content
