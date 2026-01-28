@@ -21,14 +21,20 @@
     input[type="number"],input[type="text"]{width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--ring);background:#0f1320;color:var(--text);font-size:15px}
     input[type="number"]:focus,input[type="text"]:focus{outline:none;border-color:var(--acc)}
     input::placeholder{color:var(--muted);opacity:0.6}
-    table{width:100%;border-collapse:collapse;margin-top:16px}
-    th,td{padding:12px 10px;border-bottom:1px solid var(--ring);overflow-wrap:break-word;word-wrap:break-word;word-break:break-word}
+    
+    /* Table container for horizontal scroll */
+    .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0}
+    
+    table{width:100%;border-collapse:collapse;min-width:650px}
+    th,td{padding:12px 10px;border-bottom:1px solid var(--ring);white-space:nowrap}
     th{text-align:left;font-weight:600;color:var(--acc);font-size:14px}
     td{text-align:left;vertical-align:middle;font-size:15px}
-    td:nth-child(2),td:nth-child(3),td:nth-child(4){text-align:center;width:85px}
-    .input-cell{width:85px}
-    .notes-cell{min-width:180px}
-    .notes-cell input{white-space:normal;word-wrap:break-word;overflow-wrap:break-word;min-height:38px}
+    td:first-child{white-space:normal;word-wrap:break-word;min-width:160px}
+    td:nth-child(2),td:nth-child(3),td:nth-child(4){text-align:center;width:90px}
+    .input-cell{width:90px}
+    .notes-cell{min-width:150px;white-space:normal;word-wrap:break-word}
+    .notes-cell input{white-space:normal;word-wrap:break-word;min-height:38px}
+    
     .day-title{font-size:18px;font-weight:700;margin:24px 0 16px;color:var(--acc);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
     .day-title:first-child{margin-top:0}
     .day-header{font-size:17px;font-weight:700;margin:20px 0 10px;color:var(--acc);cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center;padding:16px 16px;background:var(--panel);border-radius:10px;border:1px solid var(--ring);min-height:60px}
@@ -62,58 +68,30 @@
       .badge{font-size:11px}
       .head{padding:10px 12px;gap:10px}
       
-      /* Table improvements for mobile */
-      table{font-size:14px;margin-top:14px}
-      th{padding:10px 6px;font-size:13px}
-      td{padding:12px 6px;font-size:14px}
+      /* Table scroll on mobile */
+      .table-scroll{overflow-x:auto;margin:14px -4px;padding:0 4px}
+      table{font-size:14px;min-width:650px}
+      th{padding:10px 8px;font-size:13px}
+      td{padding:12px 8px;font-size:14px}
+      td:first-child{min-width:140px}
+      td:nth-child(2),td:nth-child(3),td:nth-child(4){width:80px}
+      .input-cell{width:80px}
+      .notes-cell{min-width:160px}
       
-      /* Adjust column widths for mobile - give more room to notes */
-      td:nth-child(2),td:nth-child(3),td:nth-child(4){width:70px}
-      .input-cell{width:70px}
-      .notes-cell{min-width:140px;max-width:none}
+      input[type="number"],input[type="text"]{padding:8px 8px;font-size:14px;min-height:38px}
       
-      /* Better input sizing for mobile */
-      input[type="number"],input[type="text"]{
-        padding:9px 8px;
-        font-size:14px;
-        min-height:40px;
-      }
-      
-      /* Exercise name column - allow it to be wider */
-      td:first-child{
-        min-width:140px;
-      }
-      
-      /* Day sections */
       .day-header{font-size:16px;padding:15px 14px;margin:18px 0 10px;min-height:56px}
       .day-header .arrow{font-size:14px}
       .day-content{padding:0 2px}
-      
-      /* Section titles */
       .section-title{padding:11px 12px;font-size:14px;margin:18px 0 10px;min-height:48px}
-      
-      /* Day title with timer */
       .day-title{font-size:15px;margin:18px 0 14px;gap:8px}
       .session-info{font-size:13px;gap:8px}
       .timer{font-size:15px}
-      .timer-btn{padding:8px 12px;font-size:13px;min-height:40px}
-      
-      /* Info boxes */
+      .timer-btn{padding:8px 12px;font-size:13px;min-height:38px}
       .info-box{padding:14px;margin:14px 0}
       .info-box h4{font-size:14px}
       .info-box p{font-size:13px}
-      
-      /* Notes in exercise descriptions */
       .note{font-size:12px;line-height:1.4}
-    }
-    
-    /* Extra small phones */
-    @media (max-width:400px){
-      td:nth-child(2),td:nth-child(3),td:nth-child(4){width:65px}
-      .input-cell{width:65px}
-      .notes-cell{min-width:120px}
-      td{padding:10px 4px}
-      th{padding:10px 4px}
     }
   </style>
   <meta name="theme-color" content="#0e1116">

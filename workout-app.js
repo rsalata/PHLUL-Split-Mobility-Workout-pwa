@@ -254,7 +254,7 @@
         </div>
       </div>`;
       
-      html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Weight (lb)</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
+      html += '<div class="table-scroll"><table><thead><tr><th>Exercise</th><th class="input-cell">Weight (lb)</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
       day.exercises.forEach((ex, idx) => {
         const id = getExerciseId('phlul', workout, dayKey, 'exercises', idx);
         const saved = getUserExerciseData(id);
@@ -266,7 +266,7 @@
           <td class="notes-cell"><input type="text" placeholder="${ex.notes || 'Notes...'}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
         </tr>`;
       });
-      html += '</tbody></table>';
+      html += '</tbody></table></div>';
 
       if (day.core) {
         const coreId = `core-${dayKey}`;
@@ -275,7 +275,7 @@
           <span class="arrow">▼</span>
         </div>`;
         html += `<div class="collapsible-content collapsed" id="${coreId}" style="max-height: 0;">`;
-        html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Weight (lb)</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
+        html += '<div class="table-scroll"><table><thead><tr><th>Exercise</th><th class="input-cell">Weight (lb)</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
         day.core.forEach((ex, idx) => {
           const id = getExerciseId('phlul', workout, dayKey, 'core', idx);
           const saved = getUserExerciseData(id);
@@ -314,7 +314,7 @@
         <span class="arrow">▼</span>
       </div>`;
       html += `<div class="collapsible-content" id="${warmupId}">`;
-      html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="input-cell">Load</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
+      html += '<div class="table-scroll"><table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="input-cell">Load</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
       programData.warmup.exercises.forEach((ex, idx) => {
         const id = getExerciseId('rehab', workout, 'warmup', 'exercises', idx);
         const saved = getUserExerciseData(id);
@@ -359,7 +359,7 @@
         </div>
       </div>`;
       
-      html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Weight/Load</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
+      html += '<div class="table-scroll"><table><thead><tr><th>Exercise</th><th class="input-cell">Weight/Load</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
       day.exercises.forEach((ex, idx) => {
         const id = getExerciseId('rehab', workout, dayKey, 'exercises', idx);
         const saved = getUserExerciseData(id);
@@ -371,7 +371,7 @@
           <td class="notes-cell"><input type="text" placeholder="Notes..." value="${saved.notes}" data-id="${id}" data-field="notes"></td>
         </tr>`;
       });
-      html += '</tbody></table>';
+      html += '</tbody></table></div>';
       
       html += '</div>'; // Close day-content
     });
@@ -438,7 +438,7 @@
       
       // Main Lift
       html += '<h3 style="margin:16px 0 8px;color:var(--acc)">Main Lift</h3>';
-      html += '<table><thead><tr><th>Set</th><th class="input-cell">% TM</th><th class="input-cell">Weight</th><th class="input-cell">Target</th><th class="input-cell">Actual</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
+      html += '<div class="table-scroll"><table><thead><tr><th>Set</th><th class="input-cell">% TM</th><th class="input-cell">Weight</th><th class="input-cell">Target</th><th class="input-cell">Actual</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
       day.sets.forEach((set, idx) => {
         const id = getExerciseId('wendler531', workout, dayKey, 'mainlift', idx);
         const saved = getUserExerciseData(id);
@@ -451,13 +451,13 @@
           <td class="notes-cell"><input type="text" placeholder="${set.notes}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
         </tr>`;
       });
-      html += '</tbody></table>';
+      html += '</tbody></table></div>';
 
       // Assistance Work
       const assistanceKey = `week${weekNum}`;
       if (day.assistance && day.assistance[assistanceKey]) {
         html += '<h3 style="margin:16px 0 8px;color:var(--yellow)">Assistance Work</h3>';
-        html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
+        html += '<div class="table-scroll"><table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
         day.assistance[assistanceKey].forEach((ex, idx) => {
           const id = getExerciseId('wendler531', workout, dayKey, `assistance_${assistanceKey}`, idx);
           const saved = getUserExerciseData(id);
@@ -468,7 +468,7 @@
             <td class="notes-cell"><input type="text" placeholder="${ex.notes}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
           </tr>`;
         });
-        html += '</tbody></table>';
+        html += '</tbody></table></div>';
       }
 
       // Core Circuit (collapsible)
@@ -479,7 +479,7 @@
           <span class="arrow">▼</span>
         </div>`;
         html += `<div class="collapsible-content collapsed" id="${coreId}" style="max-height: 0;">`;
-        html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
+        html += '<div class="table-scroll"><table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
         day.core.forEach((ex, idx) => {
           const id = getExerciseId('wendler531', workout, dayKey, 'core', idx);
           const saved = getUserExerciseData(id);
@@ -560,7 +560,7 @@
       {name: "Handstand Push-ups", key: "handstand"}
     ];
     
-    html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Current Step</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
+    html += '<div class="table-scroll"><table><thead><tr><th>Exercise</th><th class="input-cell">Current Step</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
     exercises.forEach((ex, idx) => {
       const id = getExerciseId('convict', workout, 'bigSix', 'exercises', idx);
       const saved = getUserExerciseData(id);
@@ -572,7 +572,7 @@
         <td class="notes-cell"><input type="text" placeholder="Notes..." value="${saved.notes}" data-id="${id}" data-field="notes"></td>
       </tr>`;
     });
-    html += '</tbody></table>';
+    html += '</tbody></table></div>';
 
     workoutDisplay.innerHTML = html;
     attachInputListeners();
@@ -608,7 +608,7 @@
     const hasRestField = routine.exercises[0] && routine.exercises[0].rest !== undefined;
     
     if (hasRestField) {
-      html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="input-cell">Rest</th><th style="width:80px">Done</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
+      html += '<div class="table-scroll"><table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="input-cell">Rest</th><th style="width:80px">Done</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
       routine.exercises.forEach((ex, idx) => {
         const id = getExerciseId('mobility', workout, 'routine', 'exercises', idx);
         const saved = getUserExerciseData(id);
@@ -622,7 +622,7 @@
         </tr>`;
       });
     } else {
-      html += '<table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th style="width:80px">Done</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
+      html += '<div class="table-scroll"><table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th style="width:80px">Done</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
       routine.exercises.forEach((ex, idx) => {
         const id = getExerciseId('mobility', workout, 'routine', 'exercises', idx);
         const saved = getUserExerciseData(id);
@@ -635,7 +635,7 @@
         </tr>`;
       });
     }
-    html += '</tbody></table>';
+    html += '</tbody></table></div>';
 
     workoutDisplay.innerHTML = html;
     attachInputListeners();
