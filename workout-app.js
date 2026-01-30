@@ -8,7 +8,6 @@
   let userData = {};
   let sessionData = {};
 
-  // DOM elements
   const programSelect = document.getElementById('program-select');
   const workoutSelect = document.getElementById('workout-select');
   const programBadge = document.getElementById('program-badge');
@@ -20,7 +19,6 @@
   const scheduleText = document.getElementById('schedule-text');
   const generalNotes = document.getElementById('general-notes');
 
-  // Load/Save functions
   function loadData() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -58,7 +56,6 @@
   userData = loadData();
   sessionData = loadSessionData();
 
-  // Helper functions
   function getExerciseId(program, workout, dayKey, section, index) {
     return `${program}_${workout}_${dayKey}_${section}_${index}`;
   }
@@ -86,7 +83,6 @@
     return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 
-  // Timer functions
   window.toggleTimer = function(sessionId) {
     if (!sessionData[sessionId]) {
       sessionData[sessionId] = { date: new Date().toISOString(), elapsed: 0, running: false };
@@ -130,43 +126,44 @@
     }
   }
 
-  // Collapsible sections
-  window.toggleCollapse = function(sectionId) {
-    const content = document.getElementById(sectionId);
-    const header = document.querySelector(`[data-section="${sectionId}"]`);
-    if (content && header) {
-      const isCollapsed = content.classList.contains('collapsed');
-      if (isCollapsed) {
-        content.style.maxHeight = content.scrollHeight + 'px';
-        content.classList.remove('collapsed');
-        header.classList.remove('collapsed');
-      } else {
-        content.style.maxHeight = '0';
-        content.classList.add('collapsed');
-        header.classList.add('collapsed');
-      }
-    }
-  };
-
-  // Toggle day sections
   window.toggleDay = function(dayId) {
     const content = document.getElementById(dayId);
     const header = document.querySelector(`[data-day="${dayId}"]`);
+    
     if (content && header) {
       const isCollapsed = content.classList.contains('collapsed');
+      
       if (isCollapsed) {
-        content.style.maxHeight = content.scrollHeight + 'px';
         content.classList.remove('collapsed');
+        content.style.maxHeight = content.scrollHeight + 'px';
         header.classList.remove('collapsed');
       } else {
-        content.style.maxHeight = '0';
         content.classList.add('collapsed');
+        content.style.maxHeight = '0';
         header.classList.add('collapsed');
       }
     }
   };
 
-  // Update workout selector based on program
+  window.toggleCollapse = function(sectionId) {
+    const content = document.getElementById(sectionId);
+    const header = document.querySelector(`[data-section="${sectionId}"]`);
+    
+    if (content && header) {
+      const isCollapsed = content.classList.contains('collapsed');
+      
+      if (isCollapsed) {
+        content.classList.remove('collapsed');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        header.classList.remove('collapsed');
+      } else {
+        content.classList.add('collapsed');
+        content.style.maxHeight = '0';
+        header.classList.add('collapsed');
+      }
+    }
+  };
+
   function updateWorkoutSelector(program) {
     const programData = WORKOUT_PROGRAMS[program];
     workoutSelect.innerHTML = '';
@@ -179,7 +176,6 @@
     workoutSelect.value = Object.keys(programData.workouts)[0];
     currentWorkout = workoutSelect.value;
     
-    // Update label based on program type
     if (program === 'convict') {
       workoutLabel.textContent = 'Progression';
     } else if (program === 'mobility') {
@@ -193,7 +189,6 @@
     }
   }
 
-  // Update info section
   function updateInfoSection() {
     const programData = WORKOUT_PROGRAMS[currentProgram];
     const info = programData.info;
@@ -205,7 +200,6 @@
     generalNotes.innerHTML = info.notes.map(note => `<li>${note}</li>`).join('');
   }
 
-  // Attach input listeners
   function attachInputListeners() {
     workoutDisplay.querySelectorAll('input').forEach(input => {
       input.addEventListener('input', (e) => {
@@ -216,14 +210,14 @@
     });
   }
 
-  // Render PHLUL workout
+  // PHLUL Program
   function renderPHLULWorkout(workout) {
     const programData = WORKOUT_PROGRAMS.phlul;
     const workoutInfo = programData.workouts[workout];
     
     progressionNotesDiv.innerHTML = `<h4>${workoutInfo.label}</h4><p>${workoutInfo.description}</p>`;
 
-    let html = '<h2 style="margin:0 0 16px">Weekly Training Split</h2>';
+    let html = '<h2 style="margin:0 0 20px">Weekly Training Split</h2>';
 
     Object.keys(programData.days).forEach(dayKey => {
       const day = programData.days[dayKey];
@@ -233,13 +227,11 @@
       
       const dayContentId = `day-${dayKey}`;
       
-      // Day header (collapsible) - starts collapsed
       html += `<div class="day-header collapsed" data-day="${dayContentId}" onclick="toggleDay('${dayContentId}')">
         <span>${day.name}</span>
         <span class="arrow">▼</span>
       </div>`;
       
-      // Day content (collapsible) - starts collapsed
       html += `<div class="day-content collapsed" id="${dayContentId}" style="max-height:0">`;
       
       html += `<div class="day-title">
@@ -274,7 +266,7 @@
           <span>Core Circuit</span>
           <span class="arrow">▼</span>
         </div>`;
-        html += `<div class="collapsible-content collapsed" id="${coreId}" style="max-height: 0;">`;
+        html += `<div class="collapsible-content collapsed" id="${coreId}" style="max-height:0">`;
         html += '<div class="table-scroll"><table><thead><tr><th>Exercise</th><th class="input-cell">Weight (lb)</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
         day.core.forEach((ex, idx) => {
           const id = getExerciseId('phlul', workout, dayKey, 'core', idx);
@@ -287,29 +279,29 @@
             <td class="notes-cell"><input type="text" placeholder="${ex.notes || 'Notes...'}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
           </tr>`;
         });
-        html += '</tbody></table></div></div>'; // Close table-scroll and collapsible-content
+        html += '</tbody></table></div></div>';
       }
       
-      html += '</div>'; // Close day-content
+      html += '</div>';
     });
 
     workoutDisplay.innerHTML = html;
     attachInputListeners();
   }
 
-  // Render Rehab workout
+  // Rehab Program
   function renderRehabWorkout(workout) {
     const programData = WORKOUT_PROGRAMS.rehab;
     const workoutInfo = programData.workouts[workout];
     
     progressionNotesDiv.innerHTML = `<h4>${workoutInfo.label}</h4><p>${workoutInfo.description}</p>`;
 
-    let html = '<h2 style="margin:0 0 16px">Rehab Program</h2>';
+    let html = '<h2 style="margin:0 0 20px">Rehab Program</h2>';
 
-    // Global Warm-Up (collapsible)
+    // Global Warm-Up
     if (programData.warmup) {
       const warmupId = 'global-warmup';
-      html += `<div class="section-title" data-section="${warmupId}" onclick="toggleCollapse('${warmupId}')" style="background:var(--card);color:var(--ok)">
+      html += `<div class="section-title" data-section="${warmupId}" onclick="toggleCollapse('${warmupId}')" style="background:var(--card);color:var(--ok);margin-bottom:20px">
         <span>${programData.warmup.name} ⚠️ REQUIRED</span>
         <span class="arrow">▼</span>
       </div>`;
@@ -326,7 +318,7 @@
           <td class="notes-cell"><input type="text" placeholder="${ex.notes}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
         </tr>`;
       });
-      html += '</tbody></table></div>';
+      html += '</tbody></table></div></div>';
     }
 
     // Training Days
@@ -338,13 +330,11 @@
       
       const dayContentId = `day-${dayKey}`;
       
-      // Day header (collapsible) - starts collapsed
       html += `<div class="day-header collapsed" data-day="${dayContentId}" onclick="toggleDay('${dayContentId}')">
         <span>${day.name}</span>
         <span class="arrow">▼</span>
       </div>`;
       
-      // Day content (collapsible) - starts collapsed
       html += `<div class="day-content collapsed" id="${dayContentId}" style="max-height:0">`;
       
       html += `<div class="day-title">
@@ -373,17 +363,17 @@
       });
       html += '</tbody></table></div>';
       
-      html += '</div>'; // Close day-content
+      html += '</div>';
     });
 
-    // Progression Rules (collapsible)
+    // Progression Rules
     if (programData.progression) {
       const progId = 'progression-rules';
-      html += `<div class="section-title collapsed" data-section="${progId}" onclick="toggleCollapse('${progId}')" style="background:var(--panel);color:var(--yellow)">
+      html += `<div class="section-title collapsed" data-section="${progId}" onclick="toggleCollapse('${progId}')" style="background:var(--panel);color:var(--yellow);margin-top:20px">
         <span>${programData.progression.title}</span>
         <span class="arrow">▼</span>
       </div>`;
-      html += `<div class="collapsible-content collapsed" id="${progId}" style="max-height: 0;">`;
+      html += `<div class="collapsible-content collapsed" id="${progId}" style="max-height:0">`;
       html += '<ul class="muted" style="line-height:1.6;margin:12px 0">';
       programData.progression.notes.forEach(note => {
         html += `<li>${note}</li>`;
@@ -395,14 +385,14 @@
     attachInputListeners();
   }
 
-  // Render Wendler 5/3/1 workout
+  // 5/3/1 Program
   function renderWendler531Workout(workout) {
     const programData = WORKOUT_PROGRAMS.wendler531;
     const workoutInfo = programData.workouts[workout];
     
     progressionNotesDiv.innerHTML = `<h4>${workoutInfo.label}</h4><p>${workoutInfo.description}</p>`;
 
-    let html = '<h2 style="margin:0 0 16px">5/3/1 Training Days</h2>';
+    let html = '<h2 style="margin:0 0 20px">5/3/1 Training Days</h2>';
 
     let weekNum = workout.replace('week', '');
     html += `<div class="info-box"><p><strong>${workoutInfo.label}</strong>: ${workoutInfo.description}</p></div>`;
@@ -415,13 +405,11 @@
       
       const dayContentId = `day-${dayKey}`;
       
-      // Day header (collapsible) - starts collapsed
       html += `<div class="day-header collapsed" data-day="${dayContentId}" onclick="toggleDay('${dayContentId}')">
         <span>${day.name}</span>
         <span class="arrow">▼</span>
       </div>`;
       
-      // Day content (collapsible) - starts collapsed
       html += `<div class="day-content collapsed" id="${dayContentId}" style="max-height:0">`;
       
       html += `<div class="day-title">
@@ -471,14 +459,14 @@
         html += '</tbody></table></div>';
       }
 
-      // Core Circuit (collapsible)
+      // Core Circuit
       if (day.core) {
         const coreId = `core-${dayKey}`;
         html += `<div class="section-title collapsed" data-section="${coreId}" onclick="toggleCollapse('${coreId}')">
           <span>Core Circuit</span>
           <span class="arrow">▼</span>
         </div>`;
-        html += `<div class="collapsible-content collapsed" id="${coreId}" style="max-height: 0;">`;
+        html += `<div class="collapsible-content collapsed" id="${coreId}" style="max-height:0">`;
         html += '<div class="table-scroll"><table><thead><tr><th>Exercise</th><th class="input-cell">Sets</th><th class="input-cell">Reps</th><th class="notes-cell">Notes</th></tr></thead><tbody>';
         day.core.forEach((ex, idx) => {
           const id = getExerciseId('wendler531', workout, dayKey, 'core', idx);
@@ -490,17 +478,17 @@
             <td class="notes-cell"><input type="text" placeholder="${ex.notes}" value="${saved.notes}" data-id="${id}" data-field="notes"></td>
           </tr>`;
         });
-        html += '</tbody></table></div></div>'; // Close table-scroll and collapsible-content
+        html += '</tbody></table></div></div>';
       }
       
-      html += '</div>'; // Close day-content
+      html += '</div>';
     });
 
     workoutDisplay.innerHTML = html;
     attachInputListeners();
   }
 
-  // Render Convict Conditioning workout
+  // Convict Conditioning
   function renderConvictWorkout(workout) {
     const programData = WORKOUT_PROGRAMS.convict;
     const workoutInfo = programData.workouts[workout];
@@ -511,7 +499,7 @@
     let html = '<h2 style="margin:0 0 16px">The Big Six Progressions</h2>';
     
     // Progression table
-    html += '<div class="info-box" style="margin-bottom:24px;overflow-x:auto"><h4>Progression Standards</h4><table style="font-size:13px"><thead><tr><th>Step</th><th>Push-ups</th><th>Squats</th><th>Pull-ups</th><th>Leg Raises</th><th>Bridges</th><th>Handstand Push-ups</th></tr></thead><tbody>';
+    html += '<div class="info-box" style="margin-bottom:24px;overflow-x:auto"><h4>Progression Standards</h4><div class="table-scroll"><table style="font-size:13px"><thead><tr><th>Step</th><th>Push-ups</th><th>Squats</th><th>Pull-ups</th><th>Leg Raises</th><th>Bridges</th><th>Handstand Push-ups</th></tr></thead><tbody>';
     
     const maxSteps = Math.max(progs.pushup.length, progs.squat.length, progs.pullup.length, progs.legRaise.length, progs.bridge.length, progs.handstand.length);
     for (let i = 0; i < maxSteps; i++) {
@@ -532,7 +520,7 @@
         <td>${handstand.name ? `${handstand.name}<br><span style="color:var(--muted)">${handstand.sets}×${handstand.reps}</span>` : ''}</td>
       </tr>`;
     }
-    html += '</tbody></table></div>';
+    html += '</tbody></table></div></div>';
 
     // Tracking section
     const sessionId = getSessionId('convict', 'bigSix');
@@ -578,7 +566,7 @@
     attachInputListeners();
   }
 
-  // Render Mobility Routine
+  // Mobility Routines
   function renderMobilityWorkout(workout) {
     const programData = WORKOUT_PROGRAMS.mobility;
     const workoutInfo = programData.workouts[workout];
@@ -659,7 +647,6 @@
     }
   }
 
-  // Event listeners
   programSelect.addEventListener('change', (e) => {
     currentProgram = e.target.value;
     updateWorkoutSelector(currentProgram);
@@ -671,7 +658,6 @@
     renderWorkout();
   });
 
-  // Data management functions
   window.exportData = function() {
     const exportData = {
       version: 1,
@@ -747,7 +733,6 @@
     }
   };
 
-  // Initial setup
   updateWorkoutSelector(currentProgram);
   renderWorkout();
 })();
