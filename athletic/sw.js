@@ -1,4 +1,4 @@
-const CACHE="athletic-bodyweight-5k-v7";
+const CACHE="athletic-bodyweight-5k-v8";
 const SHELL=["./","./index.html","./style.css","./data.js","./demos.js","./app.js","./manifest.webmanifest","./icon-192.png","./icon-512.png"];
 self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith("athletic-bodyweight-5k-")&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
