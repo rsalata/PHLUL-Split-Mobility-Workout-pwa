@@ -1,36 +1,51 @@
 window.ATHLETIC_DEMOS = (() => {
-  const shell=body=>`<svg viewBox="0 0 240 220" role="img" aria-label="Animated line drawing exercise guide"><line class="floor" x1="18" y1="194" x2="222" y2="194"/>${body}</svg>`;
+  const shell=body=>`<svg viewBox="0 0 260 220" role="img" aria-label="Exercise technique diagram"><line class="floor" x1="15" y1="194" x2="245" y2="194"/>${body}</svg>`;
   const dot=(x,y,r=5)=>`<circle class="joint" cx="${x}" cy="${y}" r="${r}"/>`;
-  const standing=(cls="motion-bob",arms='<path d="M102 91 L75 122 M102 91 L132 120"/>')=>shell(`<g class="figure ${cls}"><circle cx="102" cy="50" r="18"/><path d="M102 68 L102 130 L75 188 M102 130 L132 188"/>${arms}${dot(102,91)}</g>`);
-  const squat=()=>shell(`<g class="figure motion-squat"><circle cx="100" cy="48" r="18"/><path d="M100 66 L100 123 L70 151 L48 190 M100 123 L135 151 L160 190 M100 88 L65 112 M100 88 L140 111"/>${dot(100,123)}</g>`);
-  const pistol=()=>shell(`<g class="figure motion-lunge"><circle cx="103" cy="48" r="17"/><path d="M103 65 L100 121 L70 151 L55 191 M100 121 L167 143 M100 88 L69 113 M100 88 L140 111"/>${dot(100,121)}</g><path class="figure faint" d="M166 143 L205 143"/>`);
-  const push=()=>shell(`<g class="figure motion-push"><circle cx="178" cy="103" r="16"/><path d="M162 110 L91 126 L40 153 M91 126 L72 166 M91 126 L112 166 M145 115 L134 150 L113 174"/>${dot(91,126)}</g>`);
-  const pull=()=>shell(`<path class="figure faint" d="M55 30 L185 30"/><g class="figure motion-pull"><circle cx="120" cy="76" r="17"/><path d="M120 93 L120 142 L92 190 M120 142 L148 190 M120 105 L82 31 M120 105 L158 31"/>${dot(120,105)}</g>`);
-  const row=()=>shell(`<path class="figure faint" d="M196 35 L196 190 M196 62 L149 93"/><g class="figure motion-push"><circle cx="136" cy="91" r="15"/><path d="M121 98 L73 125 L37 170 M73 125 L66 184 M73 125 L103 180 M121 105 L149 93"/>${dot(73,125)}</g>`);
-  const hinge=()=>shell(`<g class="figure motion-hinge"><circle cx="104" cy="48" r="18"/><path d="M104 66 L104 137 L78 190 M104 137 L134 190 M104 91 L72 132 M104 91 L137 132"/>${dot(104,137)}</g>`);
-  const shoulder=()=>standing("",'<g class="motion-raise"><path d="M102 91 L64 119 M102 91 L140 119"/></g>');
-  const core=()=>shell(`<g class="figure motion-core"><circle cx="68" cy="130" r="16"/><path d="M84 137 L132 159 L181 184 M130 158 L160 122 M84 142 L61 177"/>${dot(132,159)}</g>`);
-  const lunge=()=>shell(`<g class="figure motion-lunge"><circle cx="102" cy="45" r="17"/><path d="M102 62 L102 119 L66 151 L47 190 M102 119 L143 149 L188 174 M102 85 L70 112 M102 85 L137 111"/>${dot(102,119)}</g>`);
-  const walk=()=>shell(`<path class="figure faint" d="M23 190 L217 190 M35 38 L205 38"/><g class="figure motion-bob"><circle cx="112" cy="56" r="17"/><path d="M112 73 L110 133 L75 187 M110 133 L155 183 M110 94 L76 123 M110 94 L148 117"/>${dot(110,133)}</g>`);
-  const ankle=()=>shell(`<g class="figure"><circle cx="88" cy="43" r="16"/><path d="M88 60 L91 117 L71 188 M91 117 L136 158 L158 190 M91 82 L123 111"/>${dot(91,117)}</g><path class="figure faint" d="M167 42 L167 193"/><g class="figure motion-bob"><path d="M136 158 L158 190"/></g>`);
-  const stretch=()=>shell(`<g class="figure motion-lunge"><circle cx="100" cy="48" r="17"/><path d="M100 65 L100 119 L70 154 L52 190 M100 119 L145 151 L187 184 M100 86 L73 118 M100 86 L133 116"/>${dot(100,119)}</g>`);
-  const handstand=()=>shell(`<path class="figure faint" d="M205 25 L205 195"/><g class="figure motion-pull"><circle cx="160" cy="158" r="16"/><path d="M160 142 L164 92 L145 35 M164 92 L184 34 M160 129 L126 181 M160 129 L190 181"/>${dot(160,129)}</g>`);
-  function get(name){
-    const n=name.toLowerCase(); let svg,label,cue,exact=true;
-    if(/handstand|hspu/.test(n)){svg=handstand();label="Wall handstand press";cue="Keep ribs down and use a pain-free pressing depth."}
-    else if(/one-arm push|push-up|push up|press up|shoulders push/.test(n)){svg=push();label="Horizontal press";cue="Brace the trunk and keep the shoulder controlled."}
-    else if(/pull-up|pullup|chin-up|chinup/.test(n)){svg=pull();label="Vertical pull";cue="Start from a controlled hang and avoid swinging."}
-    else if(/row|shoulders back|face pull/.test(n)){svg=row();label="Row / horizontal pull";cue="Pull the shoulder blades back without shrugging."}
-    else if(/pistol|single-leg.*squat/.test(n)){svg=pistol();label="Single-leg squat";cue="Use assistance until the full range stays controlled."}
-    else if(/squat|step forward|step backward|step sideways|knee flex|knee extension|knee stability/.test(n)){svg=squat();label="Knee-dominant movement";cue="Track the knee smoothly and work through a tolerable range.";exact=!/knee|step/.test(n)}
-    else if(/run|walk|treadmill/.test(n)){svg=walk();label="Walk / run pattern";cue="Use a smooth gait and an easy pace unless the workout says otherwise."}
-    else if(/ankle|calf|shin|tibialis|front of shins/.test(n)){svg=ankle();label="Ankle and lower-leg work";cue="Keep the foot controlled and move through the ankle.";exact=false}
-    else if(/dead bug|sit-up|situp|core|posterior tilt|breathing/.test(n)){svg=core();label="Trunk-control movement";cue="Keep the ribs down and shorten the range if the low back arches.";exact=!/breathing|posterior tilt/.test(n)}
-    else if(/hinge|posterior chain|back extension|extend back|jefferson|goodmorning|good morning/.test(n)){svg=hinge();label="Hip hinge / back extension";cue="Move from the hips and keep the range controlled.";exact=false}
-    else if(/shoulder|wrist|hand|biceps|triceps|control|pull/.test(n)){svg=shoulder();label="Shoulder and arm movement";cue="Use light resistance and avoid pinching or sharp pain.";exact=false}
-    else if(/hip|groin|lunge|mobilize|spine|lat|stretch|90\/90|deep squat rock/.test(n)){svg=stretch();label="Mobility movement";cue="Ease into the range; do not force the end position.";exact=false}
-    else {svg=standing();label="General movement guide";cue="Follow the written prescription and use a comfortable range.";exact=false}
-    return {svg,label,cue,exact};
-  }
+  const standing=(arms='<path d="M110 92 L78 124 M110 92 L142 124"/>',cls="motion-bob")=>shell(`<g class="figure ${cls}"><circle cx="110" cy="49" r="18"/><path d="M110 67 L110 132 L80 190 M110 132 L142 190"/>${arms}${dot(110,92)}</g>`);
+  const squat=()=>shell(`<path class="figure faint" d="M35 72 L35 192"/><g class="figure motion-squat"><circle cx="111" cy="49" r="18"/><path d="M111 67 L108 122 L76 151 L53 190 M108 122 L145 151 L174 190 M109 89 L75 115 M109 89 L146 113"/>${dot(108,122)}</g>`);
+  const push=()=>shell(`<g class="figure motion-push"><circle cx="195" cy="102" r="15"/><path d="M180 109 L104 127 L43 153 M104 127 L82 173 M104 127 L126 173 M160 114 L146 153 L122 177"/>${dot(104,127)}</g>`);
+  const pull=()=>shell(`<path class="figure faint" d="M60 29 L200 29"/><g class="figure motion-pull"><circle cx="130" cy="75" r="17"/><path d="M130 92 L130 142 L101 190 M130 142 L159 190 M130 104 L88 30 M130 104 L172 30"/>${dot(130,104)}</g>`);
+  const row=()=>shell(`<path class="figure faint" d="M213 33 L213 192 M213 62 L164 93"/><g class="figure motion-push"><circle cx="150" cy="92" r="15"/><path d="M135 99 L83 126 L40 171 M83 126 L75 187 M83 126 L116 181 M135 106 L164 93"/>${dot(83,126)}</g>`);
+  const hinge=()=>shell(`<g class="figure motion-hinge"><circle cx="112" cy="48" r="18"/><path d="M112 66 L112 137 L82 190 M112 137 L144 190 M112 91 L77 133 M112 91 L149 133"/>${dot(112,137)}</g>`);
+  const bridge=()=>shell(`<g class="figure motion-core"><circle cx="48" cy="163" r="15"/><path d="M63 163 L111 143 L161 164 L211 187 M111 143 L91 187 M161 164 L178 190"/>${dot(111,143)}</g>`);
+  const deadbug=()=>shell(`<g class="figure motion-core"><circle cx="55" cy="164" r="15"/><path d="M70 164 L119 164 L174 184 M119 164 L154 126 M91 161 L63 119"/>${dot(119,164)}</g>`);
+  const shoulder=()=>standing('<g class="motion-raise"><path d="M110 92 L68 120 M110 92 L152 120"/></g>',"");
+  const handstand=()=>shell(`<path class="figure faint" d="M220 24 L220 195"/><g class="figure motion-pull"><circle cx="171" cy="159" r="16"/><path d="M171 143 L175 92 L155 35 M175 92 L197 34 M171 129 L136 181 M171 129 L202 181"/>${dot(171,129)}</g>`);
+  const walk=()=>shell(`<g class="figure motion-bob"><circle cx="120" cy="55" r="17"/><path d="M120 72 L118 133 L80 189 M118 133 L165 184 M118 94 L83 124 M118 94 L158 117"/>${dot(118,133)}</g><path class="figure faint" d="M35 39 L213 39"/>`);
+  const ankle=()=>shell(`<path class="figure faint" d="M190 38 L190 194"/><g class="figure"><circle cx="91" cy="43" r="16"/><path d="M91 60 L94 118 L72 190 M94 118 L143 158 L168 191 M94 83 L129 112"/>${dot(94,118)}</g>`);
+  const mobility=()=>shell(`<g class="figure motion-lunge"><circle cx="108" cy="47" r="17"/><path d="M108 64 L108 120 L73 155 L52 190 M108 120 L155 151 L204 184 M108 87 L77 119 M108 87 L145 116"/>${dot(108,120)}</g>`);
+  const diagrams={push,pull,row,squat,hinge,bridge,deadbug,shoulder,handstand,walk,ankle,mobility,standing};
+  const typeById={
+    breathing:"deadbug","glute-bridge":"bridge","dead-bug":"deadbug","ankle-wall":"ankle","squat-rock":"squat","hip-flexor":"mobility","hip-90":"mobility",hang:"pull",
+    oap:"push",pushups:"push","push-volume":"push","press-up":"push",hspu:"handstand","rows-mon":"row","rows-wed":"row","row-volume":"row",pullups:"pull","pull-volume":"pull",pistol:"squat","pistol-fri":"squat","situps-wed":"deadbug","situp-volume":"deadbug",
+    "knee-tread":"walk","knee-flex":"squat","knee-ext":"squat","knee-stability":"standing","step-forward":"squat","step-back":"squat","step-side":"squat",mobilize:"mobility","posterior-chain":"hinge","long-calf":"ankle","short-calf":"ankle","front-shins":"ankle",
+    "shoulders-out":"shoulder","wall-slides":"shoulder","scap-pull":"pull","shoulder-stability":"shoulder","wrist-flex":"shoulder","backward-tread":"walk","back-one-leg":"standing","back-hip-flex":"mobility","back-two-leg":"bridge",spine:"mobility"
+  };
+  const custom={
+    breathing:{steps:["Lie on your back with hips and knees supported at roughly 90 degrees.","Breathe in quietly through the nose.","Exhale fully until the ribs settle without forcing the low back."],cue:"Make the exhale longer than the inhale.",mistake:"Arching the back or aggressively pushing it into the floor."},
+    "dead-bug":{steps:["Start on your back with arms up and hips and knees bent.","Brace gently, then extend the opposite arm and leg.","Return before the low back lifts; alternate sides."],cue:"Use a smaller range before allowing the back to arch.",mistake:"Moving quickly and losing trunk position."},
+    "ankle-wall":{steps:["Plant the whole foot a short distance from a wall.","Drive the knee forward toward the wall while the heel stays down.","Return smoothly and repeat without the arch collapsing."],cue:"Track the knee in line with the middle toes.",mistake:"Lifting the heel to create fake range."},
+    hspu:{steps:["Set the hands securely and establish a controlled wall-supported position.","Lower only as far as the shoulder remains comfortable.","Press away while keeping the ribs controlled."],cue:"Stop the set before position changes.",mistake:"Overarching the low back or forcing painful depth."},
+    oap:{steps:["Choose a wall, bench or floor height that allows level shoulders.","Lower the chest as one unit while resisting rotation.","Press back without twisting the torso."],cue:"Raise the hand support when control is lost.",mistake:"Opening the hips or dropping one shoulder."},
+    pistol:{steps:["Use a post, strap or counter for enough assistance.","Sit down and back over the working foot.","Keep the whole foot planted and stand with control."],cue:"Own the range before reducing assistance.",mistake:"Collapsing the knee inward or dropping rapidly."},
+    "knee-tread":{steps:["Set a slow treadmill or choose a clear walking path.","Take short backward steps with the forefoot contacting first.","Keep the torso tall and stop if knee pain rises."],cue:"Smooth steps matter more than speed.",mistake:"Taking long steps or holding the belt while it pulls you."},
+    "wall-slides":{steps:["Stand with the ribs stacked and forearms supported against the wall.","Slide upward while gently reaching into the wall.","Stop before shrugging or low-back arching, then return."],cue:"Reach long rather than forcing the hands flat.",mistake:"Flaring the ribs to gain overhead range."}
+  };
+  const families={
+    push:{steps:["Set the hands at a height and width that keeps the shoulders comfortable.","Brace the trunk and lower the body as one unit.","Press away without the shoulders rolling forward."],cue:"Keep head, ribs and hips moving together.",mistake:"Flaring the elbows or letting the hips sag."},
+    pull:{steps:["Set the grip and begin from a controlled shoulder position.","Pull by driving the elbows down while keeping the ribs controlled.","Lower smoothly to the starting position."],cue:"Move without swinging or reaching the chin.",mistake:"Shrugging and using momentum."},
+    row:{steps:["Set a stable grip and brace the body in one line.","Pull the chest toward the hands while the shoulder blades move back.","Lower under control without losing trunk position."],cue:"Pull toward the lower ribs.",mistake:"Leading with the chin or shrugging."},
+    squat:{steps:["Plant the whole working foot and use support if needed.","Lower under control while the knee tracks with the toes.","Drive through the full foot to return."],cue:"Use only the depth you can own.",mistake:"Knee collapse or dropping into the bottom."},
+    hinge:{steps:["Stand tall with soft knees and a braced trunk.","Push the hips backward while keeping the spine controlled.","Squeeze the glutes to return without leaning back."],cue:"Move through the hips rather than the low back.",mistake:"Rounding or overextending the spine."},
+    bridge:{steps:["Lie down with feet planted and ribs settled.","Tuck the pelvis slightly and lift by squeezing the glutes.","Lower slowly before the back takes over."],cue:"Finish with the hips, not a back arch.",mistake:"Pushing the ribs upward."},
+    shoulder:{steps:["Set the ribs and shoulder blade in a comfortable position.","Move slowly through the prescribed arm path.","Return before pinching, shrugging or compensation appears."],cue:"Use light resistance and smooth control.",mistake:"Forcing overhead range by arching the back."},
+    walk:{steps:["Start tall with short, controlled steps.","Use the prescribed run or walk rhythm.","Keep the pace sustainable enough to complete every interval."],cue:"Smooth rhythm beats early speed.",mistake:"Starting too fast and losing the planned intervals."},
+    ankle:{steps:["Keep the heel and arch controlled.","Move through the ankle without rolling the foot inward or outward.","Pause briefly at the end of the comfortable range."],cue:"Make the movement come from the ankle.",mistake:"Using momentum or lifting the heel when it should stay planted."},
+    mobility:{steps:["Use support and establish a comfortable starting position.","Ease into the range while keeping the pelvis and ribs controlled.","Return smoothly; do not bounce at the end range."],cue:"The stretch should remain tolerable and controlled.",mistake:"Forcing range or twisting to get farther."},
+    deadbug:{steps:["Set the ribs and pelvis before moving.","Move one limb or the trunk only as far as control remains.","Return slowly and reset before the next rep."],cue:"Shorten the range before the low back changes position.",mistake:"Using speed instead of trunk control."},
+    handstand:{steps:["Set secure hands and a stable wall-supported position.","Lower through a pain-free pressing range.","Press back while keeping the trunk controlled."],cue:"End the set before shoulder or back position changes.",mistake:"Forcing depth or arching the low back."},
+    standing:{steps:["Set a stable stance and light brace.","Perform the named movement slowly through a comfortable range.","Pause, then return without momentum."],cue:"Keep the working joint aligned.",mistake:"Rushing or compensating elsewhere."}
+  };
+  function get(id,name){const type=typeById[id]||(/run|walk/.test(name.toLowerCase())?"walk":"standing"),details=custom[id]||families[type]||families.standing;return {svg:diagrams[type](),...details}}
   return {get};
 })();

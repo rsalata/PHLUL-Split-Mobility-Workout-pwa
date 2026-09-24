@@ -1,6 +1,6 @@
 # Athletic: Bodyweight + 5K
 
-A self-contained PWA for the 16-week bodyweight, 5K, adaptive mobility and ATG mobility-strength plan.
+A self-contained PWA for a 16-week bodyweight-strength and 5K plan. Weeks 1–8 build from run/walk intervals to a completed 5K; Weeks 9–16 build toward a faster 5K.
 
 ## URL
 
@@ -12,9 +12,11 @@ The original PHLUL app remains at the repository root.
 
 ## Data
 
-All training data stays in browser `localStorage`. Use Settings → Export JSON for backups. Each browser/device has its own local data.
+All training data stays in browser `localStorage`. Use Settings → Export JSON for backups. Each browser/device has its own local data. Sessions use unique IDs, so multiple workouts and added runs can be saved on the same date. Version 2 date-based logs migrate automatically.
 
-Every exercise includes an offline animated SVG line guide. Generic ATG labels use a clearly marked general motion guide when the source name does not specify an exact equipment setup or variation. The Plan and Today screens label the schedule as Day 1 through Day 7 within each selected week.
+Each exercise is an independent rollup that can be opened, skipped or moved earlier/later. Short, Standard and Full modes cap strength volume and select only the rehabilitation movements not already covered by the warm-up or main work. Set completion starts an automatic rest timer, and run/walk workouts use a guided interval timer.
+
+Exercise demonstrations are offline SVG technique guides with setup steps, a key cue and a common mistake. Previous performance can be copied into a new session without carrying over completed-set status.
 
 ## iPhone installation
 

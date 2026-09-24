@@ -1,112 +1,128 @@
 window.ATHLETIC_DATA = (() => {
-  const ex = (id,name,target,cue="",timer=0) => ({id,name,target,cue,timer});
-  const kneeLab = [
-    ex("knee-tread","Backwards / forwards treadmill","3 × 1 min","Smooth pace; regress if pain rises.",60),
-    ex("knee-flex","Knee flexion","3 × 1:30","Use a pain-free range.",90),
-    ex("knee-ext","Knee extension","3 × 30/leg"),
-    ex("knee-stability","Knee stability","3 × 20/leg"),
-    ex("step-forward","Step forward","3 × 15/leg"),
-    ex("step-back","Step backward","3 × 15/leg"),
-    ex("step-side","Step sideways","3 × 15/leg"),
-    ex("press-up","Press up","3 × 10"),
-    ex("mobilize","Mobilize","3 × 12/leg"),
-    ex("posterior-chain","Posterior chain","3 × 8"),
-    ex("long-calf","Long calf muscles","3 × 12/leg"),
-    ex("short-calf","Short calf muscles","3 × 12/leg"),
-    ex("front-shins","Front of shins","3 × 20")
-  ];
-  const shoulderLab = [
-    ["shoulders-out","Step 0: Shoulders Out","1 × 20"],["shoulders-over","Step 1: Shoulders Over","1 × 12"],
-    ["shoulders-up","Step 2: Shoulders Up","1 × 8"],["shoulders-back","Step 3: Shoulders Back","1 × 8"],
-    ["shoulder-stability","Step 4: Shoulder Stability","1 × 12/side"],["shoulder-pull","Step 5: Pull","1 × 8; hold 3 sec at top"],
-    ["shoulder-push","Step 6: Shoulders Push","1 × 8; hold 3 sec at bottom"],["shoulder-control","Step 7: Control","1 × 8"],
-    ["shoulder-biceps","Step 8: Biceps","1 × 8"],["shoulder-triceps","Step 9: Triceps","1 × 8"],
-    ["wrist-flex","Step 10: Wrist Flexion","1 × 20/hand"],["wrist-extend","Step 11: Wrist Extension","1 × 20/hand"],
-    ["hand-grip","Step 12: Hand Grip","1 × 20/hand"],["hand-raise","Step 13: Hand Raise","1 × 20/hand"]
-  ].map(v=>ex(...v));
-  const backLab = [
-    ex("backward-tread","Step 0: Backward treadmill","3 min","Easy, controlled steps.",180),
-    ex("back-one-leg","Step 1: Extend back from one leg","1 × 8; hold 3 sec"),ex("back-hip-flex","Step 2: Hip flexors","1 × 20"),
-    ex("back-two-leg","Step 3: Extend back from two legs","1 × 8; hold 5 sec"),ex("lengthen-hip","Step 4: Lengthen hip flexors","1 × 20"),
-    ex("repeat-back-1","Step 5: Repeat Step 3","1 × 8; hold 5 sec"),ex("lengthen-groin","Step 6: Lengthen groin","1 × 20"),
-    ex("repeat-back-2","Step 7: Repeat Step 3","1 × 8; hold 5 sec"),ex("upper-lats","Step 8: Lengthen upper lats","1 × 12"),
-    ex("side-back","Step 9: Extend back from side","1 × 12"),ex("lower-lats","Step 10: Lengthen lower lats","1 × 15"),
-    ex("repeat-side","Step 11: Repeat Step 9","1 × 12"),ex("repeat-hip","Step 12: Repeat Step 4","1 × 20"),
-    ex("spine","Step 13: Mobilize spine","1 × 12")
-  ];
-  const baseWarmup = [
-    ex("breathing","90/90 Breathing Reset","5–6 breaths","Exhale, ribs down, flatten low back.",60),
-    ex("glute-bridge","Posterior Tilt Glute Bridge","2 × 10","Lift with glutes; don’t arch."),
-    ex("dead-bug","Dead Bug","2 × 8/side","Low back stays pinned."),
-    ex("ankle-wall","Knee-to-Wall Ankle Mobility","2 × 10/ankle","Heel stays down; knee goes forward."),
-    ex("squat-rock","Supported Deep Squat Rock","60 sec","Heels down, tall chest, neutral low back.",60),
-    ex("hip-flexor","Half-Kneeling Hip Flexor Stretch","30 sec/side","Tuck first, then stretch.",30),
-    ex("hip-90","90/90 Hip Rotations","60–120 sec","Stay tall; move from the hips.",90),
-    ex("hang","Optional Hanging Decompression","20–30 sec","Light abs; don’t arch.",25)
-  ];
-  const runPlan = [
-    ["25 min easy","6 × 1 min brisk / 90 sec easy","30 min easy"],
-    ["28 min easy","7 × 1 min brisk / 90 sec easy","32 min easy"],
-    ["30 min easy","5 × 2 min brisk / 2 min easy","35 min easy"],
-    ["25 min easy","4 × 2 min controlled","5K baseline; comfortable effort"],
-    ["30 min easy","6 × 2 min brisk / 90 sec easy","38 min easy"],
-    ["32 min easy","4 × 3 min brisk / 2 min easy","40 min easy"],
-    ["35 min easy","5 × 3 min brisk / 90 sec easy","42 min easy"],
-    ["28 min easy","3 × 5 min controlled / 2 min easy","5K steady test"],
-    ["35 min easy","6 × 400 m at goal pace; 200 m easy","45 min easy"],
-    ["35 min easy + 4 strides","4 × 800 m at goal pace; 2 min easy","5K with middle 2K at goal pace"],
-    ["38 min easy","3 × 1 km at goal pace; 3 min easy","45 min easy"],
-    ["30 min easy","20 min continuous near goal pace","5K progress test"],
-    ["35 min easy","8 × 400 m a little faster than goal pace","42 min easy"],
-    ["30 min easy + 4 strides","4 × 1 km at goal pace; 2:30 easy","5K controlled at 6:05–6:15/km"],
-    ["28 min easy","3 × 800 m at goal pace; full recovery","35 min easy"],
-    ["20 min easy","4 × 200 m relaxed-fast; full recovery","5K goal test: 30:00 or better"]
-  ];
-  const phases = [
-    {from:1,to:4,name:"Foundation",note:"Build pain-free volume and establish baselines."},
-    {from:5,to:8,name:"Capacity",note:"Add clean weekly volume and reduce assistance."},
-    {from:9,to:12,name:"Specificity",note:"Practice longer sets and 30-minute 5K pace."},
-    {from:13,to:16,name:"Goal Prep",note:"Rehearse the standards and stagger max tests."}
-  ];
-  const strengthFor = (week,day) => {
-    const p = Math.ceil(week/4);
-    const deload = week%4===0;
-    const volume = deload ? "Leave 3–4 reps in reserve" : "Leave 2–3 reps in reserve";
-    if(day===1) return [
-      ex("oap","One-arm push-up progression",`${p+2} × 2–5/side`,"Use the hardest regression that stays level and pain-free."),
-      ex("hspu","Wall handstand push-up progression",`${p+2} × 1–5`,"Stop before form or shoulder position changes."),
-      ex("pushups","Push-ups",`${4+p} submax sets`,volume),
-      ex("rows-mon","Inverted rows",`${3+p} × 10–20`,"Keep the body rigid; standardize the ring/bar height.")
-    ];
-    if(day===3) return [
-      ex("pistol","Assisted pistol skill",`4 × ${Math.min(2+p,5)}/leg`,"Use assistance to own the full range."),
-      ex("pullups","Pull-ups / chin-ups",`${4+p} submax sets`,volume),
-      ex("rows-wed","High-incline or one-arm row progression",`${3+p} × 8–15/side`),
-      ex("situps-wed","Sit-ups",`${3+p} × 12–25`,"Use one consistent standard.")
-    ];
-    return [
-      ex("push-volume","Push-up density sets",`${5+p} submax sets`,"Even sets beat one early max set."),
-      ex("pull-volume","Pull-up / chin-up volume",`${4+p} submax sets`,volume),
-      ex("row-volume","Inverted-row volume",`${4+p} × 12–25`),
-      ex("pistol-fri","Pistol practice",`2–4 × ${Math.min(2+p,5)}/leg`,"Keep this low-volume after Knee Lab."),
-      ex("situp-volume","Sit-up volume",`${4+p} × 15–30`)
-    ];
+  const ex=(id,name,target,cue="",timer=0,meta={})=>({id,name,target,cue,timer,...meta});
+  const clone=(item,changes={})=>({...item,...changes});
+
+  const warmups={
+    breathing:ex("breathing","90/90 Breathing Reset","5–6 breaths","Exhale fully; keep ribs and low back controlled.",60,{sets:1}),
+    bridge:ex("glute-bridge","Posterior Tilt Glute Bridge","10 reps","Lift with the glutes without arching the back.",0,{sets:1}),
+    deadbug:ex("dead-bug","Dead Bug","8/side","Keep the low back gently pinned.",0,{sets:1}),
+    ankle:ex("ankle-wall","Knee-to-Wall Ankle Mobility","10/ankle","Keep the heel down and track the knee forward.",0,{sets:1}),
+    squat:ex("squat-rock","Supported Deep Squat Rock","45 sec","Use support and keep the range comfortable.",45,{sets:1}),
+    hipflex:ex("hip-flexor","Half-Kneeling Hip Flexor Stretch","30 sec/side","Tuck the pelvis before moving forward.",30,{sets:1}),
+    hip90:ex("hip-90","90/90 Hip Rotations","60 sec","Stay tall and move from the hips.",60,{sets:1}),
+    hang:ex("hang","Optional Hanging Decompression","20 sec","Keep light abdominal tension; skip if the shoulder pinches.",20,{sets:1})
   };
-  const schedule = [
-    {day:1,title:"Push Skill + Knee Lab",kind:"strength",modules:["warmup","strength","knee"]},
-    {day:2,title:"Easy Run + Shoulder Lab",kind:"run",runIndex:0,modules:["warmup","run","shoulder"]},
-    {day:3,title:"Pull, Core + Knee Lab",kind:"strength",modules:["warmup","strength","knee"]},
-    {day:4,title:"Intervals + Back Lab",kind:"run",runIndex:1,modules:["warmup","run","back"]},
-    {day:5,title:"Full Body Volume + Knee Lab",kind:"strength",modules:["warmup","strength","knee"]},
-    {day:6,title:"Long Run + Mobility",kind:"run",runIndex:2,modules:["warmup","run"]},
-    {day:0,title:"Recovery",kind:"recovery",modules:["recovery"]}
+  const warmupFor=(day,mode="standard")=>{
+    const byDay=day===1?[warmups.breathing,warmups.bridge,warmups.deadbug,warmups.hang]:day===3?[warmups.breathing,warmups.ankle,warmups.squat,warmups.hip90,warmups.hang]:day===5?[warmups.breathing,warmups.bridge,warmups.ankle,warmups.hipflex,warmups.hip90]:[warmups.breathing,warmups.ankle,warmups.hipflex,warmups.hip90];
+    return byDay.slice(0,mode==="short"?4:5);
+  };
+
+  const kneePool=[
+    ex("knee-tread","Backward Treadmill or Backward Walk","1 min","Use short, controlled steps.",60),
+    ex("knee-flex","Supported Knee Flexion","8/leg","Use a pain-free range and steady support."),
+    ex("knee-ext","Controlled Knee Extension","12/leg","Straighten the knee without snapping it locked."),
+    ex("knee-stability","Single-Leg Knee Stability","20 sec/leg","Keep the pelvis level and knee tracking over the foot.",20),
+    ex("step-forward","Controlled Forward Step","8/leg","Lower under control and keep the whole foot planted."),
+    ex("step-back","Controlled Backward Step","8/leg","Reach back softly without twisting the front knee."),
+    ex("step-side","Controlled Side Step","10/side","Keep toes forward and pelvis level."),
+    ex("mobilize","Supported Split-Squat Mobilization","8/leg","Use support and only the range you can control."),
+    ex("posterior-chain","Posterior-Chain Hinge","8 reps","Push the hips back and keep the trunk braced."),
+    ex("long-calf","Straight-Knee Calf Raise","12/leg","Pause at the top and lower slowly."),
+    ex("short-calf","Bent-Knee Calf Raise","12/leg","Keep the knee bent while the heel travels fully."),
+    ex("front-shins","Tibialis Raise","15–20 reps","Keep heels planted and lift the toes."),
+    ex("press-up","Incline Press-Up","8–10 reps","Use a height that keeps the shoulder comfortable.")
   ];
-  const goals = [
-    {id:"pushups",name:"Push-ups",target:100,unit:"reps"},{id:"oneArm",name:"One-arm push-ups",target:25,unit:"total"},
-    {id:"pistolsL",name:"Pistol squat — left",target:5,unit:"reps"},{id:"pistolsR",name:"Pistol squat — right",target:5,unit:"reps"},
-    {id:"hspu",name:"Wall HSPU",target:5,unit:"reps"},{id:"pullups",name:"Pull-ups / chin-ups",target:25,unit:"reps"},
-    {id:"rows",name:"Inverted rows",target:100,unit:"reps"},{id:"situps",name:"Sit-ups",target:100,unit:"reps"},
-    {id:"run5k",name:"5K time",target:1800,unit:"seconds",lower:true}
+  const rehabIds={
+    1:["knee-tread","knee-flex","step-forward","front-shins","knee-stability"],
+    3:["knee-ext","step-side","long-calf","mobilize","knee-stability"],
+    5:["step-back","posterior-chain","short-calf","front-shins","mobilize"]
+  };
+  const shoulderPool=[
+    ex("shoulders-out","Shoulder External Rotation","12 reps","Keep elbows controlled and avoid shrugging."),
+    ex("wall-slides","Wall Slide","10 reps","Keep ribs down while reaching upward."),
+    ex("scap-pull","Scapular Pull","8 reps","Move the shoulder blades without bending the elbows."),
+    ex("shoulder-stability","Shoulder Stability Hold","20 sec/side","Use a pain-free position and steady pressure.",20),
+    ex("wrist-flex","Wrist Flexion","15/hand","Move slowly through a comfortable range.")
   ];
-  return {kneeLab,shoulderLab,backLab,baseWarmup,runPlan,phases,strengthFor,schedule,goals,ex};
+  const backPool=[
+    ex("backward-tread","Backward Walk","2 min","Use an easy pace and short steps.",120),
+    ex("back-one-leg","Supported Single-Leg Hip Extension","8/leg","Move from the hip without arching the back."),
+    ex("back-hip-flex","Hip-Flexor Mobilization","10/side","Tuck the pelvis and keep ribs down."),
+    ex("back-two-leg","Glute Bridge Hold","20 sec","Squeeze the glutes without overextending.",20),
+    ex("spine","Gentle Spine Mobilization","8 reps","Move slowly and stop before irritation.")
+  ];
+  const selectRehab=(pool,count,sets)=>pool.slice(0,count).map(x=>clone(x,{sets,target:`${sets} × ${x.target}`}));
+  const rehabFor=(day,mode="standard")=>{
+    const count=mode==="short"?3:mode==="full"?5:4,sets=mode==="full"?2:1;
+    if(day===1||day===3||day===5){const ordered=rehabIds[day].map(id=>kneePool.find(x=>x.id===id));return {title:"Focused Knee Work",items:selectRehab(ordered,count,sets)}}
+    if(day===2)return {title:"Focused Shoulder Work",items:selectRehab(shoulderPool,count,sets)};
+    if(day===4)return {title:"Focused Back Work",items:selectRehab(backPool,count,sets)};
+    return {title:"Recovery Mobility",items:selectRehab([warmups.breathing,warmups.squat,warmups.hipflex,warmups.hip90],Math.min(4,count),mode==="short"?1:2)};
+  };
+
+  const phaseFor=week=>week<=4?{name:"Foundation",note:"Build repeatable technique and pain-free volume."}:week<=8?{name:"5K Build",note:"Extend running intervals while progressing clean strength reps."}:week<=12?{name:"PR Build",note:"Develop sustained pace and slightly harder strength variations."}:{name:"Goal Prep",note:"Sharpen pace, consolidate strength, and arrive fresh for testing."};
+  const strengthBase={
+    1:[
+      ["oap","One-Arm Push-Up Progression","2–5/side","Use the hardest regression that stays level and pain-free."],
+      ["hspu","Wall Handstand Push-Up Progression","1–5 reps","Stop before form or shoulder position changes."],
+      ["pushups","Push-Ups","6–15 reps","Leave two clean reps in reserve."],
+      ["rows-mon","Inverted Rows","8–15 reps","Keep the body rigid and standardize the bar height."]
+    ],
+    3:[
+      ["pistol","Assisted Pistol Skill","2–5/leg","Use enough assistance to own the range."],
+      ["pullups","Pull-Ups / Chin-Ups","2–8 reps","Stop before swinging or neck reaching."],
+      ["rows-wed","High-Incline or One-Arm Row","8–15/side","Keep the shoulder down and pull toward the ribs."],
+      ["situps-wed","Controlled Sit-Ups","10–20 reps","Use one repeatable standard."]
+    ],
+    5:[
+      ["push-volume","Push-Up Volume","8–20 reps","Keep the sets even instead of starting with a max."],
+      ["pull-volume","Pull-Up / Chin-Up Volume","2–8 reps","Leave two clean reps in reserve."],
+      ["row-volume","Inverted-Row Volume","10–20 reps","Keep the same body angle for every set."],
+      ["pistol-fri","Pistol Practice","2–5/leg","Keep the volume low and the range controlled."],
+      ["situp-volume","Sit-Up Volume","12–25 reps","Stop if the low back becomes irritated."]
+    ]
+  };
+  const strengthFor=(week,day,mode="standard")=>{
+    const rows=strengthBase[day]||strengthBase[1],phase=phaseFor(week),counts=mode==="short"?[3,3,2]:mode==="full"?(day===5?[4,4,4,3,3]:[4,4,4,4]):(day===5?[3,3,2,2,2]:[3,3,3,3]);
+    return rows.slice(0,counts.length).map((v,i)=>ex(v[0],v[1],`${counts[i]} × ${v[2]}`,`${v[3]} ${phase.name}: progress reps first, then use a harder variation.`,0,{sets:counts[i]}));
+  };
+
+  const intervals=(label,run,walk,times)=>({type:"interval",label,segments:Array.from({length:times},()=>[{kind:"run",seconds:run},{kind:"walk",seconds:walk}]).flat()});
+  const sequence=(label,segments)=>({type:"interval",label,segments});
+  const steady=(label,minutes)=>({type:"steady",label,segments:[{kind:"run",seconds:minutes*60}]});
+  const race=label=>({type:"distance",label,segments:[{kind:"run",seconds:0,label}]});
+  const runPlan=[
+    [intervals("Run 1 min / Walk 1:30–2:00 × 6",60,105,6),intervals("Run 1 min / Walk 2 min × 8",60,120,8),intervals("Run 1 min / Walk 1 min × 10",60,60,10)],
+    [intervals("Run 2 min / Walk 2 min × 5",120,120,5),intervals("Run 3 min / Walk 2 min × 4",180,120,4),intervals("Run 3 min / Walk 1 min × 5",180,60,5)],
+    [intervals("Run 5 min / Walk 3 min × 3",300,180,3),intervals("Run 5 min / Walk 2 min × 3",300,120,3),intervals("Run 6 min / Walk 2 min × 3",360,120,3)],
+    [intervals("Run 8 min / Walk 3 min × 2",480,180,2),intervals("Run 10 min / Walk 2 min × 2",600,120,2),intervals("Run 12 min / Walk 2 min × 2",720,120,2)],
+    [sequence("Run 15 min / Walk 3 min / Run 5 min",[{kind:"run",seconds:900},{kind:"walk",seconds:180},{kind:"run",seconds:300}]),steady("Run 20 min nonstop",20),sequence("Run 8 min / Walk 5 min / Run 8 min",[{kind:"run",seconds:480},{kind:"walk",seconds:300},{kind:"run",seconds:480}])],
+    [sequence("Run 20 min / Walk 3 min / Run 5 min",[{kind:"run",seconds:1200},{kind:"walk",seconds:180},{kind:"run",seconds:300}]),steady("Run 22 min nonstop",22),steady("Run 25 min nonstop",25)],
+    [steady("Run 26 min nonstop",26),steady("Run 28 min nonstop",28),steady("Run 30 min nonstop",30)],
+    [steady("Run 20 min easy",20),sequence("Run 10 min / Walk 5 min / Run 10 min",[{kind:"run",seconds:600},{kind:"walk",seconds:300},{kind:"run",seconds:600}]),race("Run your 5K")],
+    [steady("20 min easy",20),intervals("Run 2 min strong / Walk-jog 2 min × 6",120,120,6),steady("30 min easy",30)],
+    [steady("25 min easy",25),intervals("Run 3 min strong / Walk-jog 2 min × 5",180,120,5),steady("32 min easy",32)],
+    [steady("25 min easy + 4 relaxed strides",25),intervals("Run 5 min at target effort / Easy 2 min × 4",300,120,4),steady("35 min easy",35)],
+    [steady("25 min easy",25),steady("20 min steady near goal pace",20),race("5K benchmark")],
+    [steady("30 min easy",30),intervals("Run 4 min at goal pace / Easy 2 min × 5",240,120,5),steady("40 min easy",40)],
+    [steady("25 min easy + 4 relaxed strides",25),intervals("Run 8 min at goal pace / Easy 3 min × 3",480,180,3),steady("35 min easy",35)],
+    [steady("25 min easy",25),intervals("Run 3 min faster than goal pace / Easy 3 min × 4",180,180,4),steady("30 min easy",30)],
+    [steady("20 min easy",20),intervals("Run 1 min relaxed-fast / Easy 2 min × 4",60,120,4),race("5K PR attempt")]
+  ];
+
+  const schedule=[
+    {day:1,title:"Push Skill + Focused Knee",kind:"strength"},{day:2,title:"Run 1 + Focused Shoulder",kind:"run",runIndex:0},
+    {day:3,title:"Pull, Core + Focused Knee",kind:"strength"},{day:4,title:"Run 2 + Focused Back",kind:"run",runIndex:1},
+    {day:5,title:"Full Body + Focused Knee",kind:"strength"},{day:6,title:"Run 3 + Mobility",kind:"run",runIndex:2},
+    {day:0,title:"Short Recovery",kind:"recovery"}
+  ];
+  const runFor=(week,index)=>runPlan[Math.max(0,Math.min(15,week-1))][index];
+  const workoutFor=(week,day,mode="standard")=>{const scheduleItem=schedule.find(x=>x.day===day),rehab=rehabFor(day,mode);return {schedule:scheduleItem,warmup:warmupFor(day,mode),strength:scheduleItem.kind==="strength"?strengthFor(week,day,mode):[],run:scheduleItem.kind==="run"?runFor(week,scheduleItem.runIndex):null,rehab}};
+  const goals=[
+    {id:"pushups",name:"Push-Ups",target:100,unit:"reps"},{id:"oneArm",name:"One-Arm Push-Ups",target:25,unit:"total"},
+    {id:"pistolsL",name:"Pistol Squat — Left",target:5,unit:"reps"},{id:"pistolsR",name:"Pistol Squat — Right",target:5,unit:"reps"},
+    {id:"hspu",name:"Wall HSPU",target:5,unit:"reps"},{id:"pullups",name:"Pull-Ups / Chin-Ups",target:25,unit:"reps"},
+    {id:"rows",name:"Inverted Rows",target:100,unit:"reps"},{id:"situps",name:"Sit-Ups",target:100,unit:"reps"},{id:"run5k",name:"5K Time",target:1800,unit:"seconds",lower:true}
+  ];
+  return {ex,warmupFor,kneePool,shoulderPool,backPool,rehabFor,phaseFor,strengthFor,runPlan,runFor,schedule,workoutFor,goals};
 })();
