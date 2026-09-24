@@ -1,21 +1,4 @@
 window.ATHLETIC_DEMOS = (() => {
-  const shell=(body,label)=>`<svg viewBox="0 0 280 230" role="img" aria-label="${label} animated technique diagram"><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0 0L0 6L6 3z" class="arrow-head"/></marker></defs><line class="floor" x1="15" y1="202" x2="265" y2="202"/>${body}</svg>`;
-  const dot=(x,y)=>`<circle class="joint" cx="${x}" cy="${y}" r="5"/>`,arrow=(a,b,c,d)=>`<path class="motion-arrow" d="M${a} ${b}L${c} ${d}" marker-end="url(#arrow)"/>`;
-  const poses={
-    standing:n=>shell(`<g class="figure motion-bob"><circle cx="130" cy="51" r="18"/><path d="M130 69L130 139L98 199M130 139L164 199M130 94L94 126M130 94L166 126"/>${dot(130,94)}</g>${arrow(220,78,220,148)}`,n),
-    push:n=>shell(`<g class="figure motion-push"><circle cx="213" cy="107" r="15"/><path d="M198 114L119 132L48 161M119 132L94 176M119 132L141 176M177 119L158 158L132 180"/>${dot(119,132)}</g>${arrow(235,72,235,135)}`,n),
-    pull:n=>shell(`<path class="figure faint" d="M54 31L216 31"/><g class="figure motion-pull"><circle cx="136" cy="80" r="17"/><path d="M136 97L136 149L105 199M136 149L168 199M136 108L91 32M136 108L181 32"/>${dot(136,108)}</g>${arrow(235,142,235,66)}`,n),
-    row:n=>shell(`<path class="figure faint" d="M235 34L235 201M235 65L181 97"/><g class="figure motion-push"><circle cx="165" cy="96" r="15"/><path d="M150 103L92 131L42 181M92 131L83 198M92 131L128 191M150 110L181 97"/>${dot(92,131)}</g>${arrow(207,132,166,106)}`,n),
-    squat:n=>shell(`<g class="figure motion-squat"><circle cx="125" cy="51" r="18"/><path d="M125 69L122 128L86 157L60 200M122 128L163 157L196 200M123 93L84 121M123 93L165 119"/>${dot(122,128)}</g>${arrow(229,84,229,156)}`,n),
-    hinge:n=>shell(`<g class="figure motion-hinge"><circle cx="126" cy="50" r="18"/><path d="M126 68L126 142L93 200M126 142L162 200M126 94L87 137M126 94L167 137"/>${dot(126,142)}</g>${arrow(211,88,238,130)}`,n),
-    bridge:n=>shell(`<g class="figure motion-core"><circle cx="48" cy="171" r="15"/><path d="M63 171L118 149L173 171L229 198M118 149L96 198M173 171L192 200"/>${dot(118,149)}</g>${arrow(118,187,118,132)}`,n),
-    core:n=>shell(`<g class="figure motion-core"><circle cx="54" cy="171" r="15"/><path d="M69 171L124 171L186 194M124 171L164 128M92 168L61 120"/>${dot(124,171)}</g>${arrow(196,128,229,95)}`,n),
-    shoulder:n=>shell(`<g class="figure"><circle cx="130" cy="51" r="18"/><path d="M130 69L130 139L98 199M130 139L164 199"/><g class="motion-raise"><path d="M130 94L86 124M130 94L174 124"/></g>${dot(130,94)}</g>${arrow(213,142,213,72)}`,n),
-    handstand:n=>shell(`<path class="figure faint" d="M240 25L240 202"/><g class="figure motion-pull"><circle cx="186" cy="168" r="16"/><path d="M186 152L190 96L168 36M190 96L215 35M186 137L147 190M186 137L221 190"/>${dot(186,137)}</g>${arrow(121,155,121,94)}`,n),
-    walk:n=>shell(`<g class="figure motion-bob"><circle cx="132" cy="57" r="17"/><path d="M132 74L130 140L88 199M130 140L182 194M130 99L91 132M130 99L174 124"/>${dot(130,140)}</g>${arrow(232,112,194,112)}`,n),
-    ankle:n=>shell(`<path class="figure faint" d="M213 38L213 202"/><g class="figure"><circle cx="101" cy="45" r="16"/><path d="M101 62L104 124L79 199M104 124L158 166L186 201M104 87L143 117"/>${dot(104,124)}</g>${arrow(155,140,197,140)}`,n),
-    mobility:n=>shell(`<g class="figure motion-lunge"><circle cx="119" cy="49" r="17"/><path d="M119 66L119 126L80 162L57 200M119 126L171 158L227 194M119 91L84 125M119 91L160 122"/>${dot(119,126)}</g>${arrow(243,91,243,150)}`,n)
-  };
   const base={
     push:{steps:["Set the hands and brace the body as one unit.","Lower with the elbows traveling diagonally back.","Press away without twisting, sagging, or shrugging."],cue:"Head, ribs, and hips move together.",mistake:"Elbows flaring or the trunk losing position."},
     pull:{steps:["Set a secure grip and controlled shoulder position.","Drive the elbows down as the body rises.","Lower smoothly without swinging or dropping."],cue:"Pull without reaching the chin.",mistake:"Shrugging or using momentum."},
@@ -141,6 +124,6 @@ spine|mobility|4 sec each direction|Gentle motion across spine|Smaller range|Add
     back:{title:"HSS: Back Exercises",url:"https://www.hss.edu/health-library/move-better/best-back-exercises"}
   };
   const sourceFor=id=>id==="hspu"?refs.hspu:id==="oap"?refs.nasmPush:id==="pushups"||id==="push-volume"||id==="press-up"?refs.push:id.includes("row")?refs.row:id==="pullups"||id==="pull-volume"||id==="hang"||id==="scap-pull"?refs.nasmPull:["shoulders-out","wall-slides","shoulder-stability","wrist-flex"].includes(id)?refs.shoulder:["hip-flexor","hip-90","mobilize","back-hip-flex"].includes(id)?refs.stretch:["glute-bridge","posterior-chain","back-one-leg","back-two-leg"].includes(id)?refs.posterior:id==="spine"?refs.back:["knee-tread","backward-tread","knee-flex","knee-ext","knee-stability","step-forward","step-back","step-side","long-calf","short-calf","front-shins","pistol","pistol-fri","squat-rock","ankle-wall"].includes(id)?refs.knee:refs.ace;
-  function get(id,name){const s=specs[id]||{type:"standing",tempo:"Slow and controlled",feel:"The intended working muscles",easier:"Reduce the range",harder:"Increase range only with control"},tech=exact[id]||base[s.type]||base.standing;return {...s,...tech,source:sourceFor(id),svg:(poses[s.type]||poses.standing)(name)}}
+  function get(id,name){const s=specs[id]||{type:"standing",tempo:"Slow and controlled",feel:"The intended working muscles",easier:"Reduce the range",harder:"Increase range only with control"},tech=exact[id]||base[s.type]||base.standing;return {...s,...tech,source:sourceFor(id),frames:window.ATHLETIC_ILLUSTRATIONS.get(id,name)}}
   return {get,profiles:specs,instructions:exact,references:refs};
 })();
