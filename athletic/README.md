@@ -16,7 +16,11 @@ All training data stays in browser `localStorage`. Use Settings → Export JSON 
 
 Each exercise is an independent rollup that can be opened, skipped or moved earlier/later. Short, Standard and Full modes cap strength volume and select only the rehabilitation movements not already covered by the warm-up or main work. Set completion starts an automatic rest timer, and run/walk workouts use a guided interval timer.
 
-Exercise demonstrations are offline SVG technique guides with setup steps, a key cue and a common mistake. Previous performance can be copied into a new session without carrying over completed-set status.
+The guided workout bar shows completed sets, elapsed time, estimated remaining time, and Previous / Rest / Next controls. The active exercise remains open while moving through the workout.
+
+Movement-specific offline SVG demonstrations include play and three frame positions, tempo, target area, setup steps, a key cue, a common mistake, and easier/harder options. Previous performance can be copied into a new session without carrying over completed-set status.
+
+After each exercise, log reps in reserve, technique quality, and pain. The app explains whether to repeat, add reps, try a harder variation, or regress the movement next time. These recommendations are conservative training guidance, not medical diagnosis.
 
 ## iPhone installation
 
