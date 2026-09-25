@@ -85,6 +85,6 @@
     $("#demo-close")?.addEventListener("click",()=>{activeDemo=null;render()});$("#demo-backdrop")?.addEventListener("click",e=>{if(e.target.id==="demo-backdrop"){activeDemo=null;render()}});
     $("#timer-toggle")?.addEventListener("click",()=>{timer.running=!timer.running;render()});$("#timer-skip")?.addEventListener("click",()=>{if(timer.index<timer.segments.length-1){timer.index++;timer.left=timer.segments[timer.index].seconds;render()}else stopTimer()});$("#timer-stop")?.addEventListener("click",stopTimer);
   }
-  if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"));
+  if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=13"));
   render();
 })();

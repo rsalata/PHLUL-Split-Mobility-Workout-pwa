@@ -73,4 +73,8 @@ vm.runInContext(planSource,sandbox,{filename:'app-plan.js'});
 assert.match(app.innerHTML,/Run\/walk progression/);
 assert.match(app.innerHTML,/Run 1 min \/ Walk 1:30–2:00 × 6/);
 assert.equal((app.innerHTML.match(/<option value="/g)||[]).length,16);
+const indexSource=fs.readFileSync('athletic/index.html','utf8');
+assert.match(indexSource,/illustrations\.js\?v=13/);
+assert.match(indexSource,/app\.js\?v=13/);
+assert.match(fs.readFileSync('athletic/sw.js','utf8'),/request\.mode==="navigate"/);
 console.log('SMOKE PASS: capped volume, 16-week run plan, Demo 2.0 metadata, guided workout controls, progression feedback and v4 migration');
