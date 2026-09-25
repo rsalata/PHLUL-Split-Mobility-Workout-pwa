@@ -1,0 +1,62 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+
+const RealDate=Date,fixedNow='2026-09-21T12:00:00Z';
+class FixedDate extends RealDate{
+  constructor(...args){super(...(args.length?args:[fixedNow]))}
+  static now(){return new RealDate(fixedNow).getTime()}
+}
+const store=new Map(),now=new FixedDate(),pad=n=>String(n).padStart(2,'0'),key=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+store.set('athletic.bodyweight5k.v1',JSON.stringify({startDate:key,weekOverride:1,dayOverride:1,version:2,goals:{},logs:{[key]:{date:key,week:1,day:1,checkin:{back:0,shoulder:0,knee:0,energy:'medium',tight:[]},exercises:{pushups:{sets:[{reps:'10',weight:'bodyweight',note:'clean',done:true}]}},notes:'legacy',completed:false}}}));
+const app={innerHTML:''};
+const sandbox={window:{},console,Date:FixedDate,Math,setInterval:()=>1,clearInterval(){},URL,Blob,localStorage:{getItem:k=>store.get(k)||null,setItem:(k,v)=>store.set(k,v)},navigator:{},document:{querySelector:s=>s==='#app'?app:null,querySelectorAll:()=>[],createElement:()=>({click(){}})},addEventListener(){},scrollTo(){},alert(){},FileReader:class {}};
+vm.createContext(sandbox);
+vm.runInContext(fs.readFileSync('athletic/data.js','utf8'),sandbox,{filename:'data.js'});
+vm.runInContext(fs.readFileSync('athletic/illustrations.js','utf8'),sandbox,{filename:'illustrations.js'});
+vm.runInContext(fs.readFileSync('athletic/demos.js','utf8'),sandbox,{filename:'demos.js'});
+const D=sandbox.window.ATHLETIC_DATA;
+assert.equal(D.runPlan.length,16);
+assert.equal(D.runPlan[0][0].segments.length,12);
+assert.equal(D.runPlan[7][2].type,'distance');
+assert.equal(D.runPlan[15][2].label,'5K PR attempt');
+assert.equal(D.strengthFor(1,1,'standard').reduce((n,x)=>n+x.sets,0),12);
+assert.equal(D.strengthFor(1,5,'full').reduce((n,x)=>n+x.sets,0),18);
+assert.equal(D.rehabFor(1,'standard').items.length,4);
+assert.equal(D.rehabFor(1,'full').items.reduce((n,x)=>n+x.sets,0),10);
+assert.equal(D.warmupFor(1,'standard').length,4);
+const ankleDemo=sandbox.window.ATHLETIC_DEMOS.get('ankle-wall','Knee-to-Wall');
+assert.match(ankleDemo.steps.join(' '),/heel stays down/);
+assert.equal(ankleDemo.tempo,'2 forward · 1 pause · 2 back');
+assert.ok(ankleDemo.easier&&ankleDemo.harder&&ankleDemo.feel);
+assert.match(ankleDemo.source.url,/^https:\/\//);
+assert.match(ankleDemo.source.title,/AAOS|HSS|ACE|NASM|CrossFit|Mayo/);
+assert.equal(ankleDemo.frames.length,4);
+assert.deepEqual(Array.from(ankleDemo.frames,x=>x.label),['Start','Drive forward','Move','Finish']);
+assert.ok(ankleDemo.frames.every(x=>x.svg.includes('<svg')&&x.note));
+assert.equal(sandbox.window.ATHLETIC_DEMOS.get('pushups','Push-Up').frames.length,5);
+assert.equal(sandbox.window.ATHLETIC_DEMOS.get('shoulder-stability','Shoulder Stability').frames.length,4);
+vm.runInContext(fs.readFileSync('athletic/app.js','utf8'),sandbox,{filename:'app.js'});
+assert.match(app.innerHTML,/Today’s sessions/);
+assert.match(app.innerHTML,/Short/);
+assert.match(app.innerHTML,/Standard/);
+assert.match(app.innerHTML,/Full/);
+assert.match(app.innerHTML,/New workout/);
+assert.match(app.innerHTML,/Add run/);
+assert.match(app.innerHTML,/Guided workout/);
+assert.match(app.innerHTML,/data-set-done=/);
+assert.match(app.innerHTML,/Reps in reserve/);
+assert.match(app.innerHTML,/Technique/);
+assert.match(app.innerHTML,/Next time/);
+assert.match(app.innerHTML,/Next exercise/);
+assert.match(app.innerHTML,/min elapsed/);
+assert.match(app.innerHTML,/Previous: S1 10 @ bodyweight/);
+const saved=JSON.parse(store.get('athletic.bodyweight5k.v1'));
+assert.equal(saved.version,4);
+assert.ok(Object.keys(saved.sessions).some(x=>x.startsWith('legacy-')));
+const planSource=fs.readFileSync('athletic/app.js','utf8').replace(/\n  render\(\);\n\}\)\(\);\s*$/, '\n  view="plan";render();\n})();');
+vm.runInContext(planSource,sandbox,{filename:'app-plan.js'});
+assert.match(app.innerHTML,/Run\/walk progression/);
+assert.match(app.innerHTML,/Run 1 min \/ Walk 1:30–2:00 × 6/);
+assert.equal((app.innerHTML.match(/<option value="/g)||[]).length,16);
+console.log('SMOKE PASS: capped volume, 16-week run plan, Demo 2.0 metadata, guided workout controls, progression feedback and v4 migration');

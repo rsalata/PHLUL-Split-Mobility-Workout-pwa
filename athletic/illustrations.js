@@ -4,6 +4,12 @@ window.ATHLETIC_ILLUSTRATIONS = (() => {
   const arrow=(a,b)=>`<path class="pose-arrow" d="M${a[0]} ${a[1]}L${b[0]} ${b[1]}" marker-end="url(#poseArrow)"/>`;
   const svg=(name,bodyMarkup)=>`<svg viewBox="0 0 240 210" role="img" aria-label="${name} exercise position"><defs><marker id="poseArrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0 0L0 6L6 3z" class="pose-arrow-head"/></marker></defs><line class="pose-ground" x1="12" y1="192" x2="228" y2="192"/>${bodyMarkup}</svg>`;
   const pose=(label,note,markup)=>({label,note,svg:markup});
+  const withoutArrows=markup=>markup.replace(/<path class="pose-arrow"[^>]*\/>/g,"");
+  function blendSvg(from,to,amount){
+    const a=withoutArrows(from),b=withoutArrows(to),number=/-?\d*\.?\d+/g,an=a.match(number)||[],bn=b.match(number)||[],parts=a.split(number);
+    if(an.length!==bn.length||parts.length!==an.length+1)return null;
+    return parts.map((part,i)=>i<an.length?`${part}${Math.round((Number(an[i])+(Number(bn[i])-Number(an[i]))*amount)*10)/10}`:part).join("");
+  }
   const stand=(head=P(120,35),shoulder=P(120,61),hip=P(120,119),le=P(91,91),lw=P(82,125),re=P(149,91),rw=P(158,125),lk=P(101,153),la=P(95,192),rk=P(139,153),ra=P(145,192))=>({head,shoulder,hip,le,lw,re,rw,lk,la,rk,ra});
   const supine=(hipY=154)=>({head:P(43,158),shoulder:P(67,158),hip:P(119,hipY),le:P(75,125),lw:P(57,98),re:P(88,126),rw:P(103,99),lk:P(154,147),la:P(181,188),rk:P(165,160),ra:P(205,188)});
   const sequences={
@@ -42,7 +48,54 @@ window.ATHLETIC_ILLUSTRATIONS = (() => {
   sequences.reverseStep=name=>{const a=stand(),b=stand(P(120,50),P(120,75),P(120,128),P(91,100),P(78,133),P(149,100),P(162,133),P(158,151),P(196,191),P(82,151),P(49,191));return [pose("Start","Stand tall with feet under hips.",svg(name,body(a))),pose("Step back","Reach one foot behind onto the ball of the foot.",svg(name,body(b,arrow(P(102,176),P(48,176))))),pose("Lower","Front foot stays planted as both knees bend.",svg(name,body({...b,head:P(120,65),shoulder:P(120,90),hip:P(120,139)})))];};
   sequences.bentCalf=name=>{const a={...stand(),lk:P(96,151),la:P(93,192),rk:P(136,151),ra:P(142,192),hip:P(116,126)},b={...stand(),lk:P(96,151),la:P(93,180),rk:P(136,151),ra:P(142,180),hip:P(116,124)};return [pose("Start","Knees remain bent; ankle centered.",svg(name,body(a))),pose("Rise","Lift both heels without straightening knees.",svg(name,body(b,arrow(P(207,181),P(207,147))))),pose("Pause","Hold high, then lower slowly.",svg(name,body(b)))];};
   sequences.shoulderHold=name=>{const a=stand(P(91,39),P(91,65),P(96,121),P(119,86),P(158,89),P(121,100),P(158,104)),b={...a,head:P(97,39),shoulder:P(97,65),hip:P(104,121)};return [pose("Set","Hands on wall; body aligned.",svg(name,`<line class="pose-support" x1="169" y1="18" x2="169" y2="192"/>${body(a)}`)),pose("Press","Apply steady pressure without shrugging.",svg(name,`<line class="pose-support" x1="169" y1="18" x2="169" y2="192"/>${body(b,arrow(P(132,96),P(164,96)))}`)),pose("Hold","Shoulder and trunk remain quiet.",svg(name,`<line class="pose-support" x1="169" y1="18" x2="169" y2="192"/>${body(b)}`))];};
+  const framePlans={
+    bridge:["Begin lift","Ribs stay down as the hips leave the floor."],
+    ankleWall:["Drive forward","Knee advances while the heel stays heavy."],
+    hipFlexor:["Set pelvis","Tuck gently before shifting forward."],
+    backwardWalk:["Reach back","Start with a short, quiet step."],
+    kneeFlex:["Halfway","Heel rises without the thigh swinging."],
+    kneeExt:["Halfway","Straighten smoothly without leaning back."],
+    balance:["Load one leg","Shift gradually before lifting the other foot."],
+    calf:["Halfway up","Keep pressure through the big-toe side."],
+    bentCalf:["Halfway up","Keep both knees bent as the heels rise."],
+    tibRaise:["Halfway up","Heels stay planted as the toes lift."],
+    externalRotation:["Open","Forearms move apart while elbows stay pinned."],
+    wallSlide:["Halfway up","Reach into the wall as the arms travel upward."],
+    wrist:["Halfway up","Curl from the wrist while the forearm stays supported."],
+    hipExtension:["Reach back","Move from the hip without leaning forward."],
+    breathing:["Expand","Let the breath widen the lower ribs."],
+    hang:["Engage","Move from a relaxed hang into a controlled shoulder set."],
+    shoulderHold:["Build pressure","Increase wall pressure without changing posture."]
+  };
+  const complexPlans={
+    deadbug:[["Begin reach","Separate the opposite arm and leg slowly."],["Begin return","Bring the limbs back without losing trunk position."]],
+    squat:[["Begin descent","Unlock the hips and knees together."],["Near depth","Stay balanced over the whole foot."]],
+    seatedHip:[["Turn knees","Let both thighs rotate without forcing range."],["Pass center","Return under control before switching sides."]],
+    push:[["Halfway down","Body stays rigid as the elbows bend."],["Halfway up","Press evenly without the hips lagging."]],
+    inclinePush:[["Halfway down","Chest approaches the support as one unit."],["Halfway up","Drive the support away while staying aligned."]],
+    oneArmPush:[["Halfway down","Resist opening the hips as the elbow bends."],["Halfway up","Press without rotating the torso."]],
+    hspu:[["Begin descent","Elbows bend while the body stays stacked."],["Begin press","Drive evenly through both hands."]],
+    pullup:[["Begin pull","Set the shoulders before bending the elbows."],["Near top","Keep driving the elbows down without reaching the chin."]],
+    row:[["Begin pull","Shoulder blades set before the elbows travel back."],["Near finish","Keep ribs and hips aligned as the chest approaches."]],
+    pistol:[["Begin descent","Sit back while keeping the whole foot planted."],["Near depth","Free leg reaches forward as the standing knee bends."]],
+    situp:[["Begin curl","Ribs start moving toward the pelvis."],["Near top","Keep the motion controlled instead of throwing the arms."]],
+    forwardStep:[["Reach","Foot travels forward before accepting weight."],["Begin lower","Load the front leg with the knee tracking over the toes."]],
+    reverseStep:[["Reach back","Move one foot behind without tipping the torso."],["Begin lower","Front foot stays heavy as both knees bend."]],
+    sideStep:[["Widen stance","Step sideways with both feet remaining parallel."],["Shift into hip","Transfer weight before sitting into the stepping side."]],
+    hinge:[["Send hips back","Keep shins quiet as the hips start moving."],["Near end range","Maintain a long spine and loaded hamstrings."]],
+    spine:[["Begin rounding","Tuck gradually from a neutral spine."],["Pass neutral","Reverse slowly before moving into extension."]]
+  };
+  function expandFrames(key,frames){
+    const complex=complexPlans[key];
+    if(complex){
+      const first=blendSvg(frames[0].svg,frames[1].svg,.5),second=blendSvg(frames[1].svg,frames[2].svg,.5);
+      if(first&&second)return [frames[0],pose(complex[0][0],complex[0][1],first),frames[1],pose(complex[1][0],complex[1][1],second),frames[2]];
+    }
+    const plan=framePlans[key];
+    if(plan){const middle=blendSvg(frames[0].svg,frames[1].svg,.5);if(middle)return [frames[0],pose(plan[0],plan[1],middle),frames[1],frames[2]]}
+    return frames;
+  }
   const keyById={breathing:"breathing","glute-bridge":"bridge","dead-bug":"deadbug","ankle-wall":"ankleWall","squat-rock":"squat","hip-flexor":"hipFlexor","hip-90":"seatedHip",hang:"hang",oap:"oneArmPush",hspu:"hspu",pushups:"push","push-volume":"push","press-up":"inclinePush",pullups:"pullup","pull-volume":"pullup","rows-mon":"row","rows-wed":"row","row-volume":"row",pistol:"pistol","pistol-fri":"pistol","situps-wed":"situp","situp-volume":"situp","knee-tread":"backwardWalk","backward-tread":"backwardWalk","knee-flex":"kneeFlex","knee-ext":"kneeExt","knee-stability":"balance","step-forward":"forwardStep","step-back":"reverseStep","step-side":"sideStep",mobilize:"forwardStep","posterior-chain":"hinge","long-calf":"calf","short-calf":"bentCalf","front-shins":"tibRaise","shoulders-out":"externalRotation","wall-slides":"wallSlide","scap-pull":"hang","shoulder-stability":"shoulderHold","wrist-flex":"wrist","back-one-leg":"hipExtension","back-hip-flex":"hipFlexor","back-two-leg":"bridge",spine:"spine"};
-  function get(id,name){const key=keyById[id]||"balance";return sequences[key](name)}
+  function get(id,name){const key=keyById[id]||"balance";return expandFrames(key,sequences[key](name))}
   return {get,keyById};
 })();

@@ -18,7 +18,7 @@ Each exercise is an independent rollup that can be opened, skipped or moved earl
 
 The guided workout bar shows completed sets, elapsed time, estimated remaining time, and Previous / Rest / Next controls. The active exercise remains open while moving through the workout.
 
-Movement-specific offline SVG demonstrations use three separately drawn, articulated positions rather than looping animation: Start, Midpoint, and Finish. Each pose has a short checkpoint and directional arrows where motion could otherwise be unclear. The 43 programmed movements also have their own written technique guide synthesized from matching ACE, AAOS, HSS, NASM, CrossFit, or Mayo Clinic material. Previous performance can be copied into a new session without carrying over completed-set status.
+Movement-specific offline SVG demonstrations use 4–5 articulated positions rather than looping animation. Moderate movements receive one additional transition pose, while complex multi-joint exercises receive two so both the early and late transitions are visible. Each pose has a short checkpoint and directional arrows where motion could otherwise be unclear. The 43 programmed movements also have their own written technique guide synthesized from matching ACE, AAOS, HSS, NASM, CrossFit, or Mayo Clinic material. Previous performance can be copied into a new session without carrying over completed-set status.
 
 After each exercise, log reps in reserve, technique quality, and pain. The app explains whether to repeat, add reps, try a harder variation, or regress the movement next time. These recommendations are conservative training guidance, not medical diagnosis.
 
