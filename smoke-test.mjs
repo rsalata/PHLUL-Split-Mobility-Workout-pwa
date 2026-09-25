@@ -36,6 +36,10 @@ assert.deepEqual(Array.from(ankleDemo.frames,x=>x.label),['Start','Drive forward
 assert.ok(ankleDemo.frames.every(x=>x.svg.includes('<svg')&&x.note));
 assert.equal(sandbox.window.ATHLETIC_DEMOS.get('pushups','Push-Up').frames.length,5);
 assert.equal(sandbox.window.ATHLETIC_DEMOS.get('shoulder-stability','Shoulder Stability').frames.length,4);
+const bridgeDemo=sandbox.window.ATHLETIC_DEMOS.get('glute-bridge','Posterior Tilt Glute Bridge');
+assert.match(bridgeDemo.frames[0].svg,/pose-head" cx="43" cy="180"/);
+assert.match(bridgeDemo.frames[0].svg,/pose-ground" x1="12" y1="192"/);
+assert.match(bridgeDemo.frames[0].note,/contact the floor/);
 vm.runInContext(fs.readFileSync('athletic/app.js','utf8'),sandbox,{filename:'app.js'});
 assert.match(app.innerHTML,/Today’s sessions/);
 assert.match(app.innerHTML,/Short/);
