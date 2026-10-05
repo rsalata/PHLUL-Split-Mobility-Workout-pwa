@@ -18,6 +18,8 @@ Each exercise is an independent rollup that can be opened, skipped or moved earl
 
 The guided workout bar shows completed sets, elapsed time, estimated remaining time, and Previous / Rest / Next controls. The active exercise remains open while moving through the workout.
 
+Six persistent 10-step strength ladders cover push-ups, leg raises, pull-ups, squats, bridges and handstand push-ups. Each workout snapshots its prescribed step so old sessions do not change later. Finishing a session advances a ladder only when every prescribed set is checked, every logged set reaches the target, technique is not marked "Needs work," and pain is 3/10 or lower. Current steps can be adjusted manually in Settings.
+
 Movement-specific offline SVG demonstrations use 4–5 articulated positions rather than looping animation. Moderate movements receive one additional transition pose, while complex multi-joint exercises receive two so both the early and late transitions are visible. Each pose has a short checkpoint and directional arrows where motion could otherwise be unclear. The 43 programmed movements also have their own written technique guide synthesized from matching ACE, AAOS, HSS, NASM, CrossFit, or Mayo Clinic material. Previous performance can be copied into a new session without carrying over completed-set status.
 
 The Demos tab also includes six original offline GIF loops for ATG split squats, tibialis raises, backward sled drags, assisted Nordic curls, hip-flexor lifts and deep ATG squats. These are general movement refreshers and are not attached to a programmed exercise unless the names and setup match.

@@ -61,11 +61,19 @@ window.ATHLETIC_DATA = (() => {
   };
 
   const phaseFor=week=>week<=4?{name:"Foundation",note:"Build repeatable technique and pain-free volume."}:week<=8?{name:"5K Build",note:"Extend running intervals while progressing clean strength reps."}:week<=12?{name:"PR Build",note:"Develop sustained pace and slightly harder strength variations."}:{name:"Goal Prep",note:"Sharpen pace, consolidate strength, and arrive fresh for testing."};
+  const progressions={
+    pushups:{name:"Push-Up",start:4,steps:[["Wall Push-Ups",3,50],["Incline Push-Ups",3,40],["Knee Push-Ups",3,30],["Half Push-Ups",3,20],["Full Push-Ups",2,25],["Close Push-Ups",2,20],["Uneven Push-Ups",2,20,"reps/side"],["Half One-Arm Push-Ups",1,20,"reps/side"],["Lever Push-Ups",1,10,"reps/side"],["One-Arm Push-Ups",1,5,"reps/side"]]},
+    legraises:{name:"Leg Raise",start:0,steps:[["Knee Tucks",3,40],["Flat Knee Raises",3,35],["Flat Bent-Leg Raises",3,30],["Flat Frog Raises",3,25],["Flat Straight-Leg Raises",3,20],["Hanging Knee Raises",2,15],["Hanging Bent-Leg Raises",2,10],["Hanging Frog Raises",2,10],["Partial Straight-Leg Raises",2,10],["Hanging Straight-Leg Raises",1,5]]},
+    pullups:{name:"Pull-Up",start:4,steps:[["Vertical Pulls",3,40],["Horizontal Pulls",3,30],["Jackknife Pull-Ups",3,20],["Half Pull-Ups",2,15],["Full Pull-Ups",2,10],["Close Pull-Ups",2,8],["Uneven Pull-Ups",2,8,"reps/side"],["Half One-Arm Pull-Ups",1,8,"reps/side"],["Assisted One-Arm Pull-Ups",1,5,"reps/side"],["One-Arm Pull-Ups",1,1,"rep/side"]]},
+    squats:{name:"Squat",start:8,steps:[["Shoulder-Stand Squats",3,50],["Jackknife Squats",3,40],["Supported Squats",3,30],["Half Squats",3,25],["Full Squats",2,30],["Close Squats",2,25],["Uneven Squats",2,20,"reps/side"],["Half One-Leg Squats",2,15,"reps/side"],["Assisted One-Leg Squats",2,10,"reps/side"],["One-Leg Squats",1,5,"reps/side"]]},
+    bridges:{name:"Bridge",start:0,steps:[["Short Bridges",3,50],["Straight Bridges",3,40],["Angled Bridges",3,30],["Head Bridges",3,25],["Half Bridges",2,20],["Full Bridges",2,15],["Wall-Walking Bridges (Down)",2,10],["Wall-Walking Bridges (Up)",2,10],["Half Stand-to-Stand Bridges",1,10],["Stand-to-Stand Bridges",1,5]]},
+    handstand:{name:"Handstand Push-Up",start:0,steps:[["Wall Headstands",2,30,"seconds"],["Crow Stands",2,60,"seconds"],["Wall Handstands",2,60,"seconds"],["Half Handstand Push-Ups",2,10],["Full Handstand Push-Ups",2,8],["Close Handstand Push-Ups",2,5],["Uneven Handstand Push-Ups",2,5,"reps/side"],["Half One-Arm Handstand Push-Ups",1,5,"reps/side"],["Lever Handstand Push-Ups",1,5,"reps/side"],["One-Arm Handstand Push-Ups",1,5,"reps/side"]]}
+  };
+  const progressionExerciseMap={oap:"pushups","push-volume":"pushups","situps-wed":"legraises","situp-volume":"legraises",pullups:"pullups","pull-volume":"pullups",pistol:"squats","pistol-fri":"squats","bridge-progression":"bridges",hspu:"handstand"};
   const strengthBase={
     1:[
       ["oap","One-Arm Push-Up Progression","2–5/side","Use the hardest regression that stays level and pain-free."],
       ["hspu","Wall Handstand Push-Up Progression","1–5 reps","Stop before form or shoulder position changes."],
-      ["pushups","Push-Ups","6–15 reps","Leave two clean reps in reserve."],
       ["rows-mon","Inverted Rows","8–15 reps","Keep the body rigid and standardize the bar height."]
     ],
     3:[
@@ -77,7 +85,7 @@ window.ATHLETIC_DATA = (() => {
     5:[
       ["push-volume","Push-Up Volume","8–20 reps","Keep the sets even instead of starting with a max."],
       ["pull-volume","Pull-Up / Chin-Up Volume","2–8 reps","Leave two clean reps in reserve."],
-      ["row-volume","Inverted-Row Volume","10–20 reps","Keep the same body angle for every set."],
+      ["bridge-progression","Bridge Progression","10–20 reps","Use a controlled range and keep the glutes and trunk active."],
       ["pistol-fri","Pistol Practice","2–5/leg","Keep the volume low and the range controlled."],
       ["situp-volume","Sit-Up Volume","12–25 reps","Stop if the low back becomes irritated."]
     ]
@@ -124,5 +132,5 @@ window.ATHLETIC_DATA = (() => {
     {id:"hspu",name:"Wall HSPU",target:5,unit:"reps"},{id:"pullups",name:"Pull-Ups / Chin-Ups",target:25,unit:"reps"},
     {id:"rows",name:"Inverted Rows",target:100,unit:"reps"},{id:"situps",name:"Sit-Ups",target:100,unit:"reps"},{id:"run5k",name:"5K Time",target:1800,unit:"seconds",lower:true}
   ];
-  return {ex,warmupFor,kneePool,shoulderPool,backPool,rehabFor,phaseFor,strengthFor,runPlan,runFor,schedule,workoutFor,goals};
+  return {ex,warmupFor,kneePool,shoulderPool,backPool,rehabFor,phaseFor,progressions,progressionExerciseMap,strengthFor,runPlan,runFor,schedule,workoutFor,goals};
 })();
